@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NXTPlay AHA - Premium OTT Entertainment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #eeeff6 0%, #c2e3fe 100%);
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(102, 126, 234, 0.2);
+    }
+    .popular-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
+      border: 2px solid #8b5cf6;
+    }
+    .popular-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #8b5cf6, #d946ef);
+    }
+    .days-badge {
+      background: linear-gradient(135deg, #ff6b35, #ff8e53);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin: 0 auto -30px;
+      position: relative;
+      z-index: 20;
+      box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+      border: 3px solid white;
+      font-size: 0.9rem;
+    }
+    .days-badge .days-number {
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+    .days-badge .days-text {
+      font-size: 0.6rem;
+      opacity: 0.9;
+      margin-top: -2px;
+    }
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 35px 16px 16px;
+    }
+    .logo-item {
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .logo-item:hover {
+      transform: translateY(-3px);
+    }
+    .logo-img {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+      transition: all 0.2s ease;
+      border-radius: 10px;
+      background: white;
+      padding: 6px;
+    }
+    .logo-item:hover .logo-img {
+      transform: scale(1.1);
+    }
+    .logo-name {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #4b5563;
+      margin-top: 6px;
+    }
+    .more-btn {
+      background: linear-gradient(135deg, #8b5cf6, #d946ef);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .more-btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #7c3aed, #c026d3);
+    }
+    .select-btn {
+      background: linear-gradient(135deg, #8b5cf6, #d946ef);
+      color: white;
+      font-weight: 600;
+      border: none;
+      padding: 14px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .select-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .select-btn:hover::before {
+      left: 100%;
+    }
+    .select-btn:hover {
+      background: linear-gradient(135deg, #7c3aed, #c026d3);
+    }
+    .price {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #7c3aed, #c026d3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    .popular-badge {
+      background: linear-gradient(135deg, #ff6b35, #ff8e53);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 0 0 15px 15px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      position: absolute;
+      top: 0;
+      right: 20px;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    }
+    .overlay {
+      backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.8);
+    }
+    .channels-overlay {
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 20px;
+    }
+    .channel-item {
+      text-align: center;
+    }
+    .channel-img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: white;
+      padding: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin: 0 auto 8px;
+    }
+    .channel-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #374151;
+    }
+    .form-input {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    .form-input:focus {
+      border-color: #8b5cf6;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+    <div id="header"></div>
+
+  <!-- Hero Section -->
+  <section class="relative z-10 py-16 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="text-4xl font-black mb-4">
+        <span class="bg-gradient-to-r from-white to-purple-100 bg-clip-text text-transparent">Unlimited</span>
+        <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> Entertainment</span>
+      </h1>
+      <p class="text-lg text-white/90 max-w-2xl mx-auto">
+        Access 10+ premium regional OTT apps with crystal-clear streaming
+      </p>
+    </div>
+  </section>
+
+  <!-- Plans Grid -->
+  <section class="relative z-10 max-w-6xl mx-auto px-6 pb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- 1 Month Plan -->
+      <div class="glass-card">
+        <div class="text-center pt-8 pb-4 px-4">
+          <h3 class="text-lg font-black text-gray-800">STARTER PACK</h3>
+          <p class="text-purple-600 font-bold text-sm">10 OTT APPS</p>
+        </div>
+
+        <div class="days-badge">
+          <div class="days-number">30</div>
+          <div class="days-text">DAYS</div>
+        </div>
+
+        <div class="logo-grid">
+          <div class="logo-item">
+            <img src="https://i.imgur.com/5z5oK8J.png" alt="Sun NXT" class="logo-img">
+            <div class="logo-name">Sun NXT</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/7jX5vYd.png" alt="Dollywood Play" class="logo-img">
+            <div class="logo-name">Dollywood</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/8kR9pZm.png" alt="Fancode" class="logo-img">
+            <div class="logo-name">Fancode</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/oL9kP3v.png" alt="NammaFlix" class="logo-img">
+            <div class="logo-name">NammaFlix</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/3r9vX1k.png" alt="Raj TV" class="logo-img">
+            <div class="logo-name">Raj TV</div>
+          </div>
+          <div class="logo-item">
+            <button class="more-btn w-full h-full" onclick="openChannelsOverlay()">
+              <i class="fas fa-plus text-xs"></i>
+              <div class="logo-name">More</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center py-4">
+          <p class="price">₹79</p>
+          <p class="text-gray-500 text-sm">30 Days Access</p>
+        </div>
+
+        <button onclick="openEnquiry('NXTPLAY AHA Starter Pack - 1 Month - ₹79')" 
+                class="select-btn w-full text-sm">
+          SELECT PLAN
+        </button>
+      </div>
+
+      <!-- 3 Months Plan (Popular) -->
+      <div class="glass-card popular-card">
+        <div class="popular-badge">
+          <i class="fas fa-crown mr-1 text-xs"></i>
+          POPULAR
+        </div>
+        <div class="text-center pt-8 pb-4 px-4">
+          <h3 class="text-lg font-black text-gray-800">PRO PACK</h3>
+          <p class="text-purple-600 font-bold text-sm">3 MONTHS • 10 APPS</p>
+        </div>
+
+        <div class="days-badge">
+          <div class="days-number">90</div>
+          <div class="days-text">DAYS</div>
+        </div>
+
+        <div class="logo-grid">
+          <div class="logo-item">
+            <img src="https://i.imgur.com/5z5oK8J.png" alt="Sun NXT" class="logo-img">
+            <div class="logo-name">Sun NXT</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/7jX5vYd.png" alt="Dollywood Play" class="logo-img">
+            <div class="logo-name">Dollywood</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/8kR9pZm.png" alt="Fancode" class="logo-img">
+            <div class="logo-name">Fancode</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/oL9kP3v.png" alt="NammaFlix" class="logo-img">
+            <div class="logo-name">NammaFlix</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/3r9vX1k.png" alt="Raj TV" class="logo-img">
+            <div class="logo-name">Raj TV</div>
+          </div>
+          <div class="logo-item">
+            <button class="more-btn w-full h-full" onclick="openChannelsOverlay()">
+              <i class="fas fa-plus text-xs"></i>
+              <div class="logo-name">More</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center py-4">
+          <p class="price">₹237</p>
+          <p class="text-green-600 font-bold text-xs">Save 20% • ₹2.63/day</p>
+        </div>
+
+        <button onclick="openEnquiry('NXTPLAY AHA Starter Pack - 3 Months - ₹237')" 
+                class="select-btn w-full text-sm">
+          GET PRO PLAN
+        </button>
+      </div>
+
+      <!-- 6 Months Plan -->
+      <div class="glass-card">
+        <div class="text-center pt-8 pb-4 px-4">
+          <h3 class="text-lg font-black text-gray-800">ULTIMATE PACK</h3>
+          <p class="text-purple-600 font-bold text-sm">6 MONTHS • 10 APPS</p>
+        </div>
+
+        <div class="days-badge">
+          <div class="days-number">180</div>
+          <div class="days-text">DAYS</div>
+        </div>
+
+        <div class="logo-grid">
+          <div class="logo-item">
+            <img src="https://i.imgur.com/5z5oK8J.png" alt="Sun NXT" class="logo-img">
+            <div class="logo-name">Sun NXT</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/7jX5vYd.png" alt="Dollywood Play" class="logo-img">
+            <div class="logo-name">Dollywood</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/8kR9pZm.png" alt="Fancode" class="logo-img">
+            <div class="logo-name">Fancode</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/oL9kP3v.png" alt="NammaFlix" class="logo-img">
+            <div class="logo-name">NammaFlix</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://i.imgur.com/3r9vX1k.png" alt="Raj TV" class="logo-img">
+            <div class="logo-name">Raj TV</div>
+          </div>
+          <div class="logo-item">
+            <button class="more-btn w-full h-full" onclick="openChannelsOverlay()">
+              <i class="fas fa-plus text-xs"></i>
+              <div class="logo-name">More</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center py-4">
+          <p class="price">₹399</p>
+          <p class="text-green-600 font-bold text-xs">Best Value • ₹2.22/day</p>
+        </div>
+
+        <button onclick="openEnquiry('NXTPLAY AHA Starter Pack - 6 Months - ₹399')" 
+                class="select-btn w-full text-sm">
+          GO ULTIMATE
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Channels Overlay -->
+  <div id="channelsOverlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 overlay">
+    <div class="glass-card channels-overlay w-full max-w-2xl">
+      <div class="flex justify-between items-center p-6 border-b border-gray-200">
+        <h3 class="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          All Available Channels
+        </h3>
+        <button onclick="closeChannelsOverlay()" class="text-gray-500 hover:text-red-500 text-xl transition-colors">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="channels-grid">
+        <div class="channel-item">
+          <img src="https://i.imgur.com/5z5oK8J.png" alt="Sun NXT" class="channel-img">
+          <div class="channel-name">Sun NXT</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/7jX5vYd.png" alt="Dollywood Play" class="channel-img">
+          <div class="channel-name">Dollywood</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/8kR9pZm.png" alt="Fancode" class="channel-img">
+          <div class="channel-name">Fancode</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/oL9kP3v.png" alt="NammaFlix" class="channel-img">
+          <div class="channel-name">NammaFlix</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/3r9vX1k.png" alt="Raj TV" class="channel-img">
+          <div class="channel-name">Raj TV</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/9pL5mQw.png" alt="OTTPlay" class="channel-img">
+          <div class="channel-name">OTTPlay</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/6tY8vXp.png" alt="Stage" class="channel-img">
+          <div class="channel-name">Stage</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/4mN2kL9.png" alt="Aha" class="channel-img">
+          <div class="channel-name">Aha</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/1vR7kPq.png" alt="Manorama" class="channel-img">
+          <div class="channel-name">Manorama</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/2a8bKcM.png" alt="Hoichoi" class="channel-img">
+          <div class="channel-name">Hoichoi</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/3c9dFpL.png" alt="Eros Now" class="channel-img">
+          <div class="channel-name">Eros Now</div>
+        </div>
+        <div class="channel-item">
+          <img src="https://i.imgur.com/4d2eKqN.png" alt="Docubay" class="channel-img">
+          <div class="channel-name">Docubay</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enquiry Overlay -->
+  <div id="enquiryOverlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 overlay">
+    <div class="glass-card max-w-md w-full p-6 m-4">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          Complete Subscription
+        </h3>
+        <button onclick="closeEnquiry()" class="text-gray-500 hover:text-red-500 text-xl transition-colors">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form id="enquiryForm" class="space-y-4">
+        <div>
+          <input type="text" id="name" placeholder="Full Name" required 
+                 class="form-input w-full text-sm">
+        </div>
+        
+        <div>
+          <input type="tel" id="mobile" placeholder="Mobile Number" required 
+                 class="form-input w-full text-sm">
+        </div>
+        
+        <div>
+          <input type="text" id="city" placeholder="City" required 
+                 class="form-input w-full text-sm">
+        </div>
+        
+        <div>
+          <input type="text" id="selectedPlan" readonly 
+                 class="form-input w-full bg-purple-50 border-purple-200 font-bold text-purple-700 text-sm">
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-3 rounded-xl hover:from-green-600 hover:to-green-700 transition-all text-sm">
+            <i class="fab fa-whatsapp mr-2"></i>
+            WhatsApp
+          </button>
+          <button type="button" onclick="closeEnquiry()" 
+                  class="flex-1 bg-gray-200 text-gray-800 font-bold py-3 rounded-xl hover:bg-gray-300 transition-all text-sm">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+   <footer
+      class="bg-gray-950 text-gray-400 pt-16 pb-12 border-t border-gray-800"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Main Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14"
+        >
+          <!-- Brand Section -->
+          <div class="lg:col-span-2">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4 shadow-sm"
+              >
+                <i class="fas fa-wifi text-gray-900 text-lg"></i>
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-white tracking-wide">
+                  FiberNet Pro
+                </h2>
+                <p class="text-gray-500 text-sm">Pure Fiber. Pure Speed.</p>
+              </div>
+            </div>
+
+            <p class="text-gray-500 leading-relaxed mb-6">
+              Delivering exceptional internet experiences with cutting-edge
+              fiber technology and unmatched customer support.
+            </p>
+
+            <!-- Social Icons -->
+            <div class="flex space-x-3">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Product -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-red-600 pl-3"
+            >
+              Product
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Internet Plans</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Business Solutions</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Coverage Map</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Speed Test</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-blue-500 pl-3"
+            >
+              Company
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">Press</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">Blog</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-green-500 pl-3"
+            >
+              Resources
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Support</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Documentation</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">API</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Status</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="border-t border-gray-800 pt-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-gray-500 text-sm">
+              © 2025 FiberNet Pro. All rights reserved.
+            </p>
+
+            <div class="flex items-center space-x-6 text-sm">
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Privacy Policy</a
+              >
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Terms of Service</a
+              >
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Cookie Policy</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <script>
+    function openEnquiry(planName) {
+      document.getElementById('selectedPlan').value = planName;
+      document.getElementById('enquiryOverlay').classList.remove('hidden');
+    }
+
+    function closeEnquiry() {
+      document.getElementById('enquiryOverlay').classList.add('hidden');
+    }
+
+    function openChannelsOverlay() {
+      document.getElementById('channelsOverlay').classList.remove('hidden');
+    }
+
+    function closeChannelsOverlay() {
+      document.getElementById('channelsOverlay').classList.add('hidden');
+    }
+
+    document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const mobile = document.getElementById('mobile').value;
+      const city = document.getElementById('city').value;
+      const plan = document.getElementById('selectedPlan').value;
+
+      const message = `Hello NXTPlay AHA! 👋\n\nI want to subscribe to:\n🎬 ${plan}\n\nMy Details:\n👤 Name: ${name}\n📱 Mobile: ${mobile}\n🏙️ City: ${city}\n\nPlease activate my entertainment pack! 🚀`;
+
+      window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
+      closeEnquiry();
+      this.reset();
+    });
+
+    // Close overlays when clicking outside
+    document.addEventListener('click', function(e) {
+      if (e.target.id === 'channelsOverlay') {
+        closeChannelsOverlay();
+      }
+      if (e.target.id === 'enquiryOverlay') {
+        closeEnquiry();
+      }
+    });
+
+     // ============ HEADER INJECTION (unchanged) ============
+      fetch("header.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+
+          const mobileMenuToggle =
+            document.getElementById("mobile-menu-toggle");
+          const mobileMenu = document.getElementById("mobile-menu");
+          const menuIcon = document.getElementById("menu-icon");
+          const mobilePlansToggle = document.getElementById(
+            "mobile-plans-toggle"
+          );
+          const mobilePlans = document.getElementById("mobile-plans");
+          const mobileServicesToggle = document.getElementById(
+            "mobile-services-toggle"
+          );
+          const mobileServices = document.getElementById("mobile-services");
+
+          mobileMenuToggle?.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+            menuIcon.classList.toggle("fa-bars");
+            menuIcon.classList.toggle("fa-times");
+
+            if (!mobileMenu.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle?.classList.remove("active");
+              mobileServicesToggle?.classList.remove("active");
+            }
+          });
+
+          mobilePlansToggle?.addEventListener("click", () => {
+            mobilePlans.classList.toggle("open");
+            mobilePlansToggle.classList.toggle("active");
+            if (mobileServices.classList.contains("open")) {
+              mobileServices.classList.remove("open");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+
+          mobileServicesToggle?.addEventListener("click", () => {
+            mobileServices.classList.toggle("open");
+            mobileServicesToggle.classList.toggle("active");
+            if (mobilePlans.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+            }
+          });
+
+          document.addEventListener("click", function (event) {
+            if (!mobileMenu || !mobileMenuToggle) return;
+            const isClickInside =
+              mobileMenu.contains(event.target) ||
+              mobileMenuToggle.contains(event.target);
+            if (!isClickInside && mobileMenu.classList.contains("open")) {
+              mobileMenu.classList.remove("open");
+              menuIcon.classList.remove("fa-times");
+              menuIcon.classList.add("fa-bars");
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle?.classList.remove("active");
+              mobileServicesToggle?.classList.remove("active");
+            }
+          });
+        });
+  </script>
+</body>
+</html>

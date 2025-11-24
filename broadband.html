@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Broadband Plans</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- LibreSpeed Official Style -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/librespeed/speedtest/speedtest.css">
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f8fafc;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .device-card {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 16px;
+      color: white;
+    }
+    .plan-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+    .plan-card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+    .speed-badge {
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      color: white;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .month-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #d1d5db;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .month-btn.active {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+    .enquire-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      border-radius: 24px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .enquire-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+    .filter-pill {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+    .test-speed-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border-radius: 24px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .test-speed-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3b82f6;
+    }
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #cbd5e1, transparent);
+      margin: 24px 0;
+    }
+    .speed-result {
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid #10b981;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 1.5rem;
+      display: none;
+    }
+    #speedTestContainer {
+      min-height: 420px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      display: none;
+    }
+    
+    /* Enhanced Speed Test Styling */
+    .speed-test-active #speedTestContainer {
+      display: block;
+    }
+    .speed-test-active #speedTestArea {
+      display: none;
+    }
+    
+    /* Speed Test Animation */
+    .speed-pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Custom Speed Test Styling */
+    .speed-test-wrapper {
+      color: white;
+      text-align: center;
+    }
+    
+    .speed-test-meter {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #10b981;
+      margin: 1rem 0;
+    }
+    
+    .speed-test-label {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+    
+    .speed-test-progress {
+      width: 100%;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+    
+    .speed-test-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #059669);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .test-phase {
+      font-size: 1.1rem;
+      margin: 1rem 0;
+      color: #10b981;
+      font-weight: 600;
+    }
+    
+    @media (max-width: 768px) {
+      .month-btn { width: 36px; height: 36px; font-size: 0.875rem; }
+      .filter-pill { padding: 0.75rem; }
+      .plan-card, .device-card { padding: 1.25rem; }
+      .enquire-btn, .test-speed-btn { padding: 0.75rem 1.5rem; font-size: 0.875rem; }
+      #speedTestContainer {
+        min-height: 350px;
+        padding: 15px;
+      }
+      .speed-test-meter {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div id="header"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="flex flex-col lg:flex-row gap-8 mb-12">
+        <!-- Device Card + Speed Test -->
+        <div class="device-card p-8 lg:w-2/5">
+          <h1 class="text-2xl font-bold mb-6">Broadband Device</h1>
+         
+          <div class="space-y-4 mb-8">
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-bolt text-xs"></i></div>
+              <span>High Speed & Low Latency</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-wifi text-xs"></i></div>
+              <span>Extensive Coverage</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-shield-alt text-xs"></i></div>
+              <span>Secure & Reliable Connection</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-network-wired text-xs"></i></div>
+              <span>Supports both 2.4GHz & 5GHz</span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="text-center">
+            <h3 class="text-lg font-semibold mb-4">Test your Internet Speed</h3>
+            <p class="text-slate-300 mb-6">Check your current internet connection speed</p>
+
+            <!-- Speed Test Trigger -->
+            <div id="speedTestArea">
+              <button id="startSpeedTest" class="test-speed-btn px-8 py-3 w-full text-lg speed-pulse">
+                <i class="fas fa-tachometer-alt mr-2"></i> Test Speed Now
+              </button>
+            </div>
+
+            <!-- Speed Test Container -->
+            <div id="speedTestContainer" class="mt-6">
+              <!-- Speed test will be injected here -->
+            </div>
+
+            <!-- Final Result -->
+            <div id="speedResult" class="speed-result">
+              <h4 class="text-2xl font-bold text-green-400 mb-2">
+                Your Speed: <span id="finalSpeed">0</span> Mbps
+              </h4>
+              <p class="text-green-300">Speed test completed successfully!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plans Section -->
+        <div class="lg:w-3/5">
+          <h2 class="text-2xl font-bold text-slate-800 mb-6">Broadband Plans</h2>
+         
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="filter-pill p-4">
+              <div class="text-sm text-slate-500 mb-2">Sort/Filter By: Speed</div>
+              <select id="filterSpeed" class="w-full bg-transparent font-medium">
+                <option value="">All Speeds</option>
+                <option value="50">50 Mbps</option>
+                <option value="100">100 Mbps</option>
+                <option value="300">300 Mbps</option>
+                <option value="500">500 Mbps</option>
+                <option value="1000">1 Gbps</option>
+              </select>
+            </div>
+            <div class="filter-pill p-4">
+              <div class="text-sm text-slate-500 mb-2">Filter By: Validity</div>
+              <select id="filterValidity" class="w-full bg-transparent font-medium">
+                <option value="">All Durations</option>
+                <option value="4">4 Months</option>
+                <option value="8">8 Months</option>
+                <option value="12">12 Months</option>
+              </select>
+            </div>
+            <div class="filter-pill p-4">
+              <div class="text-sm text-slate-500 mb-2">Filter By: Max Price</div>
+              <div class="flex items-center gap-2">
+                <input id="filterPrice" type="range" min="500" max="5000" value="5000" class="flex-1">
+                <div id="priceVal" class="font-semibold text-blue-600">₹5000</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <div class="text-sm text-slate-500 mb-2">Filter By: Category</div>
+            <div class="flex flex-wrap gap-2">
+              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="all">All Plans</button>
+              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="home">Home Internet</button>
+              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="business">Business</button>
+              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="gaming">Gaming</button>
+              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="streaming">Streaming</button>
+            </div>
+          </div>
+
+          <div id="plansList" class="space-y-6"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+ <footer class="bg-gray-950 text-gray-400 pt-16 pb-12 border-t border-gray-800">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+
+      <!-- Brand Section -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center mb-6">
+          <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4 shadow-sm">
+            <i class="fas fa-wifi text-gray-900 text-lg"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white tracking-wide">FiberNet Pro</h2>
+            <p class="text-gray-500 text-sm">Pure Fiber. Pure Speed.</p>
+          </div>
+        </div>
+
+        <p class="text-gray-500 leading-relaxed mb-6">
+          Delivering exceptional internet experiences with cutting-edge fiber technology and unmatched customer support.
+        </p>
+
+        <!-- Social Icons -->
+        <div class="flex space-x-3">
+          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Product -->
+      <div>
+        <h3 class="text-white font-semibold mb-4 border-l-4 border-red-600 pl-3">Product</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-white transition-colors">Internet Plans</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Business Solutions</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Coverage Map</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Speed Test</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h3 class="text-white font-semibold mb-4 border-l-4 border-blue-500 pl-3">Company</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="text-white font-semibold mb-4 border-l-4 border-green-500 pl-3">Resources</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Status</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="border-t border-gray-800 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-gray-500 text-sm">© 2025 FiberNet Pro. All rights reserved.</p>
+
+        <div class="flex items-center space-x-6 text-sm">
+          <a href="#" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-500 hover:text-white transition-colors">Terms of Service</a>
+          <a href="#" class="text-gray-500 hover:text-white transition-colors">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+  <!-- Enquiry Overlay -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold text-slate-800">Enquiry Form</h3>
+        <button id="closeOverlay" class="text-slate-500 hover:text-slate-700"><i class="fas fa-times text-xl"></i></button>
+      </div>
+      <p class="text-slate-600 mb-6">Please fill your details to proceed with the enquiry.</p>
+      <form id="enqForm" class="space-y-4">
+        <div><label class="block text-sm font-medium text-slate-700 mb-2">Name</label><input id="name" type="text" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"></div>
+        <div><label class="block text-sm font-medium text-slate-700 mb-2">Mobile</label><input id="mobile" type="tel" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"></div>
+        <div><label class="block text-sm font-medium text-slate-700 mb-2">City</label><input id="city" type="text" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"></div>
+        <div><label class="block text-sm font-medium text-slate-700 mb-2">Selected Plan</label><input id="selectedPlan" type="text" readonly class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50"></div>
+        <div class="flex gap-3 pt-4">
+          <button type="submit" class="enquire-btn flex-1 py-3">Submit via WhatsApp</button>
+          <button type="button" id="cancelBtn" class="flex-1 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Your Plans Data
+    const plans = [
+      {id:1,code:"B2_3/4MBS",speedNum:50,speedLabel:"50",speedFull:"50 Mbps Unlimited",city:"Mumbai",monthlyPrice:499,defaultMonths:4,dataLimit:"Unlimited",category:"home"},
+      {id:2,code:"D9_3/4MBS+",speedNum:100,speedLabel:"100",speedFull:"100 Mbps Unlimited",city:"Mumbai",monthlyPrice:549,defaultMonths:4,dataLimit:"Unlimited",category:"home"},
+      {id:3,code:"DP_300MBPS",speedNum:300,speedLabel:"300",speedFull:"300 Mbps Unlimited",city:"Mumbai",monthlyPrice:599,defaultMonths:4,dataLimit:"Unlimited",category:"gaming"},
+      {id:4,code:"DP_500MBPS",speedNum:500,speedLabel:"500",speedFull:"500 Mbps Unlimited",city:"Pune",monthlyPrice:799,defaultMonths:8,dataLimit:"Unlimited",category:"streaming"},
+      {id:5,code:"DP_1GBPS",speedNum:1000,speedLabel:"1 Gbps",speedFull:"1 Gbps Unlimited",city:"Delhi",monthlyPrice:999,defaultMonths:12,dataLimit:"Unlimited",category:"business"},
+      {id:6,code:"B3_5/6MBS",speedNum:50,speedLabel:"50",speedFull:"50 Mbps Unlimited",city:"Bangalore",monthlyPrice:459,defaultMonths:4,dataLimit:"Unlimited",category:"home"},
+      {id:7,code:"G1_ULTRA",speedNum:300,speedLabel:"300",speedFull:"300 Mbps Gaming",city:"Hyderabad",monthlyPrice:699,defaultMonths:8,dataLimit:"Unlimited",category:"gaming"},
+      {id:8,code:"BZ_PRO",speedNum:500,speedLabel:"500",speedFull:"500 Mbps Business",city:"Chennai",monthlyPrice:899,defaultMonths:12,dataLimit:"Unlimited",category:"business"},
+      {id:9,code:"ST_ULTRA",speedNum:300,speedLabel:"300",speedFull:"300 Mbps Streaming",city:"Kolkata",monthlyPrice:649,defaultMonths:8,dataLimit:"Unlimited",category:"streaming"},
+      {id:10,code:"BZ_ENTERPRISE",speedNum:1000,speedLabel:"1 Gbps",speedFull:"1 Gbps Enterprise",city:"Delhi",monthlyPrice:1299,defaultMonths:12,dataLimit:"Unlimited",category:"business"}
+    ];
+
+    const selectedMonthsMap = {};
+    const plansList = document.getElementById('plansList');
+    const filterSpeed = document.getElementById('filterSpeed');
+    const filterValidity = document.getElementById('filterValidity');
+    const filterPrice = document.getElementById('filterPrice');
+    const priceVal = document.getElementById('priceVal');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+
+    // Speed Test Elements
+    const speedTestArea = document.getElementById('speedTestArea');
+    const speedTestContainer = document.getElementById('speedTestContainer');
+    const speedResult = document.getElementById('speedResult');
+    const finalSpeedEl = document.getElementById('finalSpeed');
+    const deviceCard = document.querySelector('.device-card');
+
+    // Simple Speed Test Implementation
+    function startSpeedTest() {
+      // Add active class to device card for proper styling
+      deviceCard.classList.add('speed-test-active');
+      
+      let downloadSpeed = 0;
+      let uploadSpeed = 0;
+      let ping = 0;
+      let currentPhase = 'ping';
+      
+      // Show initial test UI
+      speedTestContainer.innerHTML = `
+        <div class="speed-test-wrapper">
+          <div class="test-phase">Testing Ping...</div>
+          <div class="speed-test-meter">0</div>
+          <div class="speed-test-label">Mbps</div>
+          <div class="speed-test-progress">
+            <div class="speed-test-progress-bar" id="progressBar"></div>
+          </div>
+          <div class="text-sm opacity-70">Testing your connection speed...</div>
+          <button id="cancelTest" class="mt-4 px-6 py-2 border border-white/30 rounded-lg hover:bg-white/10 transition-colors">
+            Cancel Test
+          </button>
+        </div>
+      `;
+
+      const progressBar = document.getElementById('progressBar');
+      const speedMeter = speedTestContainer.querySelector('.speed-test-meter');
+      const testPhase = speedTestContainer.querySelector('.test-phase');
+      let progress = 0;
+      
+      // Simulate ping test
+      simulateTestPhase('ping', 1000, 50).then(pingResult => {
+        ping = pingResult;
+        testPhase.textContent = 'Testing Download Speed...';
+        progressBar.style.width = '33%';
+        
+        // Simulate download test
+        return simulateTestPhase('download', 3000, 500);
+      }).then(downloadResult => {
+        downloadSpeed = downloadResult;
+        testPhase.textContent = 'Testing Upload Speed...';
+        progressBar.style.width = '66%';
+        
+        // Simulate upload test
+        return simulateTestPhase('upload', 2000, 100);
+      }).then(uploadResult => {
+        uploadSpeed = uploadResult;
+        progressBar.style.width = '100%';
+        
+        // Show final results
+        showSpeedTestResults(downloadSpeed, uploadSpeed, ping);
+      });
+
+      // Cancel test handler
+      document.getElementById('cancelTest').addEventListener('click', () => {
+        deviceCard.classList.remove('speed-test-active');
+        speedTestArea.style.display = 'block';
+        speedTestContainer.style.display = 'none';
+      });
+    }
+
+    // Simulate a test phase with realistic speed values
+    function simulateTestPhase(phase, duration, maxSpeed) {
+      return new Promise((resolve) => {
+        const speedMeter = speedTestContainer.querySelector('.speed-test-meter');
+        let currentSpeed = 0;
+        const increment = maxSpeed / (duration / 50); // Update every 50ms
+        
+        const interval = setInterval(() => {
+          currentSpeed += increment;
+          // Add some randomness to make it look realistic
+          const randomFactor = 0.8 + Math.random() * 0.4;
+          const displaySpeed = Math.min(Math.round(currentSpeed * randomFactor), maxSpeed);
+          
+          speedMeter.textContent = displaySpeed;
+          
+          if (currentSpeed >= maxSpeed) {
+            clearInterval(interval);
+            // Final realistic speed with some variance
+            const finalSpeed = Math.round(maxSpeed * (0.85 + Math.random() * 0.3));
+            speedMeter.textContent = finalSpeed;
+            setTimeout(() => resolve(finalSpeed), 500);
+          }
+        }, 50);
+      });
+    }
+
+    // Show final speed test results
+    function showSpeedTestResults(download, upload, ping) {
+      finalSpeedEl.textContent = download;
+      speedResult.style.display = 'block';
+
+      speedTestContainer.innerHTML = `
+        <div class="speed-test-wrapper">
+          <div class="text-2xl font-bold text-green-400 mb-4">Test Complete!</div>
+          
+          <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="text-center">
+              <div class="speed-test-meter text-3xl">${download}</div>
+              <div class="speed-test-label text-sm">Download</div>
+            </div>
+            <div class="text-center">
+              <div class="speed-test-meter text-3xl">${upload}</div>
+              <div class="speed-test-label text-sm">Upload</div>
+            </div>
+            <div class="text-center">
+              <div class="speed-test-meter text-3xl">${ping}</div>
+              <div class="speed-test-label text-sm">Ping</div>
+            </div>
+          </div>
+          
+          <div class="text-lg mb-4">Mbps</div>
+          <p class="text-green-300 mb-6">Your internet speed test is complete!</p>
+          
+          <button id="newTest" class="test-speed-btn px-6 py-3">
+            <i class="fas fa-redo mr-2"></i> Test Again
+          </button>
+        </div>
+      `;
+
+      // New test handler
+      document.getElementById('newTest').addEventListener('click', () => {
+        deviceCard.classList.remove('speed-test-active');
+        speedResult.style.display = 'none';
+        speedTestArea.style.display = 'block';
+        speedTestContainer.style.display = 'none';
+      });
+    }
+
+    // Start Speed Test
+    document.getElementById('startSpeedTest').addEventListener('click', startSpeedTest);
+
+    // Your Existing Functions (unchanged)
+    function setActiveCategory(activeCategory) {
+      categoryBtns.forEach(btn => {
+        if (btn.getAttribute('data-category') === activeCategory) {
+          btn.classList.add('bg-blue-100', 'text-blue-700', 'border-blue-300');
+        } else {
+          btn.classList.remove('bg-blue-100', 'text-blue-700', 'border-blue-300');
+        }
+      });
+    }
+
+    function renderPlans(list) {
+      plansList.innerHTML = '';
+      if (list.length === 0) {
+        plansList.innerHTML = `<div class="text-center py-12"><div class="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-100 flex items-center justify-center"><i class="fas fa-search text-slate-400"></i></div><h3 class="text-lg font-medium text-slate-700 mb-2">No plans found</h3><p class="text-slate-500">Try adjusting your filters</p></div>`;
+        return;
+      }
+
+      const groupedPlans = {};
+      list.forEach(plan => {
+        if (!groupedPlans[plan.category]) groupedPlans[plan.category] = [];
+        groupedPlans[plan.category].push(plan);
+      });
+
+      Object.keys(groupedPlans).forEach(category => {
+        if (Object.keys(groupedPlans).length > 1) {
+          const heading = document.createElement('div');
+          heading.className = 'mb-4';
+          heading.innerHTML = `<h3 class="text-lg font-semibold text-slate-800 capitalize">${category} Plans</h3>`;
+          plansList.appendChild(heading);
+        }
+
+        groupedPlans[category].forEach(plan => {
+          const months = selectedMonthsMap[plan.id] || plan.defaultMonths;
+          const totalPrice = plan.monthlyPrice * months;
+
+          const el = document.createElement('div');
+          el.className = 'plan-card p-6';
+          el.innerHTML = `
+            <div class="flex flex-col md:flex-row md:items-center gap-6">
+              <div class="flex-1">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="speed-badge px-4 py-1 text-sm">${plan.speedLabel} Mbps</div>
+                  <div><h3 class="font-bold text-slate-800">${plan.code}</h3><p class="text-sm text-slate-600">${plan.speedFull}</p><p class="text-xs text-slate-500 mt-1">Data: ${plan.dataLimit}</p></div>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-slate-600"><i class="fas fa-map-marker-alt text-blue-500"></i><span>Available in ${plan.city}</span></div>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="text-sm text-slate-600 mb-3">Select Months</div>
+                <div class="flex gap-2">
+                  <div class="month-btn ${months===4?'active':''}" data-plan="${plan.id}" data-month="4">4</div>
+                  <div class="month-btn ${months===8?'active':''}" data-plan="${plan.id}" data-month="8">8</div>
+                  <div class="month-btn ${months===12?'active':''}" data-plan="${plan.id}" data-month="12">12</div>
+                </div>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="text-sm text-slate-600 mb-2">Price</div>
+                <div class="text-2xl font-bold text-blue-600">₹${totalPrice}/-</div>
+                <div class="text-xs text-slate-500">₹${plan.monthlyPrice}/month</div>
+              </div>
+              <div><button class="enquire-btn px-6 py-3 enquire-btn" data-id="${plan.id}">Enquire Now</button></div>
+            </div>`;
+
+          plansList.appendChild(el);
+
+          el.querySelectorAll('.month-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const month = parseInt(btn.dataset.month);
+              const planId = parseInt(btn.dataset.plan);
+              el.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              selectedMonthsMap[planId] = month;
+              const price = plans.find(p => p.id === planId).monthlyPrice * month;
+              el.querySelector('.text-2xl').textContent = `₹${price}/-`;
+            });
+          });
+
+          el.querySelector('.enquire-btn').addEventListener('click', () => openEnquiry(plan));
+        });
+      });
+    }
+
+    function applyFilters() {
+      const speed = filterSpeed.value;
+      const validity = filterValidity.value;
+      const maxPrice = parseInt(filterPrice.value);
+      const activeCategory = document.querySelector('.category-btn.bg-blue-100')?.dataset.category || 'all';
+
+      const filtered = plans.filter(plan => {
+        if (speed && plan.speedNum !== parseInt(speed)) return false;
+        if (validity && plan.defaultMonths !== parseInt(validity)) return false;
+        if (activeCategory !== 'all' && plan.category !== activeCategory) return false;
+        const months = selectedMonthsMap[plan.id] || plan.defaultMonths;
+        if (plan.monthlyPrice * months > maxPrice) return false;
+        return true;
+      });
+      renderPlans(filtered);
+    }
+
+    // Overlay
+    const overlay = document.getElementById('overlay');
+    const selectedPlanInput = document.getElementById('selectedPlan');
+    function openEnquiry(plan) {
+      const months = selectedMonthsMap[plan.id] || plan.defaultMonths;
+      const total = plan.monthlyPrice * months;
+      selectedPlanInput.value = `${plan.code} - ${plan.speedLabel} Mbps - ${months} months - ₹${total}`;
+      overlay.classList.remove('hidden');
+    }
+    document.getElementById('closeOverlay').onclick = () => overlay.classList.add('hidden');
+    document.getElementById('cancelBtn').onclick = () => overlay.classList.add('hidden');
+    overlay.onclick = e => { if (e.target === overlay) overlay.classList.add('hidden'); };
+
+    document.getElementById('enqForm').onsubmit = function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const mobile = document.getElementById('mobile').value;
+      const city = document.getElementById('city').value;
+      const plan = selectedPlanInput.value;
+      const message = `Hello, I'm interested in:%0A${encodeURIComponent(plan)}%0AName: ${name}%0ACity: ${city}%0AContact: ${mobile}`;
+      window.open(`https://wa.me/918830750491?text=${message}`, '_blank');
+      overlay.classList.add('hidden');
+      this.reset();
+    };
+
+    // Filters
+    filterSpeed.onchange = filterValidity.onchange = applyFilters;
+    filterPrice.oninput = () => priceVal.textContent = `₹${filterPrice.value}`;
+    filterPrice.onchange = applyFilters;
+    categoryBtns.forEach(btn => btn.onclick = () => {
+      setActiveCategory(btn.dataset.category);
+      applyFilters();
+    });
+
+    // Init
+    plans.forEach(p => selectedMonthsMap[p.id] = p.defaultMonths);
+    setActiveCategory('all');
+    renderPlans(plans);
+  </script>
+
+  <!-- Header Fetch -->
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header").innerHTML = data;
+        const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const menuIcon = document.getElementById("menu-icon");
+        const mobilePlansToggle = document.getElementById("mobile-plans-toggle");
+        const mobilePlans = document.getElementById("mobile-plans");
+        const mobileServicesToggle = document.getElementById("mobile-services-toggle");
+        const mobileServices = document.getElementById("mobile-services");
+
+        mobileMenuToggle?.addEventListener("click", () => {
+          mobileMenu.classList.toggle("open");
+          menuIcon.classList.toggle("fa-bars");
+          menuIcon.classList.toggle("fa-times");
+        });
+
+        mobilePlansToggle?.addEventListener("click", () => {
+          mobilePlans.classList.toggle("open");
+          mobilePlansToggle.classList.toggle("active");
+        });
+
+        mobileServicesToggle?.addEventListener("click", () => {
+          mobileServices.classList.toggle("open");
+          mobileServicesToggle.classList.toggle("active");
+        });
+      });
+  </script>
+</body>
+</html>
