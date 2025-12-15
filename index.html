@@ -10,20 +10,235 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-
-    <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-   <link rel="stylesheet" href="style.css">
+    <style>
+      /* Hero Slider Styles */
+      .hero-slider {
+        position: relative;
+        width: 100%;
+        height: 85vh;
+        min-height: 600px;
+        max-height: 800px;
+        overflow: hidden;
+      }
+
+      .hero-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        z-index: 1;
+      }
+
+      .hero-slide.active {
+        opacity: 1;
+        z-index: 2;
+      }
+
+      .hero-slide::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0.3) 50%,
+          rgba(0, 0, 0, 0.1) 100%
+        );
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding-left: 10%;
+        color: white;
+        text-align: left;
+      }
+
+      .hero-content h1 {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero-content p {
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        animation: fadeInUp 1s ease-out 0.3s both;
+      }
+
+      .hero-content .flex {
+        animation: fadeInUp 1s ease-out 0.6s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .slider-dots {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 10;
+      }
+
+      .slider-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .slider-dot.active {
+        background-color: #ef4444;
+        transform: scale(1.3);
+      }
+
+      .slider-dot:hover {
+        background-color: white;
+      }
+
+      /* Pulsing button effect */
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+        }
+      }
+
+      /* Navigation buttons */
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+        border: none;
+        outline: none;
+      }
+
+      .slider-nav:hover {
+        background-color: rgba(239, 68, 68, 0.8);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .slider-nav.prev {
+        left: 20px;
+      }
+
+      .slider-nav.next {
+        right: 20px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .hero-slider {
+          height: 70vh;
+          min-height: 500px;
+        }
+
+        .hero-content {
+          padding-left: 5%;
+          padding-right: 5%;
+          align-items: center;
+          text-align: center;
+        }
+
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-content p {
+          font-size: 1.125rem;
+        }
+
+        .slider-nav {
+          width: 40px;
+          height: 40px;
+        }
+
+        .slider-dots {
+          bottom: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-slider {
+          height: 60vh;
+          min-height: 400px;
+        }
+
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+
+        .hero-content p {
+          font-size: 1rem;
+        }
+
+        .hero-content .flex {
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+
+      /* Utility classes */
+      .flex-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
     <!-- Navbar -->
-<div id="header"></div>
-
+    <div id="header"></div>
 
     <!-- HERO SECTION WITH 3 AUTO-SCROLLING BANNERS -->
     <section id="home" class="hero-slider">
@@ -33,55 +248,29 @@
         style="background-image: url('images/Banner1.png')"
       >
         <div class="hero-content">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 mt-10">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             Ultra-Fast Fiber Internet
           </h1>
-          <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+          <p class="text-xl md:text-2xl mb-8 max-w-2xl">
             Experience lightning-fast internet with speeds up to 1 Gbps for
             seamless streaming, gaming, and working from home.
           </p>
-          <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="#plans"
-              class="bg-red-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-red-700 transition pulse"
-              >View Plans</a
-            >
-            <a
-              href="#coverage"
-              class="border-2 border-white text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-red-700 transition"
-              >Check Coverage</a
-            >
-          </div>
         </div>
       </div>
 
       <!-- Banner 2 -->
       <div
         class="hero-slide"
-        style="
-          background-image: url('images/Banner3.png');
-        "
+        style="background-image: url('images/Banner3.png')"
       >
         <div class="hero-content">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 mt-10">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             Unlimited Data Plans
           </h1>
-          <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+          <p class="text-xl md:text-2xl mb-8 max-w-2xl">
             Stream, download, and browse without limits. Our plans come with
             truly unlimited data and no fair usage policy.
           </p>
-          <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="#plans"
-              class="bg-red-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-red-700 transition pulse"
-              >View Plans</a
-            >
-            <a
-              href="#coverage"
-              class="border-2 border-white text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-red-700 transition"
-              >Check Coverage</a
-            >
-          </div>
         </div>
       </div>
 
@@ -93,27 +282,23 @@
         "
       >
         <div class="hero-content">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 mt-10">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             24/7 Customer Support
           </h1>
-          <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+          <p class="text-xl md:text-2xl mb-8 max-w-2xl">
             Our expert support team is available round the clock to assist you
             with any issues. Get help whenever you need it.
           </p>
-          <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="#plans"
-              class="bg-red-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-red-700 transition pulse"
-              >View Plans</a
-            >
-            <a
-              href="#support"
-              class="border-2 border-white text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-red-700 transition"
-              >Contact Support</a
-            >
-          </div>
         </div>
       </div>
+
+      <!-- Navigation Arrows -->
+      <button class="slider-nav prev">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="slider-nav next">
+        <i class="fas fa-chevron-right"></i>
+      </button>
 
       <!-- Slider Dots -->
       <div class="slider-dots">
@@ -124,885 +309,815 @@
     </section>
 
     <!-------------------------------About section --------------------------------------->
-    <section class="about-section">
-      <div class="bg-lines"></div>
-
-      <div class="image-container">
-        <div class="red-circle"></div>
+    <section
+      class="relative -mt-8 py-10 md:py-14 lg:py-20 overflow-hidden bg-white"
+    >
+      <!-- Subtle background pattern -->
+      <div class="absolute inset-0 opacity-5 pointer-events-none">
         <img
-          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800"
-          alt="Happy customer"
-          class="main-img"
-        />
-        <img
-          src="https://images.unsplash.com/photo-1557862921-37829c790f19?w=600"
-          alt="Friends enjoying"
-          class="small-circle"
+          src="https://www.shutterstock.com/image-illustration/vector-tech-geometric-thin-diagonal-260nw-2457427275.jpg"
+          alt=""
+          class="w-full h-full object-cover"
         />
       </div>
 
-      <div class="content">
-        <p class="tag">About Our Internet</p>
-        <h1>We Provide <span>Unlimited</span><br />Network For You.</h1>
-        <p class="description">
-          Your trusted partner in reliable connectivity. At Globalnet
-          Communications, we deliver high-speed internet and personalized
-          service to keep homes and businesses seamlessly connected. Whether
-          streaming, gaming, working, or running your enterprise, our goal is to
-          ensure uninterrupted connectivity.
-        </p>
+      <div
+        class="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-14 items-center relative z-10"
+      >
+        <!-- Image Container -->
+        <div class="relative flex justify-center lg:justify-end">
+          <!-- Soft decorative glow -->
+          <div
+            class="absolute -top-10 -left-10 w-64 h-64 bg-blue-600 rounded-full opacity-15 blur-2xl"
+          ></div>
 
-        <ul class="features">
-          <li>Super-Fast Dongle</li>
-          <li>High Speed Wi-Fi</li>
-          <li>Prepaid SIM</li>
-          <li>5G Updations</li>
-        </ul>
-        
-        <a href="About.html" class="btn">More About Us →</a>
+          <!-- Main Image -->
+          <div class="relative">
+            <img
+              src="https://images.pexels.com/photos/7693708/pexels-photo-7693708.jpeg"
+              alt="Globalnet high-speed internet services"
+              class="w-full max-w-xl rounded-2xl shadow-xl object-cover"
+            />
+
+            <!-- Corner Image (shifted more to edge) -->
+            <img
+              src="https://publish.purewow.net/wp-content/uploads/sites/2/2024/03/watch-movies-together-online_uni-2.jpg?fit=2050%2C1100"
+              alt="Entertainment powered by Globalnet"
+              class="absolute -bottom-10 -right-10 w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-white shadow-lg object-cover"
+            />
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="text-center -mt-2 lg:text-left">
+          <p
+            class="text-blue-600 text-sm font-bold uppercase tracking-wider mb-3"
+          >
+            About Globalnet
+          </p>
+
+          <h1
+            class="text-3xl md:text-3xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6"
+          >
+            We Provide
+            <span class="text-blue-600 relative inline-block">
+              Unlimited
+              <span
+                class="absolute inset-x-0 bottom-1 h-2 bg-orange-400 opacity-40 rounded"
+              ></span> </span
+            ><br />
+            Network For You.
+          </h1>
+
+          <p
+            class="text-base md:text-md text-gray-600 mb-5 max-w-xl mx-auto lg:mx-0"
+          >
+            Globalnet Communications is your trusted partner for fast, stable,
+            and secure internet connectivity. We specialize in delivering
+            high-performance broadband solutions designed for modern digital
+            needs.
+          </p>
+
+          <p
+            class="text-base md:text-md text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0"
+          >
+            From homes to enterprises, our network ensures seamless streaming,
+            uninterrupted work, and reliable communication—keeping you connected
+            always.
+          </p>
+
+          <ul
+            class="grid grid-cols-2 gap-4 text-left max-w-md mx-auto lg:mx-0 mb-8"
+          >
+            <li class="flex items-center gap-2 text-gray-800">
+              <span class="text-blue-600">✓</span> Super-Fast Dongle
+            </li>
+            <li class="flex items-center gap-2 text-gray-800">
+              <span class="text-blue-600">✓</span> High Speed Wi-Fi
+            </li>
+            <li class="flex items-center gap-2 text-gray-800">
+              <span class="text-blue-600">✓</span> Prepaid SIM
+            </li>
+            <li class="flex items-center gap-2 text-gray-800">
+              <span class="text-blue-600">✓</span> 5G Updations
+            </li>
+          </ul>
+
+          <a
+            href="About.html"
+            class="inline-flex items-center gap-2 bg-blue-600 text-white px-7 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-md"
+          >
+            More About Us →
+          </a>
+        </div>
       </div>
     </section>
 
-
     <!-----------------------------Services Section --------------------------------------------------------->
- <section class="services-section">
-  <div class="container">
-    <p class="section-tag">OUR BEST SERVICE</p>
-    <h2 class="section-title">
-      We Are Offering<br>
-      <span>Best</span> Service
-    </h2>
+    <section
+      class="-mt-12 py-10 md:py-16 relative overflow-hidden bg-gradient-to-b from-red-50 via-white to-white text-center font-sans"
+    >
+      <!-- Decorative background shapes -->
+      <div
+        class="absolute -top-20 -left-20 w-72 h-72 bg-red-200/30 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute top-1/3 -right-24 w-96 h-96 bg-orange-200/30 rounded-full blur-3xl"
+      ></div>
 
-    <div class="services-grid">
-      <!-- Service 1 -->
-      <div class="service-item">
-        <div class="service-image">
-          <img src="images/broadband.jpg" alt="Broadband">
+      <div class="relative max-w-7xl mx-auto px-4 lg:px-6">
+        <!-- Section Tag -->
+        <p
+          class="text-orange-600 text-xs font-bold uppercase tracking-wider mb-2"
+        >
+          OUR BEST SERVICE
+        </p>
+
+        <!-- Heading -->
+        <h2
+          class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-10 leading-tight"
+        >
+          We Are Offering<br />
+          <span class="relative text-blue-600 inline-block"> Best </span>
+          Service
+        </h2>
+
+        <!-- Services Grid -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10"
+        >
+          <!-- Card -->
+          <div class="group">
+            <div
+              class="relative w-44 h-44 md:w-48 md:h-48 mx-auto mb-5 rounded-full overflow-hidden bg-white shadow-md transition-all duration-300 group-hover:shadow-xl"
+            >
+              <img
+                src="https://www.shutterstock.com/image-vector/fiber-optic-cable-3d-vector-600nw-2350178555.jpg"
+                alt="Broadband Connect"
+                class="w-full h-full object-cover rounded-full transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2"
+              />
+            </div>
+            <h3 class="text-base md:text-lg font-semibold text-gray-900">
+              Broadband Connect
+            </h3>
+          </div>
+
+          <div class="group">
+            <div
+              class="relative w-44 h-44 md:w-48 md:h-48 mx-auto mb-5 rounded-full overflow-hidden bg-white shadow-md transition-all duration-300 group-hover:shadow-xl"
+            >
+              <img
+                src="https://b2bblogassets.airtel.in/wp-content/uploads/2022/07/broadband-vs-leased-line.jpg"
+                alt="Leased Line"
+                class="w-full h-full object-cover rounded-full transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2"
+              />
+            </div>
+            <h3 class="text-base md:text-lg font-semibold text-gray-900">
+              Leased Line
+            </h3>
+          </div>
+
+          <div class="group">
+            <div
+              class="relative w-44 h-44 md:w-48 md:h-48 mx-auto mb-5 rounded-full overflow-hidden bg-white shadow-md transition-all duration-300 group-hover:shadow-xl"
+            >
+              <img
+                src="https://m.media-amazon.com/images/I/61091oEKg5L._AC_UF1000,1000_QL80_.jpg"
+                alt="IPTV Connection"
+                class="w-full h-full object-cover rounded-full transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2"
+              />
+            </div>
+            <h3 class="text-base md:text-lg font-semibold text-gray-900">
+              IPTV Connection
+            </h3>
+          </div>
+
+          <div class="group">
+            <div
+              class="relative w-44 h-44 md:w-48 md:h-48 mx-auto mb-5 rounded-full overflow-hidden bg-white shadow-md transition-all duration-300 group-hover:shadow-xl"
+            >
+              <img
+                src="https://www.lifewire.com/thmb/uHzbVTcvE_-E8N8xGJUnGLUPoLM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1252677586-8249ed3e385b44378a83f500f18eb6b0.jpg"
+                alt="Home Connectivity"
+                class="w-full h-full object-cover rounded-full transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2"
+              />
+            </div>
+            <h3 class="text-base md:text-lg font-semibold text-gray-900">
+              Home Connectivity
+            </h3>
+          </div>
         </div>
-        <h3 class="service-name">Broadband Connect</h3>
+      </div>
+    </section>
+
+    <!--------------------------------Circular Plans Section ---------------------------------------------------->
+    <section
+      class="relative py-14 md:py-20 bg-gradient-to-br from-blue-900 to-indigo-900 overflow-hidden"
+    >
+      <!-- Background Blobs -->
+      <div class="absolute inset-0 pointer-events-none">
+        <div
+          class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/15 rounded-full blur-3xl"
+        ></div>
+        <div
+          class="absolute top-1/3 -right-40 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl"
+        ></div>
+        <div
+          class="absolute bottom-0 left-1/2 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+        ></div>
       </div>
 
-      <!-- Service 2 -->
-      <div class="service-item">
-        <div class="service-image">
-          <img src="images/leasedline.jpg" alt="LeasedLine">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <h2
+            class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight"
+          >
+            Smart Connectivity Solutions by
+            <span class="text-blue-400">Globalnet</span>
+          </h2>
+          <p class="text-blue-100 text-base md:text-lg">
+            Reliable internet, entertainment, and digital connectivity solutions
+            designed for modern homes, businesses, and enterprises.
+          </p>
         </div>
-        <h3 class="service-name">LeasedLine</h3>
-      </div>
 
-      <!-- Service 3 -->
-      <div class="service-item">
-        <div class="service-image">
-          <img src="images/router.png" alt="IPTV">
+        <!-- Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- CARD -->
+          <div
+            class="group bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-2"
+          >
+            <div class="h-44 overflow-hidden">
+              <img
+                src="https://www.shutterstock.com/image-vector/fiber-optic-cable-3d-vector-600nw-2350178555.jpg"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <div
+                  class="w-11 h-11 rounded-lg bg-blue-500/20 flex items-center justify-center"
+                >
+                  <i class="fas fa-wifi text-blue-300"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-white">
+                  High-Speed Broadband
+                </h3>
+              </div>
+              <p class="text-blue-100 text-sm leading-relaxed">
+                Fast, stable, and secure internet connectivity ideal for
+                streaming, remote work, online learning, and daily digital
+                usage.
+              </p>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div
+            class="group bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 hover:border-indigo-400/40 transition-all duration-300 hover:-translate-y-2"
+          >
+            <div class="h-44 overflow-hidden">
+              <img
+                src="https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2022/11/OTT-mobile-plans.png"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <div
+                  class="w-11 h-11 rounded-lg bg-indigo-500/20 flex items-center justify-center"
+                >
+                  <i class="fas fa-film text-indigo-300"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-white">
+                  OTT & Entertainment
+                </h3>
+              </div>
+              <p class="text-blue-100 text-sm leading-relaxed">
+                Seamless access to popular OTT platforms with smooth playback,
+                high clarity, and uninterrupted streaming experience.
+              </p>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div
+            class="group bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 hover:border-green-400/40 transition-all duration-300 hover:-translate-y-2"
+          >
+            <div class="h-44 overflow-hidden">
+              <img
+                src="https://coruzant.com/wp-content/uploads/2025/11/IPTV-streaming-setup-with-screen.jpeg"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <div
+                  class="w-11 h-11 rounded-lg bg-green-500/20 flex items-center justify-center"
+                >
+                  <i class="fas fa-tv text-green-300"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-white">
+                  IPTV & Live Channels
+                </h3>
+              </div>
+              <p class="text-blue-100 text-sm leading-relaxed">
+                Enjoy live TV channels and on-demand content with minimal
+                buffering and enhanced viewing quality.
+              </p>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div
+            class="group bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 hover:border-purple-400/40 transition-all duration-300 hover:-translate-y-2"
+          >
+            <div class="h-44 overflow-hidden">
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/005/909/847/non_2x/check-mark-on-security-shield-protection-or-safe-business-concept-cyber-security-and-network-safety-illustrates-cyber-data-security-or-information-privacy-idea-low-polygonal-illustration-vector.jpg"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <div
+                  class="w-11 h-11 rounded-lg bg-purple-500/20 flex items-center justify-center"
+                >
+                  <i class="fas fa-shield-alt text-purple-300"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-white">
+                  Secure & Reliable Network
+                </h3>
+              </div>
+              <p class="text-blue-100 text-sm leading-relaxed">
+                Robust infrastructure and monitoring ensure data security,
+                uptime reliability, and consistent performance.
+              </p>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div
+            class="group bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-2"
+          >
+            <div class="h-44 overflow-hidden">
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/059/448/700/non_2x/call-center-customer-service-agent-illustration-vector.jpg"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <div
+                  class="w-11 h-11 rounded-lg bg-cyan-500/20 flex items-center justify-center"
+                >
+                  <i class="fas fa-headset text-cyan-300"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-white">
+                  Dedicated Support
+                </h3>
+              </div>
+              <p class="text-blue-100 text-sm leading-relaxed">
+                Responsive customer support with quick resolution and
+                transparent communication.
+              </p>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div
+            class="group bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 hover:border-orange-400/40 transition-all duration-300 hover:-translate-y-2"
+          >
+            <div class="h-44 overflow-hidden">
+              <img
+                src="https://thenetworkinstallers.com/wp-content/uploads/2022/06/Where-can-you-install-WiFi-1024x684.jpg"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <div
+                  class="w-11 h-11 rounded-lg bg-orange-500/20 flex items-center justify-center"
+                >
+                  <i class="fas fa-building text-orange-300"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-white">
+                  Homes & Businesses
+                </h3>
+              </div>
+              <p class="text-blue-100 text-sm leading-relaxed">
+                Scalable connectivity solutions designed for residential,
+                commercial, and enterprise-level requirements.
+              </p>
+            </div>
+          </div>
         </div>
-        <h3 class="service-name">IPTV Connection</h3>
       </div>
-
-      <!-- Service 4 -->
-      <div class="service-item">
-        <div class="service-image">
-          <img src="images/home.webp" alt="IP Phone">
-        </div>
-        <h3 class="service-name">Home connectivity/h3>
-      </div>
-    </div>
-  </div>
-  <style>
-.services-section {
-  padding: 40px 20px;
-  text-align: center;
-  background: #fff;
-  font-family: 'Inter', sans-serif;
-}
-
-.container {
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-.section-tag {
-  color: #e60000;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
-.section-title {
-  font-size: 48px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 70px 0;
-  line-height: 1.2;
-}
-
-.section-title span {
-  color: #e60000;
-  position: relative;
-}
-
-.section-title span::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 6px;
-  background: #e60000;
-  bottom: 8px;
-  left: 0;
-  border-radius: 3px;
-  opacity: 0.7;
-}
-
-.services-grid {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  flex-wrap: wrap;
-}
-
-.service-item {
-  text-align: center;
-  perspective: 1000px; /* For subtle 3D depth */
-}
-
-.service-image {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  overflow: visible; /* Let the image pop out */
-  margin: 0 auto 28px;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s, box-shadow 0.4s;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-}
-
-.service-image img {
-  width: 240px;  /* Slightly bigger than circle */
-  height: 240px;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-  transform: translateY(-10px); /* pop-out effect */
-  transition: transform 0.4s, box-shadow 0.4s;
-}
-
-.service-item:hover .service-image img {
-  transform: translateY(-20px) scale(1.05) rotateX(5deg);
-  box-shadow: 0 20px 35px rgba(0,0,0,0.15);
-}
-
-.service-name {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 0;
-}
-
-@media (max-width: 992px) {
-  .services-grid { gap: 40px; }
-  .section-title { font-size: 38px; }
-}
-
-@media (max-width: 768px) {
-  .services-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-  .service-image {
-    width: 200px;
-    height: 200px;
-  }
-  .service-image img {
-    width: 220px;
-    height: 220px;
-  }
-}
-</style>
-</section>
-
-
-<!--------------------------------Circular Plans Section ---------------------------------------------------->
-
-<section id="plans" class="py-10 bg-gradient-to-br from-slate-900 to-blue-900 relative overflow-hidden">
-  <!-- Soft Background Blobs -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-10 left-10 w-40 h-40 bg-blue-500/10 rounded-full blur-[70px]"></div>
-    <div class="absolute top-1/2 right-20 w-52 h-52 bg-purple-500/10 rounded-full blur-[80px]"></div>
-    <div class="absolute bottom-10 left-1/3 w-48 h-48 bg-green-500/10 rounded-full blur-[75px]"></div>
-  </div>
-
-  <div class="container mx-auto px-4 relative z-10">
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center justify-center w-14 h-14 bg-blue-500/20 rounded-full border border-blue-500/30 mb-4 mx-auto">
-        <i class="fas fa-wifi text-xl text-blue-300"></i>
-      </div>
-      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2">
-        Choose Your Plan
-      </h2>
-      <p class="text-blue-200 max-w-xl mx-auto text-base">
-        Pick a plan crafted for your internet needs.
-      </p>
-    </div>
-
-    <!-- Horizontal Scroll Wrapper -->
-    <div class="overflow-x-auto scrollbar-hide">
-      <!-- scroll-track holds duplicated sets; animate this track -->
-      <div class="flex lg:justify-center gap-8 pb-4 min-w-max animate-scroll">
-        
-        <!-- ===== ORIGINAL SET START ===== -->
-        <!-- PLAN - BASIC -->
-       <div class="group flex-shrink-0 w-72">
-  <div class="bg-slate-800/70 backdrop-blur-xl rounded-full p-6 aspect-square
-              flex flex-col items-center justify-center text-center border border-blue-500/20
-              hover:border-blue-400/40 transition duration-500 hover:scale-105 shadow-lg">
-
-    <p class="text-blue-300 font-semibold text-sm mb-2">Ultra 50 Mbps</p>
-
-    <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center 
-                border border-blue-400/20 mb-4">
-      <i class="fas fa-wifi text-blue-300 text-xl"></i>
-    </div>
-
-    <h3 class="text-lg font-bold text-white mb-0.5">Monthly Plan</h3>
-    <p class="text-blue-300 text-xs mb-3">Fast & Stable Internet</p>
-
-    <div class="text-white text-2xl font-bold mb-4">
-      ₹499 <span class="text-blue-300 text-sm">/mo</span>
-    </div>
-
-    <ul class="text-blue-200 text-xs space-y-1.5 mb-4">
-      <li>50 Mbps High-Speed Internet</li>
-      <li>Unlimited Data Usage</li>
-      <li>3 Months – ₹1350</li>
-      <li>6 Months – ₹2450</li>
-      <li>12 Months – ₹4450</li>
-      <li>Includes Jio Hotstar & Sony Liv</li>
-      <li>+20 Premium OTT Apps</li>
-    </ul>
-
-    <button class="bg-blue-500 text-white px-4 py-1.5 rounded-full text-xs hover:bg-blue-600 transition">
-      Get Started
-    </button>
-
-  </div>
-</div>
-
-
-        <!-- PLAN - PRO (Popular) -->
-     <div class="group flex-shrink-0 w-72">
-  <div class="bg-gradient-to-br from-blue-700/30 to-purple-700/30 backdrop-blur-xl
-              rounded-full p-7 aspect-square flex flex-col items-center justify-center text-center
-              border border-blue-400/40 hover:border-blue-300/60 transition duration-500 hover:scale-105 shadow-xl">
-
-    <p class="text-blue-200 font-semibold text-sm mb-2">Max 50 Mbps</p>
-
-    <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center border border-white/20 mb-4">
-      <i class="fas fa-tachometer-alt text-white text-xl"></i>
-    </div>
-
-    <h3 class="text-lg font-bold text-white mb-0.5">Monthly Plan</h3>
-    <p class="text-blue-100 text-xs mb-3">High-Speed Performance</p>
-
-    <div class="text-white text-2xl font-bold mb-4">
-      ₹650 <span class="text-blue-100 text-sm">/mo</span>
-    </div>
-
-    <ul class="text-blue-100 text-xs space-y-1.5 mb-4">
-      <li>Max Speed – 50 Mbps</li>
-      <li>3 Months – ₹1900</li>
-      <li>6 Months – ₹3700</li>
-      <li>12 Months – ₹6600</li>
-      <li>Includes Amazon Prime</li>
-      <li>OTT: Jio Hotstar, Sony Liv, Zee5 +25 Apps</li>
-      <li>Prime with 6 & 12 Months Only</li>
-    </ul>
-
-    <button class="bg-white text-blue-600 px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-50 transition">
-      Choose Plan
-    </button>
-
-  </div>
-</div>
-
-
-        <!-- PLAN - ULTRA -->
-       <div class="group flex-shrink-0 w-72">
-  <div class="bg-slate-800/70 backdrop-blur-xl rounded-full p-6 aspect-square
-              flex flex-col items-center justify-center text-center border border-purple-500/20
-              hover:border-purple-400/40 transition duration-500 hover:scale-105 shadow-lg">
-
-    <p class="text-purple-300 font-semibold text-sm mb-2">Ultra 100 Mbps</p>
-
-    <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center 
-                border border-purple-400/20 mb-4">
-      <i class="fas fa-gamepad text-purple-300 text-xl"></i>
-    </div>
-
-    <h3 class="text-lg font-bold text-white mb-0.5">Monthly Plan</h3>
-    <p class="text-purple-300 text-xs mb-3">High-Speed Streaming</p>
-
-    <div class="text-white text-2xl font-bold mb-4">
-      ₹699 <span class="text-purple-300 text-sm">/mo</span>
-    </div>
-
-    <ul class="text-purple-200 text-xs space-y-1.5 mb-4">
-      <li>Ultra Speed – 100 Mbps</li>
-      <li>3 Months – ₹1850</li>
-      <li>6 Months – ₹3300</li>
-      <li>12 Months – ₹5900</li>
-      <li>Includes Jio Hotstar & Sony Liv</li>
-      <li>+20 Premium OTT Apps</li>
-    </ul>
-
-    <button class="bg-purple-600 text-white px-4 py-1.5 rounded-full text-xs hover:bg-purple-700 transition">
-      Get Started
-    </button>
-
-  </div>
-</div>
-
-
-        <!-- PLAN - GIGA -->
-    <div class="group flex-shrink-0 w-72">
-  <div class="bg-gradient-to-br from-green-700/30 to-teal-700/30 backdrop-blur-xl
-              rounded-full p-7 aspect-square flex flex-col items-center justify-center text-center
-              border border-green-400/40 hover:border-green-300/60 transition duration-500 hover:scale-105 shadow-xl">
-
-    <!-- Title -->
-    <p class="text-green-200 font-semibold text-sm mb-2">Max 100 Mbps</p>
-
-    <!-- Icon (High-speed internet) -->
-    <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center border border-white/20 mb-4">
-      <i class="fas fa-bolt text-white text-xl"></i>
-    </div>
-
-    <!-- Plan name -->
-    <h3 class="text-lg font-bold text-white mb-0.5">Monthly Plan</h3>
-    <p class="text-green-100 text-xs mb-3">High-Speed Streaming</p>
-
-    <!-- Monthly Price -->
-    <div class="text-white text-2xl font-bold mb-4">₹850 <span class="text-green-100 text-sm">/mo</span></div>
-
-    <!-- Pricing Duration -->
-    <ul class="text-green-100 text-xs space-y-1.5 mb-4">
-      <li> 3 Months - ₹2500</li>
-      <li> 6 Months - ₹4500</li>
-      <li> 12 Months - ₹8000</li>
-    </ul>
-
-    <!-- Bullet Features -->
-    <ul class="text-green-100 text-xs space-y-1.5 mb-4">
-      <li> 100 Mbps for binge-watchers</li>
-      <li> Multiple 4K streams supported</li>
-      <li> Zero buffering & fast downloads</li>
-      <li> +25 OTT apps (Prime, Sony Liv, Zee5)</li>
-      <li> Best for families with multiple users</li>
-    </ul>
-
-    <!-- Button -->
-    <button class="bg-white text-green-600 px-4 py-1.5 rounded-full text-xs hover:bg-green-50 transition shadow">
-      Go Premium
-    </button>
-
-  </div>
-</div>
-
-        <!-- Duplicate of Basic -->
-       <div class="group flex-shrink-0 w-72">
-  <div class="bg-slate-800/70 backdrop-blur-xl rounded-full p-6 aspect-square
-              flex flex-col items-center justify-center text-center border border-blue-500/20
-              hover:border-blue-400/40 transition duration-500 hover:scale-105 shadow-lg">
-
-    <!-- Speed Title -->
-    <p class="text-blue-300 font-semibold text-sm mb-2">Elite 100 Mbps</p>
-
-    <!-- Icon (OTT + IPTV) -->
-    <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-400/20 mb-4">
-      <i class="fas fa-tv text-blue-300 text-xl"></i>
-    </div>
-
-    <!-- Plan Name -->
-    <h3 class="text-lg font-bold text-white mb-0.5">Elite Entertainment</h3>
-    <p class="text-blue-300 text-xs mb-3">Monthly Plan</p>
-
-    <!-- Monthly Price -->
-    <div class="text-white text-2xl font-bold mb-4">₹950 <span class="text-blue-300 text-sm">/mo</span></div>
-
-    <!-- Duration Pricing -->
-    <ul class="text-blue-200 text-xs space-y-1.5 mb-4">
-      <li> 3 Months - ₹2850</li>
-      <li> 6 Months - ₹5700</li>
-      <li> 12 Months - ₹11400</li>
-    </ul>
-
-    <!-- Features -->
-    <ul class="text-blue-200 text-xs space-y-1.5 mb-4">
-      <li> Premium 100 Mbps performance</li>
-      <li> IPTV + 300+ TV channels</li>
-      <li> Full OTT bundle (Prime*, Zee5, SonyLiv)</li>
-      <li> Best for 4K streaming & smart TVs</li>
-      <li> Perfect for large families</li>
-    </ul>
-
-    <!-- Button -->
-    <button class="bg-blue-500 text-white px-4 py-1.5 rounded-full text-xs hover:bg-blue-600 transition">
-      Get Started
-    </button>
-
-  </div>
-</div>
-
-
-        <!-- Duplicate of Pro -->
-      <div class="group flex-shrink-0 w-72">
-  <div class="bg-gradient-to-br from-blue-700/30 to-purple-700/30 backdrop-blur-xl
-              rounded-full p-7 aspect-square flex flex-col items-center justify-center text-center
-              border border-blue-400/40 hover:border-blue-300/60 transition duration-500 hover:scale-105 shadow-xl">
-
-    <!-- Speed Title -->
-    <p class="text-blue-200 font-semibold text-sm mb-2">Ultra 200 Mbps</p>
-
-    <!-- Icon (High-Speed Performance) -->
-    <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center border border-white/20 mb-4">
-      <i class="fas fa-gamepad text-white text-xl"></i>
-    </div>
-
-    <!-- Plan Name -->
-    <h3 class="text-lg font-bold text-white mb-0.5">Monthly Plan</h3>
-    <p class="text-blue-100 text-xs mb-3">High-Speed Boost</p>
-
-    <!-- Monthly Price -->
-    <div class="text-white text-2xl font-bold mb-4">
-      ₹800 <span class="text-blue-100 text-sm">/mo</span>
-    </div>
-
-    <!-- Duration Pricing -->
-    <ul class="text-blue-100 text-xs space-y-1.5 mb-4">
-      <li> 3 Months - ₹2300</li>
-      <li> 6 Months - ₹4100</li>
-      <li> 12 Months - ₹7400</li>
-    </ul>
-
-    <!-- Features -->
-    <ul class="text-blue-100 text-xs space-y-1.5 mb-4">
-      <li> Powerful 200 Mbps speed</li>
-      <li> Gaming + streaming simultaneously</li>
-      <li> Great for high-usage households</li>
-      <li> Includes 20+ OTT apps</li>
-    </ul>
-
-    <!-- Button -->
-    <button class="bg-white text-blue-600 px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-50 transition">
-      Choose Plan
-    </button>
-
-  </div>
-</div>
-
-
-        <!-- Duplicate of Ultra -->
-     <div class="group flex-shrink-0 w-72">
-  <div class="bg-slate-800/70 backdrop-blur-xl rounded-full p-6 aspect-square
-              flex flex-col items-center justify-center text-center border border-purple-500/20
-              hover:border-purple-400/40 transition duration-500 hover:scale-105 shadow-lg">
-
-    <!-- Plan Title -->
-    <p class="text-purple-300 font-semibold text-sm mb-2">Max 200 Mbps</p>
-
-    <!-- Icon (High-Speed Internet) -->
-    <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center border border-purple-400/20 mb-4">
-      <i class="fas fa-tachometer-alt text-purple-300 text-xl"></i>
-    </div>
-
-    <!-- Plan Name -->
-    <h3 class="text-lg font-bold text-white mb-0.5">Monthly Plan </h3>
-    <p class="text-purple-300 text-xs mb-3">Ultra-Fast Performance</p>
-
-    <!-- Monthly Price -->
-    <div class="text-white text-2xl font-bold mb-4">
-      ₹970 <span class="text-purple-300 text-sm">/mo</span>
-    </div>
-
-    <!-- Duration Pricing -->
-    <ul class="text-purple-200 text-xs space-y-1.5 mb-4">
-      <li> 3 Months - ₹2800</li>
-      <li> 6 Months - ₹5400</li>
-      <li> 12 Months - ₹9700</li>
-    </ul>
-
-    <!-- Features -->
-    <ul class="text-purple-200 text-xs space-y-1.5 mb-4">
-      <li> Ultra-fast 200 Mbps connection</li>
-      <li> Ideal for gamers, streamers, creators</li>
-      <li>No lag with multiple devices</li>
-      <li> 25+ premium OTT apps included</li>
-      <li> Great for big families & small offices</li>
-    </ul>
-
-    <!-- Button -->
-    <button class="bg-purple-600 text-white px-4 py-1.5 rounded-full text-xs hover:bg-purple-700 transition">
-      Get Started
-    </button>
-
-  </div>
-</div>
-
-
-        <!-- Duplicate of Giga -->
-   <div class="group flex-shrink-0 w-72">
-  <div class="bg-gradient-to-br from-green-700/30 to-teal-700/30 backdrop-blur-xl
-              rounded-full p-7 aspect-square flex flex-col items-center justify-center text-center
-              border border-green-400/40 hover:border-green-300/60 transition duration-500 hover:scale-105 shadow-xl">
-
-    <!-- Speed / Label -->
-    <p class="text-green-200 font-semibold text-sm mb-2">Elite 200 Mbps</p>
-
-    <!-- Icon (IPTV + OTT + Premium) -->
-    <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center border border-white/20 mb-4">
-      <i class="fas fa-tv text-white text-xl"></i>
-    </div>
-
-    <!-- Plan Title -->
-    <h3 class="text-lg font-bold text-white mb-0.5">Monthly Plan</h3>
-    <p class="text-green-100 text-xs mb-3">Premium Entertainment</p>
-
-    <!-- Monthly Price -->
-    <div class="text-white text-2xl font-bold mb-4">
-      ₹1100 <span class="text-green-100 text-sm">/mo</span>
-    </div>
-
-    <!-- Duration Pricing -->
-    <ul class="text-green-100 text-xs space-y-1.5 mb-4">
-      <li> 3 Months - ₹3250</li>
-      <li> 6 Months - ₹6600</li>
-      <li> 12 Months - ₹12900</li>
-    </ul>
-
-    <!-- Features -->
-    <ul class="text-green-100 text-xs space-y-1.5 mb-4">
-      <li> Premium 200 Mbps high performance</li>
-      <li> Full OTT + 300+ TV channels</li>
-      <li> Best for 4K TVs & gaming</li>
-      <li> Handles 10+ devices easily</li>
-      <li>Perfect all-in-one family package</li>
-    </ul>
-
-    <!-- Button -->
-    <button class="bg-white text-green-600 px-4 py-1.5 rounded-full text-xs hover:bg-green-50 transition shadow">
-      Go Premium
-    </button>
-
-  </div>
-</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Smooth Slow Infinite Scroll + Pause on Hover -->
-<style>
-  @keyframes scroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); } /* move half width because we duplicated */
-  }
-  .animate-scroll {
-    animation: scroll 35s linear infinite;
-  }
-  .animate-scroll:hover {
-    animation-play-state: paused;
-  }
-
-  /* hide native scrollbar */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-</style>
-</section>
+    </section>
 
     <!-------------------------- Features Section ----------------------------------------->
 
-   <!-- Why Choose Us -->
-<section class="py-14 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-6">
-
-    <!-- Header -->
-    <div class="text-center mb-10">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
-        Why Choose <span class="text-red-600">Us</span>?
-      </h2>
-      <p class="mt-2 text-gray-600 max-w-xl mx-auto">
-        High-speed internet, premium TV service & dedicated customer support.
-      </p>
-    </div>
-
-    <!-- Cards -->
-    <div class="grid md:grid-cols-3 gap-6">
-
-      <!-- Card 1 -->
-      <div class="relative bg-white p-8 rounded-2xl shadow-md 
-                  transition-all duration-300 hover:-translate-y-2 hover:shadow-xl overflow-hidden">
-
-        <!-- Background Image -->
-        <img src="/mnt/data/641246bb-8df8-4982-afb7-fafaec551909.png"
-             class="absolute inset-0 w-full h-full object-contain opacity-10 pointer-events-none" />
-
-        <div class="relative z-10">
-          <i class="fas fa-tv text-red-600 text-4xl mb-4"></i>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">TV Streaming</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            Enjoy premium HD channels with smooth & buffer-free streaming.
+    <!-- Why Choose Us -->
+    <section class="py-14 bg-blue-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Header -->
+        <div class="text-center mb-10">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
+            Why Choose <span class="text-orange-500">Us</span>?
+          </h2>
+          <p class="mt-2 text-gray-600 max-w-xl mx-auto">
+            High-speed internet, premium TV service & dedicated customer
+            support.
           </p>
         </div>
-      </div>
 
-      <!-- Card 2 (Red Highlight) -->
-      <div class="relative bg-red-600 text-white p-8 rounded-2xl shadow-md
-                  transition-all duration-300 hover:-translate-y-2 hover:shadow-xl overflow-hidden">
+        <!-- Cards -->
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div
+            class="relative bg-white p-8 rounded-2xl shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl overflow-hidden"
+          >
+            <!-- Background Image -->
+            <div
+              class="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-50 to-white opacity-50"
+            ></div>
 
-        <!-- Background Image (blend mode) -->
-        <img src="/mnt/data/641246bb-8df8-4982-afb7-fafaec551909.png"
-             class="absolute inset-0 w-full h-full object-cover opacity-15 mix-blend-overlay pointer-events-none" />
+            <div class="relative z-10">
+              <i class="fas fa-tv text-blue-600 text-4xl mb-4"></i>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                TV Streaming
+              </h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                Enjoy premium HD channels with smooth & buffer-free streaming.
+              </p>
+            </div>
+          </div>
 
-        <div class="relative z-10">
-          <i class="fas fa-tachometer-alt text-white text-4xl mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Fast Internet</h3>
-          <p class="text-white/90 text-sm leading-relaxed">
-            Superfast fiber speeds for work, streaming & gaming.
-          </p>
+          <!-- Card 2 (Blue Highlight) -->
+          <div
+            class="relative bg-blue-600 text-white p-8 rounded-2xl shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl overflow-hidden"
+          >
+            <div class="relative z-10">
+              <i class="fas fa-tachometer-alt text-white text-4xl mb-4"></i>
+              <h3 class="text-xl font-semibold mb-2">Fast Internet</h3>
+              <p class="text-white/90 text-sm leading-relaxed">
+                Superfast fiber speeds for work, streaming & gaming.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            class="relative bg-white p-8 rounded-2xl shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl overflow-hidden"
+          >
+            <!-- Background Image -->
+            <div
+              class="absolute inset-0 w-full h-full bg-gradient-to-br from-orange-50 to-white opacity-50"
+            ></div>
+
+            <div class="relative z-10">
+              <i class="fas fa-mobile-alt text-orange-500 text-4xl mb-4"></i>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                All for Mobile
+              </h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                Stay connected anywhere with seamless multi-device access.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Card 3 -->
-      <div class="relative bg-white p-8 rounded-2xl shadow-md
-                  transition-all duration-300 hover:-translate-y-2 hover:shadow-xl overflow-hidden">
-
-        <!-- Background Image -->
-        <img src="/mnt/data/641246bb-8df8-4982-afb7-fafaec551909.png"
-             class="absolute inset-0 w-full h-full object-contain opacity-10 pointer-events-none" />
-
-        <div class="relative z-10">
-          <i class="fas fa-mobile-alt text-red-600 text-4xl mb-4"></i>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">All for Mobile</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            Stay connected anywhere with seamless multi-device access.
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+    </section>
 
     <!--------------------------------- Coverage Section ------------------------>
- <section class="py-10 lg:py-16 bg-white">
-  <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+    <section class="py-10 lg:py-16 bg-white">
+      <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h2
+            class="mt-3 text-4xl lg:text-5xl font-black text-gray-900 leading-tight"
+          >
+            Our
+            <span class="text-blue-600 relative">
+              Special Features
+              <span
+                class="absolute left-0 -bottom-3 w-full h-1.5 bg-orange-500 rounded-full opacity-40"
+              ></span>
+            </span>
+          </h2>
+        </div>
 
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 text-red-600 text-xs font-bold tracking-wider">
-        <span class="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"></span>
-        OUR FACILITY
-        <span class="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"></span>
+        <!-- Features Grid -->
+        <div class="grid lg:grid-cols-3 gap-12 items-center">
+          <!-- Left Column -->
+          <div class="space-y-8">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex-center text-xl border-4 border-orange-100"
+              >
+                <i class="fas fa-gauge-high"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-1">
+                  Ultra-Speed Connection
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  Experience blazing-fast fiber internet up to 1 Gbps.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex-center text-xl border-4 border-orange-100"
+              >
+                <i class="fas fa-tv"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-1">
+                  250+ TV Channels
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  Premium HD entertainment across all categories.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex-center text-xl border-4 border-orange-100"
+              >
+                <i class="fas fa-exchange-alt"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-1">
+                  Flexible Plans
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  Easily upgrade or downgrade anytime.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Image -->
+          <div class="relative flex justify-center mt-6">
+            <!-- FIXED: Smaller oval & moved downward -->
+            <div
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-72 lg:w-72 lg:h-80 bg-blue-500/10 border-8 border-blue-500/30 rounded-full"
+            ></div>
+
+            <!-- FIXED: Slightly smaller image -->
+            <img
+              src="images/router.png"
+              alt="Fiber Router"
+              class="relative z-10 w-64 lg:w-72 object-cover drop-shadow-2xl"
+            />
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-8">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex-center text-xl border-4 border-orange-100"
+              >
+                <i class="fas fa-tools"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-1">
+                  100% Free Installation
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  Setup done professionally at no extra cost.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex-center text-xl border-4 border-orange-100"
+              >
+                <i class="fas fa-headset"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-1">
+                  Fast Support 24/7
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  Instant assistance anytime you need.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex-center text-xl border-4 border-orange-100"
+              >
+                <i class="fas fa-play-circle"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-1">
+                  4K & 8K Quality
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  Stream ultra-HD content without buffering.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <h2 class="mt-3 text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
-        Our <span class="text-red-600 relative">
-          Special Features
-          <span class="absolute left-0 -bottom-3 w-full h-1.5 bg-red-500 rounded-full opacity-40"></span>
-        </span>
-      </h2>
-    </div>
-
-    <!-- Features Grid -->
-    <div class="grid lg:grid-cols-3 gap-12 items-center">
-
-      <!-- Left Column -->
-      <div class="space-y-8">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex-center text-xl border-4 border-red-100">
-            <i class="fas fa-gauge-high"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-gray-900 mb-1">Ultra-Speed Connection</h3>
-            <p class="text-gray-600 text-sm">Experience blazing-fast fiber internet up to 1 Gbps.</p>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex-center text-xl border-4 border-red-100">
-            <i class="fas fa-tv"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-gray-900 mb-1">250+ TV Channels</h3>
-            <p class="text-gray-600 text-sm">Premium HD entertainment across all categories.</p>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex-center text-xl border-4 border-red-100">
-            <i class="fas fa-exchange-alt"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-gray-900 mb-1">Flexible Plans</h3>
-            <p class="text-gray-600 text-sm">Easily upgrade or downgrade anytime.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Center Image -->
-      <div class="relative flex justify-center mt-6">
-
-        <!-- FIXED: Smaller oval & moved downward -->
-        <div class="absolute top-1/2 left-1/2 
-                    -translate-x-1/2 -translate-y-1/2 
-                    w-64 h-72 lg:w-72 lg:h-80 
-                    bg-red-500/10 border-8 border-red-500/30 rounded-full">
-        </div>
-
-        <!-- FIXED: Slightly smaller image -->
-        <img src="images/router.png"
-             alt="Fiber Router"
-             class="relative z-10 w-64 lg:w-72 object-cover drop-shadow-2xl">
-      </div>
-
-      <!-- Right Column -->
-      <div class="space-y-8">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex-center text-xl border-4 border-red-100">
-            <i class="fas fa-tools"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-gray-900 mb-1">100% Free Installation</h3>
-            <p class="text-gray-600 text-sm">Setup done professionally at no extra cost.</p>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex-center text-xl border-4 border-red-100">
-            <i class="fas fa-headset"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-gray-900 mb-1">Fast Support 24/7</h3>
-            <p class="text-gray-600 text-sm">Instant assistance anytime you need.</p>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex-center text-xl border-4 border-red-100">
-            <i class="fas fa-play-circle"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-gray-900 mb-1">4K & 8K Quality</h3>
-            <p class="text-gray-600 text-sm">Stream ultra-HD content without buffering.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<style>
-  .flex-center { display: flex; align-items: center; justify-content: center; }
-</style>
+    </section>
 
     <!-- Footer -->
-  <!-- Enhanced Minimal Dark Footer -->
-<footer class="bg-gray-950 text-gray-400 pt-16 pb-12 border-t border-gray-800">
-  <div class="max-w-7xl mx-auto px-6">
+    <footer
+      class="bg-gray-100 text-gray-800 pt-8 pb-8 border-t border-gray-800"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Main Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14"
+        >
+          <!-- Brand Section -->
+          <div class="lg:col-span-2">
+            <!-- Logo Image -->
+            <div class="flex items-center mb-6">
+              <img
+                src="images/logo.png"
+                alt="FiberNet Pro Logo"
+                class="h-16 w-auto mr-4"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=100&fit=crop&crop=center'; this.alt='FiberNet Pro Logo'"
+              />
+            </div>
 
-    <!-- Main Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+            <p class="text-gray-500 leading-relaxed mb-8 max-w-md">
+              Delivering exceptional internet experiences with cutting-edge
+              fiber technology and unmatched customer support.
+            </p>
 
-      <!-- Brand Section -->
-      <div class="lg:col-span-2">
-        <div class="flex items-center mb-6">
-          <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4 shadow-sm">
-            <i class="fas fa-wifi text-gray-900 text-lg"></i>
+            <!-- Contact Information -->
+            <div class="space-y-4">
+              <div class="flex items-center gap-3"></div>
+
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center"
+                >
+                  <i class="fas fa-envelope text-gray-400"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-800">Email Us</p>
+                  <a
+                    href="mailto:support@globalnetindia.com"
+                    class="text-gray-600 hover:text-white transition-colors font-medium"
+                  >
+                    support@globalnetindia.com
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- Navigation Links -->
           <div>
-            <h2 class="text-xl font-bold text-white tracking-wide">FiberNet Pro</h2>
-            <p class="text-gray-500 text-sm">Pure Fiber. Pure Speed.</p>
+            <h3
+              class="text-black font-semibold mb-4 border-l-4 border-blue-500 pl-3"
+            >
+              Navigation
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a
+                  href="index.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-home text-xs"></i> Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="about.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-info-circle text-xs"></i> About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="iptv.html"
+                  class="hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-cogs text-xs"></i> Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="broadband.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-list-alt text-xs"></i> Plans
+                </a>
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-phone-alt text-xs"></i> Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div>
+            <h3
+              class="text-black font-semibold mb-4 border-l-4 border-green-500 pl-3"
+            >
+              Services
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a
+                  href="smallenterprise.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-broadcast-tower text-xs"></i> Small
+                  Enterprises
+                </a>
+              </li>
+              <li>
+                <a
+                  href="iptv.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-satellite-dish text-xs"></i> IPTV Service
+                </a>
+              </li>
+              <li>
+                <a
+                  href="largeenterprise.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-network-wired text-xs"></i> largeenterprise
+                </a>
+              </li>
+              <li>
+                <a
+                  href="realestate.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-headset text-xs"></i> Real Estate
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Plans -->
+          <div>
+            <h3
+              class="text-black font-semibold mb-4 border-l-4 border-red-600 pl-3"
+            >
+              Plans
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a
+                  href="broadband.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-wifi text-xs"></i> Broadband Plans
+                </a>
+              </li>
+              <li>
+                <a
+                  href="OTT.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-tv text-xs"></i> OTT Streaming Plans
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <p class="text-gray-500 leading-relaxed mb-6">
-          Delivering exceptional internet experiences with cutting-edge fiber technology and unmatched customer support.
-        </p>
+        <!-- Bottom Section - Simplified -->
+        <div class="border-t border-gray-800 pt-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-gray-500 text-sm">
+              © 2025 Globalnet Communications. All rights reserved.
+            </p>
 
-        <!-- Social Icons -->
-        <div class="flex space-x-3">
-          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
-            <i class="fab fa-github"></i>
-          </a>
+            <div class="text-gray-500 text-sm">
+              24/7 Customer Support Available
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Product -->
-      <div>
-        <h3 class="text-white font-semibold mb-4 border-l-4 border-red-600 pl-3">Product</h3>
-        <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-white transition-colors">Internet Plans</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Business Solutions</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Coverage Map</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Speed Test</a></li>
-        </ul>
-      </div>
-
-      <!-- Company -->
-      <div>
-        <h3 class="text-white font-semibold mb-4 border-l-4 border-blue-500 pl-3">Company</h3>
-        <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
-        </ul>
-      </div>
-
-      <!-- Resources -->
-      <div>
-        <h3 class="text-white font-semibold mb-4 border-l-4 border-green-500 pl-3">Resources</h3>
-        <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">API</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Status</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <!-- Bottom Section -->
-    <div class="border-t border-gray-800 pt-8">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-gray-500 text-sm">© 2025 FiberNet Pro. All rights reserved.</p>
-
-        <div class="flex items-center space-x-6 text-sm">
-          <a href="#" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" class="text-gray-500 hover:text-white transition-colors">Terms of Service</a>
-          <a href="#" class="text-gray-500 hover:text-white transition-colors">Cookie Policy</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</footer>
-
+    </footer>
 
     <!------------------------------------ Scripts ------------------------>
     <script
@@ -1010,152 +1125,209 @@
       src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
     ></script>
     <script>
-      // Hero Slider - Changed to 3 seconds
-      const heroSlides = document.querySelectorAll(".hero-slide");
-      const sliderDots = document.querySelectorAll(".slider-dot");
-      let currentSlide = 0;
+      // Hero Slider - Fixed Implementation
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get all elements
+        const heroSlides = document.querySelectorAll(".hero-slide");
+        const sliderDots = document.querySelectorAll(".slider-dot");
+        const prevBtn = document.querySelector(".slider-nav.prev");
+        const nextBtn = document.querySelector(".slider-nav.next");
+        let currentSlide = 0;
+        let slideInterval;
 
-      function showSlide(index) {
-        heroSlides.forEach((slide, i) => {
-          slide.classList.toggle("active", i === index);
-          sliderDots[i].classList.toggle("active", i === index);
-        });
-        currentSlide = index;
-      }
+        // Function to show a specific slide
+        function showSlide(index) {
+          // Hide all slides
+          heroSlides.forEach((slide) => {
+            slide.classList.remove("active");
+          });
 
-      function nextSlide() {
-        currentSlide = (currentSlide + 1) % heroSlides.length;
-        showSlide(currentSlide);
-      }
+          // Remove active class from all dots
+          sliderDots.forEach((dot) => {
+            dot.classList.remove("active");
+          });
 
-      // Changed from 5000 to 3000 for 3-second auto-scroll
-      let slideInterval = setInterval(nextSlide, 3000);
+          // Show the selected slide
+          heroSlides[index].classList.add("active");
+          sliderDots[index].classList.add("active");
+          currentSlide = index;
+        }
 
-      sliderDots.forEach((dot, i) => {
-        dot.addEventListener("click", () => {
-          clearInterval(slideInterval);
-          showSlide(i);
+        // Function to go to next slide
+        function nextSlide() {
+          let nextIndex = (currentSlide + 1) % heroSlides.length;
+          showSlide(nextIndex);
+        }
+
+        // Function to go to previous slide
+        function prevSlide() {
+          let prevIndex =
+            (currentSlide - 1 + heroSlides.length) % heroSlides.length;
+          showSlide(prevIndex);
+        }
+
+        // Start auto slide (3 seconds interval)
+        function startAutoSlide() {
           slideInterval = setInterval(nextSlide, 3000);
-        });
-      });
+        }
 
-      // Scroll Animations
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
+        // Stop auto slide
+        function stopAutoSlide() {
+          clearInterval(slideInterval);
+        }
+
+        // Dot click event
+        sliderDots.forEach((dot, index) => {
+          dot.addEventListener("click", () => {
+            stopAutoSlide();
+            showSlide(index);
+            startAutoSlide();
+          });
+        });
+
+        // Previous button click
+        prevBtn.addEventListener("click", () => {
+          stopAutoSlide();
+          prevSlide();
+          startAutoSlide();
+        });
+
+        // Next button click
+        nextBtn.addEventListener("click", () => {
+          stopAutoSlide();
+          nextSlide();
+          startAutoSlide();
+        });
+
+        // Pause slider on hover
+        const heroSlider = document.querySelector(".hero-slider");
+        heroSlider.addEventListener("mouseenter", stopAutoSlide);
+        heroSlider.addEventListener("mouseleave", startAutoSlide);
+
+        // Initialize
+        showSlide(0);
+        startAutoSlide();
+
+        // Scroll Animations
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        document
+          .querySelectorAll(
+            ".fade-in, .slide-in-left, .slide-in-right, .stagger-item"
+          )
+          .forEach((el) => {
+            observer.observe(el);
+          });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              window.scrollTo({
+                top: target.offsetTop - 100,
+                behavior: "smooth",
+              });
             }
           });
-        },
-        { threshold: 0.1 }
-      );
-
-      document
-        .querySelectorAll(
-          ".fade-in, .slide-in-left, .slide-in-right, .stagger-item"
-        )
-        .forEach((el) => {
-          observer.observe(el);
         });
 
-      // Smooth Scroll
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            window.scrollTo({
-              top: target.offsetTop - 100,
-              behavior: "smooth",
+        //header js
+        fetch("header.html")
+          .then((res) => res.text())
+          .then((data) => {
+            document.getElementById("header").innerHTML = data;
+
+            // ✅ NOW your header JS runs safely AFTER load
+            const mobileMenuToggle =
+              document.getElementById("mobile-menu-toggle");
+            const mobileMenu = document.getElementById("mobile-menu");
+            const menuIcon = document.getElementById("menu-icon");
+            const mobilePlansToggle = document.getElementById(
+              "mobile-plans-toggle"
+            );
+            const mobilePlans = document.getElementById("mobile-plans");
+            const mobileServicesToggle = document.getElementById(
+              "mobile-services-toggle"
+            );
+            const mobileServices = document.getElementById("mobile-services");
+
+            // Toggle Mobile Menu
+            mobileMenuToggle?.addEventListener("click", () => {
+              mobileMenu.classList.toggle("open");
+
+              if (mobileMenu.classList.contains("open")) {
+                menuIcon.classList.remove("fa-bars");
+                menuIcon.classList.add("fa-times");
+              } else {
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+
+                mobilePlans.classList.remove("open");
+                mobileServices.classList.remove("open");
+                mobilePlansToggle.classList.remove("active");
+                mobileServicesToggle.classList.remove("active");
+              }
             });
-          }
-        });
+
+            // Toggle Mobile Plans
+            mobilePlansToggle?.addEventListener("click", () => {
+              mobilePlans.classList.toggle("open");
+              mobilePlansToggle.classList.toggle("active");
+
+              if (mobileServices.classList.contains("open")) {
+                mobileServices.classList.remove("open");
+                mobileServicesToggle.classList.remove("active");
+              }
+            });
+
+            // Toggle Mobile Services
+            mobileServicesToggle?.addEventListener("click", () => {
+              mobileServices.classList.toggle("open");
+              mobileServicesToggle.classList.toggle("active");
+
+              if (mobilePlans.classList.contains("open")) {
+                mobilePlans.classList.remove("open");
+                mobilePlansToggle.classList.remove("active");
+              }
+            });
+
+            // Close when clicking outside
+            document.addEventListener("click", function (event) {
+              if (!mobileMenu || !mobileMenuToggle) return;
+
+              const isClickInsideMenu = mobileMenu.contains(event.target);
+              const isClickOnToggle = mobileMenuToggle.contains(event.target);
+
+              if (
+                !isClickInsideMenu &&
+                !isClickOnToggle &&
+                mobileMenu.classList.contains("open")
+              ) {
+                mobileMenu.classList.remove("open");
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+
+                mobilePlans.classList.remove("open");
+                mobileServices.classList.remove("open");
+                mobilePlansToggle.classList.remove("active");
+                mobileServicesToggle.classList.remove("active");
+              }
+            });
+          });
       });
-
-
-
-//header js
-fetch("header.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("header").innerHTML = data;
-
-    // ✅ NOW your header JS runs safely AFTER load
-    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const menuIcon = document.getElementById("menu-icon");
-    const mobilePlansToggle = document.getElementById("mobile-plans-toggle");
-    const mobilePlans = document.getElementById("mobile-plans");
-    const mobileServicesToggle = document.getElementById("mobile-services-toggle");
-    const mobileServices = document.getElementById("mobile-services");
-
-    // Toggle Mobile Menu
-    mobileMenuToggle?.addEventListener("click", () => {
-      mobileMenu.classList.toggle("open");
-
-      if (mobileMenu.classList.contains("open")) {
-        menuIcon.classList.remove("fa-bars");
-        menuIcon.classList.add("fa-times");
-      } else {
-        menuIcon.classList.remove("fa-times");
-        menuIcon.classList.add("fa-bars");
-
-        mobilePlans.classList.remove("open");
-        mobileServices.classList.remove("open");
-        mobilePlansToggle.classList.remove("active");
-        mobileServicesToggle.classList.remove("active");
-      }
-    });
-
-    // Toggle Mobile Plans
-    mobilePlansToggle?.addEventListener("click", () => {
-      mobilePlans.classList.toggle("open");
-      mobilePlansToggle.classList.toggle("active");
-
-      if (mobileServices.classList.contains("open")) {
-        mobileServices.classList.remove("open");
-        mobileServicesToggle.classList.remove("active");
-      }
-    });
-
-    // Toggle Mobile Services
-    mobileServicesToggle?.addEventListener("click", () => {
-      mobileServices.classList.toggle("open");
-      mobileServicesToggle.classList.toggle("active");
-
-      if (mobilePlans.classList.contains("open")) {
-        mobilePlans.classList.remove("open");
-        mobilePlansToggle.classList.remove("active");
-      }
-    });
-
-    // Close when clicking outside
-    document.addEventListener("click", function(event) {
-      if (!mobileMenu || !mobileMenuToggle) return;
-
-      const isClickInsideMenu = mobileMenu.contains(event.target);
-      const isClickOnToggle = mobileMenuToggle.contains(event.target);
-
-      if (!isClickInsideMenu && !isClickOnToggle && mobileMenu.classList.contains("open")) {
-        mobileMenu.classList.remove("open");
-        menuIcon.classList.remove("fa-times");
-        menuIcon.classList.add("fa-bars");
-
-        mobilePlans.classList.remove("open");
-        mobileServices.classList.remove("open");
-        mobilePlansToggle.classList.remove("active");
-        mobileServicesToggle.classList.remove("active");
-      }
-    });
-  });
-
     </script>
-    
 
     <div id="header"></div>
-
-
-
   </body>
 </html>

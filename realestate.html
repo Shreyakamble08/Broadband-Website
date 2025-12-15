@@ -208,7 +208,7 @@
 
     <!-- FOOTER (UNCHANGED STRUCTURE, CLEANED SPACING) -->
     <footer
-      class="bg-gray-950 text-gray-400 pt-16 pb-12 border-t border-gray-800"
+      class="bg-gray-100 text-gray-800 pt-8 pb-8 border-t border-gray-800"
     >
       <div class="max-w-7xl mx-auto px-6">
         <!-- Main Grid -->
@@ -217,161 +217,178 @@
         >
           <!-- Brand Section -->
           <div class="lg:col-span-2">
+            <!-- Logo Image -->
             <div class="flex items-center mb-6">
-              <div
-                class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4 shadow-sm"
-              >
-                <i class="fas fa-wifi text-gray-900 text-lg"></i>
-              </div>
-              <div>
-                <h2 class="text-xl font-bold text-white tracking-wide">
-                  FiberNet Pro
-                </h2>
-                <p class="text-gray-500 text-sm">Pure Fiber. Pure Speed.</p>
-              </div>
+              <img
+                src="images/logo.png"
+                alt="FiberNet Pro Logo"
+                class="h-16 w-auto mr-4"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=100&fit=crop&crop=center'; this.alt='FiberNet Pro Logo'"
+              />
             </div>
 
-            <p class="text-gray-500 leading-relaxed mb-6">
+            <p class="text-gray-500 leading-relaxed mb-8 max-w-md">
               Delivering exceptional internet experiences with cutting-edge
               fiber technology and unmatched customer support.
             </p>
 
-            <!-- Social Icons -->
-            <div class="flex space-x-3">
-              <a
-                href="#"
-                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
-              >
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a
-                href="#"
-                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
-              >
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-              <a
-                href="#"
-                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
-              >
-                <i class="fab fa-github"></i>
-              </a>
+            <!-- Contact Information -->
+            <div class="space-y-4">
+              <div class="flex items-center gap-3"></div>
+
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center"
+                >
+                  <i class="fas fa-envelope text-gray-400"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-800">Email Us</p>
+                  <a
+                    href="mailto:support@globalnetindia.com"
+                    class="text-gray-600 hover:text-white transition-colors font-medium"
+                  >
+                    support@globalnetindia.com
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Product -->
+          <!-- Navigation Links -->
           <div>
             <h3
-              class="text-white font-semibold mb-4 border-l-4 border-red-600 pl-3"
+              class="text-black font-semibold mb-4 border-l-4 border-blue-500 pl-3"
             >
-              Product
+              Navigation
             </h3>
             <ul class="space-y-3 text-sm">
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Internet Plans</a
+                <a
+                  href="index.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
                 >
+                  <i class="fas fa-home text-xs"></i> Home
+                </a>
               </li>
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Business Solutions</a
+                <a
+                  href="about.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
                 >
+                  <i class="fas fa-info-circle text-xs"></i> About Us
+                </a>
               </li>
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Coverage Map</a
+                <a
+                  href="iptv.html"
+                  class="hover:text-white transition-colors flex items-center gap-2"
                 >
+                  <i class="fas fa-cogs text-xs"></i> Services
+                </a>
               </li>
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Speed Test</a
+                <a
+                  href="broadband.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
                 >
+                  <i class="fas fa-list-alt text-xs"></i> Plans
+                </a>
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-phone-alt text-xs"></i> Contact
+                </a>
               </li>
             </ul>
           </div>
 
-          <!-- Company -->
+          <!-- Services -->
           <div>
             <h3
-              class="text-white font-semibold mb-4 border-l-4 border-blue-500 pl-3"
+              class="text-black font-semibold mb-4 border-l-4 border-green-500 pl-3"
             >
-              Company
+              Services
             </h3>
             <ul class="space-y-3 text-sm">
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >About Us</a
+                <a
+                  href="smallenterprise.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
                 >
+                  <i class="fas fa-broadcast-tower text-xs"></i> Small
+                  Enterprises
+                </a>
               </li>
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Careers</a
+                <a
+                  href="iptv.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
                 >
+                  <i class="fas fa-satellite-dish text-xs"></i> IPTV Service
+                </a>
               </li>
               <li>
-                <a href="#" class="hover:text-white transition-colors">Press</a>
+                <a
+                  href="largeenterprise.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-network-wired text-xs"></i> largeenterprise
+                </a>
               </li>
               <li>
-                <a href="#" class="hover:text-white transition-colors">Blog</a>
+                <a
+                  href="realestate.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-headset text-xs"></i> Real Estate
+                </a>
               </li>
             </ul>
           </div>
 
-          <!-- Resources -->
+          <!-- Plans -->
           <div>
             <h3
-              class="text-white font-semibold mb-4 border-l-4 border-green-500 pl-3"
+              class="text-black font-semibold mb-4 border-l-4 border-red-600 pl-3"
             >
-              Resources
+              Plans
             </h3>
             <ul class="space-y-3 text-sm">
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Support</a
+                <a
+                  href="broadband.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
                 >
+                  <i class="fas fa-wifi text-xs"></i> Broadband Plans
+                </a>
               </li>
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Documentation</a
+                <a
+                  href="OTT.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
                 >
-              </li>
-              <li>
-                <a href="#" class="hover:text-white transition-colors">API</a>
-              </li>
-              <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Status</a
-                >
+                  <i class="fas fa-tv text-xs"></i> OTT Streaming Plans
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- Bottom Section -->
+        <!-- Bottom Section - Simplified -->
         <div class="border-t border-gray-800 pt-8">
           <div
             class="flex flex-col md:flex-row justify-between items-center gap-4"
           >
             <p class="text-gray-500 text-sm">
-              © 2025 FiberNet Pro. All rights reserved.
+              © 2025 Globalnet Communications. All rights reserved.
             </p>
 
-            <div class="flex items-center space-x-6 text-sm">
-              <a
-                href="#"
-                class="text-gray-500 hover:text-white transition-colors"
-                >Privacy Policy</a
-              >
-              <a
-                href="#"
-                class="text-gray-500 hover:text-white transition-colors"
-                >Terms of Service</a
-              >
-              <a
-                href="#"
-                class="text-gray-500 hover:text-white transition-colors"
-                >Cookie Policy</a
-              >
+            <div class="text-gray-500 text-sm">
+              24/7 Customer Support Available
             </div>
           </div>
         </div>

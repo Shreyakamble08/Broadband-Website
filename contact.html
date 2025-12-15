@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form - WhatsApp Template | Globalnet Broadband</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #075E54;
+            --whatsapp-light: #128C7E;
+        }
+        
+        .whatsapp-gradient {
+            background: linear-gradient(135deg, var(--whatsapp-dark) 0%, var(--whatsapp-light) 100%);
+        }
+        
+        .form-container {
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+        }
+        
+        .message-template {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #e5ddd5;
+            min-height: 300px;
+        }
+        
+        .form-input:focus {
+            border-color: var(--whatsapp-green);
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, var(--whatsapp-green), var(--whatsapp-light));
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .template-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="whatsapp-gradient text-white py-6">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center mr-4">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Contact Form WhatsApp Template</h1>
+                        <p class="text-green-100">Professional message formatting for Globalnet</p>
+                    </div>
+                </div>
+                <a href="contact.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Contact
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Contact Form -->
+            <div class="form-container rounded-2xl p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-user-edit text-green-600"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">Contact Form</h2>
+                        <p class="text-gray-600 text-sm">Fill this form to generate WhatsApp message</p>
+                    </div>
+                </div>
+                
+                <form id="contactForm" class="space-y-6">
+                    <!-- Personal Information -->
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-blue-800 mb-3 flex items-center gap-2">
+                            <i class="fas fa-user-circle"></i>
+                            Personal Information
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Full Name *
+                                </label>
+                                <input type="text" id="fullName" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
+                                    placeholder="Enter your full name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    WhatsApp Number *
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                                        <span class="text-gray-600">+91</span>
+                                    </div>
+                                    <input type="tel" id="whatsappNumber" required
+                                        class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg form-input"
+                                        placeholder="98765 43210"
+                                        pattern="[0-9]{10}"
+                                        maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Email Address
+                            </label>
+                            <input type="email" id="emailAddress"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
+                                placeholder="your.email@example.com">
+                        </div>
+                    </div>
+                    
+                    <!-- Service Information -->
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-purple-800 mb-3 flex items-center gap-2">
+                            <i class="fas fa-cogs"></i>
+                            Service Details
+                        </h3>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Service Interested In *
+                            </label>
+                            <select id="serviceInterest" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input">
+                                <option value="" disabled selected>Select a service</option>
+                                <option value="High-Speed Broadband">High-Speed Broadband</option>
+                                <option value="WiFi + OTT Streaming">WiFi + OTT Streaming Package</option>
+                                <option value="Complete Package (Internet+OTT+IPTV)">Complete Package (Internet+OTT+IPTV)</option>
+                                <option value="Business Solutions">Business Solutions</option>
+                                <option value="Technical Support">Technical Support</option>
+                                <option value="New Connection">New Connection Request</option>
+                            </select>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Location/Area *
+                            </label>
+                            <input type="text" id="location" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
+                                placeholder="Enter your area/city">
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Information -->
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-green-800 mb-3 flex items-center gap-2">
+                            <i class="fas fa-comment-dots"></i>
+                            Additional Information
+                        </h3>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Preferred Contact Time
+                            </label>
+                            <select id="contactTime"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input">
+                                <option value="">Any time</option>
+                                <option value="Morning (9AM-12PM)">Morning (9AM-12PM)</option>
+                                <option value="Afternoon (12PM-4PM)">Afternoon (12PM-4PM)</option>
+                                <option value="Evening (4PM-8PM)">Evening (4PM-8PM)</option>
+                                <option value="Weekends Only">Weekends Only</option>
+                            </select>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Your Message/Requirements
+                            </label>
+                            <textarea id="userMessage" rows="4"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
+                                placeholder="Tell us about your specific requirements or questions..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                        class="w-full whatsapp-btn text-white py-4 rounded-lg font-bold text-lg flex items-center justify-center gap-3">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        Generate & Send WhatsApp Message
+                    </button>
+                </form>
+            </div>
+            
+            <!-- WhatsApp Message Preview -->
+            <div class="space-y-6">
+                <!-- Template Preview -->
+                <div class="bg-white rounded-2xl shadow-xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
+                                <i class="fab fa-whatsapp text-green-600"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800">WhatsApp Message Template</h2>
+                                <p class="text-gray-600 text-sm">Preview of your message</p>
+                            </div>
+                        </div>
+                        <span class="template-badge px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">
+                            LIVE PREVIEW
+                        </span>
+                    </div>
+                    
+                    <!-- Message Preview -->
+                    <div class="message-template rounded-xl p-6">
+                        <div class="max-w-md mx-auto">
+                            <!-- WhatsApp Message -->
+                            <div class="bg-white rounded-2xl p-5 shadow-sm mb-4">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                                        <i class="fas fa-user text-white text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-700">Customer Inquiry</div>
+                                        <div class="text-xs text-gray-500">To: Globalnet Support +91 XXXXX XXXXX</div>
+                                    </div>
+                                </div>
+                                
+                                <div id="messagePreview" class="text-gray-800 whitespace-pre-wrap text-sm leading-relaxed">
+*📱 CONTACT FORM ENQUIRY - GLOBALNET BROADBAND*
+
+*👤 Customer Information:*
+• *Name:* [Full Name]
+• *WhatsApp:* +91 [Phone Number]
+• *Email:* [Email Address]
+
+*🎯 Service Interest:*
+• *Service:* [Service Type]
+• *Location:* [City/Area]
+
+*⏰ Contact Preference:*
+• *Time:* [Preferred Time]
+
+*📝 Additional Details:*
+[Message/Requirements]
+
+---
+*📞 Please contact me at your earliest convenience.*
+
+*Thank you!*
+*[Full Name]*
+                                </div>
+                                
+                                <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                                    <div class="text-xs text-gray-400">
+                                        <i class="far fa-clock mr-1"></i>Just now
+                                    </div>
+                                    <div class="text-xs text-gray-400">
+                                        <i class="fas fa-check-double text-green-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Info Box -->
+                            <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mt-6">
+                                <div class="flex items-start gap-3">
+                                    <i class="fas fa-info-circle text-blue-500 text-lg mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-blue-800 text-sm mb-1">Template Information</h4>
+                                        <p class="text-blue-700 text-sm">
+                                            This template automatically formats your contact form data into a professional WhatsApp message. All fields marked with * are required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <button id="copyTemplateBtn"
+                            class="py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition flex items-center justify-center gap-2">
+                            <i class="far fa-copy"></i>
+                            Copy Template
+                        </button>
+                        <button id="sendWhatsAppBtn"
+                            class="py-3 whatsapp-btn text-white rounded-lg font-bold hover:shadow-lg transition flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i>
+                            Send on WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Success Message -->
+                <div id="successMessage" class="hidden slide-in bg-green-50 border border-green-200 rounded-xl p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                            <i class="fas fa-check text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-green-800 text-lg">Template Generated Successfully!</h3>
+                            <p class="text-green-700">Click "Send on WhatsApp" to open WhatsApp with this message.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template Tips -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                    <h3 class="font-bold text-yellow-800 mb-3 flex items-center gap-2">
+                        <i class="fas fa-lightbulb"></i>
+                        Pro Tips for Better Response
+                    </h3>
+                    <ul class="space-y-2 text-sm text-yellow-700">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle mt-1 text-yellow-600"></i>
+                            <span>Always include your location for accurate service availability</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle mt-1 text-yellow-600"></i>
+                            <span>Mention specific requirements for personalized solutions</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle mt-1 text-yellow-600"></i>
+                            <span>Provide alternate contact time if unavailable during business hours</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mr-3">
+                    <i class="fas fa-wifi text-white"></i>
+                </div>
+                <div class="text-left">
+                    <h2 class="text-lg font-bold text-white">Globalnet Broadband</h2>
+                    <p class="text-sm">WhatsApp Contact Template v1.0</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-500">Professional WhatsApp message formatting for customer inquiries</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const messagePreview = document.getElementById('messagePreview');
+            const copyTemplateBtn = document.getElementById('copyTemplateBtn');
+            const sendWhatsAppBtn = document.getElementById('sendWhatsAppBtn');
+            const successMessage = document.getElementById('successMessage');
+            
+            // WhatsApp phone number (replace with your actual number)
+            const whatsappNumber = "919429691943"; // Replace with your WhatsApp number
+            
+            // Function to format WhatsApp message template
+            function formatWhatsAppMessage(formData) {
+                const currentDate = new Date().toLocaleDateString('en-IN', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                
+                const currentTime = new Date().toLocaleTimeString('en-IN', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                return `*📱 CONTACT FORM ENQUIRY - GLOBALNET BROADBAND*
+*📅 ${currentDate} | ⏰ ${currentTime}*
+
+*👤 CUSTOMER INFORMATION*
+• *Name:* ${formData.fullName}
+• *WhatsApp:* +91${formData.whatsappNumber}
+${formData.emailAddress ? `• *Email:* ${formData.emailAddress}` : ''}
+
+*🎯 SERVICE DETAILS*
+• *Service Interest:* ${formData.serviceInterest}
+• *Location:* ${formData.location}
+${formData.contactTime ? `• *Preferred Time:* ${formData.contactTime}` : ''}
+
+*📝 ADDITIONAL INFORMATION*
+${formData.userMessage || 'No additional details provided.'}
+
+---
+*📞 PLEASE CONTACT ME*
+I'm interested in learning more about your services. Please contact me at your earliest convenience.
+
+*Thank you!*
+*${formData.fullName}*
+*📍 ${formData.location}*`;
+            }
+            
+            // Function to update message preview
+            function updateMessagePreview() {
+                const formData = {
+                    fullName: document.getElementById('fullName').value || '[Full Name]',
+                    whatsappNumber: document.getElementById('whatsappNumber').value || '[Phone Number]',
+                    emailAddress: document.getElementById('emailAddress').value || '[Email Address]',
+                    serviceInterest: document.getElementById('serviceInterest').value || '[Service Type]',
+                    location: document.getElementById('location').value || '[City/Area]',
+                    contactTime: document.getElementById('contactTime').value || '[Preferred Time]',
+                    userMessage: document.getElementById('userMessage').value || '[Message/Requirements]'
+                };
+                
+                const formattedMessage = formatWhatsAppMessage(formData);
+                messagePreview.textContent = formattedMessage;
+            }
+            
+            // Add event listeners to form inputs
+            const formInputs = contactForm.querySelectorAll('input, select, textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('input', updateMessagePreview);
+                input.addEventListener('change', updateMessagePreview);
+            });
+            
+            // Form submission
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate required fields
+                const requiredFields = ['fullName', 'whatsappNumber', 'serviceInterest', 'location'];
+                let isValid = true;
+                
+                requiredFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (!field.value.trim()) {
+                        field.classList.add('border-red-500');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('border-red-500');
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Please fill all required fields marked with *');
+                    return;
+                }
+                
+                // Validate phone number
+                const phoneNumber = document.getElementById('whatsappNumber').value;
+                if (!/^[0-9]{10}$/.test(phoneNumber)) {
+                    alert('Please enter a valid 10-digit phone number');
+                    return;
+                }
+                
+                // Show success message
+                successMessage.classList.remove('hidden');
+                updateMessagePreview();
+            });
+            
+            // Copy template button
+            copyTemplateBtn.addEventListener('click', function() {
+                const messageText = messagePreview.textContent;
+                
+                navigator.clipboard.writeText(messageText).then(() => {
+                    // Show feedback
+                    const originalText = copyTemplateBtn.innerHTML;
+                    copyTemplateBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    copyTemplateBtn.classList.add('bg-green-100', 'text-green-700');
+                    
+                    setTimeout(() => {
+                        copyTemplateBtn.innerHTML = originalText;
+                        copyTemplateBtn.classList.remove('bg-green-100', 'text-green-700');
+                    }, 2000);
+                });
+            });
+            
+            // Send on WhatsApp button
+            sendWhatsAppBtn.addEventListener('click', function() {
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    whatsappNumber: document.getElementById('whatsappNumber').value,
+                    emailAddress: document.getElementById('emailAddress').value,
+                    serviceInterest: document.getElementById('serviceInterest').value,
+                    location: document.getElementById('location').value,
+                    contactTime: document.getElementById('contactTime').value,
+                    userMessage: document.getElementById('userMessage').value
+                };
+                
+                // Check if form is filled
+                if (!formData.fullName || !formData.whatsappNumber) {
+                    alert('Please fill the form first before sending to WhatsApp');
+                    return;
+                }
+                
+                // Format message
+                const formattedMessage = formatWhatsAppMessage(formData);
+                const encodedMessage = encodeURIComponent(formattedMessage);
+                
+                // Create WhatsApp URL
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                
+                // Open WhatsApp
+                window.open(whatsappUrl, '_blank');
+            });
+            
+            // Phone number formatting
+            const phoneInput = document.getElementById('whatsappNumber');
+            phoneInput.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value.length > 10) {
+                    this.value = this.value.slice(0, 10);
+                }
+            });
+            
+            // Initialize preview
+            updateMessagePreview();
+        });
+    </script>
+</body>
+</html>
