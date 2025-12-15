@@ -1,197 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Contact Us | Globalnet Broadband</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contact Us | Globalnet Broadband</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
-</head>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
 
-<body class="bg-gray-100 text-gray-800">
+  <body class="bg-gray-100 text-gray-800">
+    <!-- HEADER -->
+    <div id="header"></div>
 
-  <!-- HERO SECTION -->
-  <section class="bg-gradient-to-r from-blue-700 to-indigo-600 text-white">
-    <div class="max-w-6xl mx-auto px-6 py-14 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold mb-3">
-        Contact Globalnet Broadband
-      </h1>
-      <p class="text-blue-100 max-w-2xl mx-auto">
-        Fill the form below and connect with us instantly on WhatsApp.
-      </p>
-    </div>
-  </section>
+    <!-- HERO SECTION -->
+    <section class="bg-gradient-to-r from-blue-700 to-orange-600 text-white">
+      <div class="max-w-6xl mx-auto px-6 py-14 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">
+          Contact Globalnet Broadband
+        </h1>
+        <p class="text-blue-100 max-w-2xl mx-auto">
+          Fill the form below and connect with us instantly on WhatsApp.
+        </p>
+      </div>
+    </section>
 
-  <!-- CONTACT SECTION -->
-<!-- CONTACT SECTION -->
-<section class="max-w-6xl mx-auto px-6 py-12">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- CONTACT SECTION -->
+    <section class="max-w-6xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- CONTACT FORM -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <h2 class="text-xl font-semibold mb-6">Send Us a Message</h2>
 
-    <!-- CONTACT FORM -->
-    <div class="bg-white rounded-xl shadow-md p-6">
-      <h2 class="text-xl font-semibold mb-6">Send Us a Message</h2>
+          <form id="contactForm" class="space-y-4">
+            <div>
+              <label class="text-sm font-medium">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                required
+                class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                placeholder="Enter your name"
+              />
+            </div>
 
-      <form id="contactForm" class="space-y-4">
-        <div>
-          <label class="text-sm font-medium">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            required
-            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="Enter your name"
-          />
+            <div>
+              <label class="text-sm font-medium">Mobile Number</label>
+              <input
+                type="tel"
+                id="mobile"
+                required
+                class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                placeholder="Enter mobile number"
+              />
+            </div>
+
+            <div>
+              <label class="text-sm font-medium">Service Interested In</label>
+              <select
+                id="service"
+                class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              >
+                <option>Broadband</option>
+                <option>OTT Plans</option>
+                <option>IPTV</option>
+                <option>Leased Line</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-sm font-medium">Message</label>
+              <textarea
+                id="message"
+                rows="3"
+                class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                placeholder="Your message"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-2.5 rounded-full font-medium hover:from-green-600 hover:to-green-700 transition"
+            >
+              <i class="fab fa-whatsapp mr-2"></i> Send on WhatsApp
+            </button>
+          </form>
         </div>
 
-        <div>
-          <label class="text-sm font-medium">Mobile Number</label>
-          <input
-            type="tel"
-            id="mobile"
-            required
-            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="Enter mobile number"
-          />
-        </div>
-
-        <div>
-          <label class="text-sm font-medium">Service Interested In</label>
-          <select
-            id="service"
-            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-          >
-            <option>Broadband</option>
-            <option>OTT Plans</option>
-            <option>IPTV</option>
-            <option>Leased Line</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="text-sm font-medium">Message</label>
-          <textarea
-            id="message"
-            rows="3"
-            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="Your message"
-          ></textarea>
-        </div>
-
-        <button
-          type="submit"
-          class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-2.5 rounded-full font-medium hover:from-green-600 hover:to-green-700 transition"
+        <!-- CONTACT INFO – Enhanced & Attractive Version -->
+        <div
+          class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-xl p-8 border border-blue-100 overflow-hidden relative"
         >
-          <i class="fab fa-whatsapp mr-2"></i> Send on WhatsApp
-        </button>
-      </form>
-    </div>
+          <!-- Subtle decorative wave -->
+          <div
+            class="absolute top-0 right-0 w-32 h-32 bg-blue-200 opacity-20 rounded-full blur-3xl"
+          ></div>
+          <div
+            class="absolute bottom-0 left-0 w-40 h-40 bg-indigo-200 opacity-20 rounded-full blur-3xl"
+          ></div>
 
-  <!-- CONTACT INFO – Enhanced & Attractive Version -->
-<div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-xl p-8 border border-blue-100 overflow-hidden relative">
-  <!-- Subtle decorative wave -->
-  <div class="absolute top-0 right-0 w-32 h-32 bg-blue-200 opacity-20 rounded-full blur-3xl"></div>
-  <div class="absolute bottom-0 left-0 w-40 h-40 bg-indigo-200 opacity-20 rounded-full blur-3xl"></div>
+          <div class="relative z-10">
+            <h2
+              class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 flex items-center gap-3"
+            >
+              <span
+                class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center"
+              >
+                <i class="fas fa-headset"></i>
+              </span>
+              Contact Information
+            </h2>
 
-  <div class="relative z-10">
-    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 flex items-center gap-3">
-      <span class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center">
-        <i class="fas fa-headset"></i>
-      </span>
-      Contact Information
-    </h2>
+            <div class="space-y-6 text-base">
+              <!-- Phone -->
+              <div
+                class="group flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-xl p-4 hover:bg-white hover:shadow-lg transition-all duration-300"
+              >
+                <div
+                  class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition"
+                >
+                  <i
+                    class="fas fa-phone text-blue-600 group-hover:text-white text-lg"
+                  ></i>
+                </div>
+                <div>
+                  <p class="text-gray-600 text-sm font-medium">Call Us</p>
+                  <a
+                    href="tel:+919429691943"
+                    class="font-semibold text-gray-800 hover:text-blue-600 transition"
+                    >+91 94296 91943</a
+                  >
+                </div>
+              </div>
 
-    <div class="space-y-6 text-base">
-      <!-- Phone -->
-      <div class="group flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-xl p-4 hover:bg-white hover:shadow-lg transition-all duration-300">
-        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition">
-          <i class="fas fa-phone text-blue-600 group-hover:text-white text-lg"></i>
-        </div>
-        <div>
-          <p class="text-gray-600 text-sm font-medium">Call Us</p>
-          <a href="tel:+919429691943" class="font-semibold text-gray-800 hover:text-blue-600 transition">+91 94296 91943</a>
+              <!-- WhatsApp -->
+              <div
+                class="group flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-xl p-4 hover:bg-green-50 hover:shadow-lg transition-all duration-300"
+              >
+                <div
+                  class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-600 group-hover:text-white transition"
+                >
+                  <i
+                    class="fab fa-whatsapp text-green-600 group-hover:text-white text-2xl"
+                  ></i>
+                </div>
+                <div>
+                  <p class="text-gray-600 text-sm font-medium">
+                    Chat on WhatsApp
+                  </p>
+                  <a
+                    href="https://wa.me/919429691943"
+                    target="_blank"
+                    class="font-semibold text-gray-800 hover:text-green-600 transition flex items-center gap-2"
+                  >
+                    Message Now <i class="fab fa-whatsapp text-green-600"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div
+                class="group flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-xl p-4 hover:bg-white hover:shadow-lg transition-all duration-300"
+              >
+                <div
+                  class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition"
+                >
+                  <i
+                    class="fas fa-envelope text-indigo-600 group-hover:text-white text-lg"
+                  ></i>
+                </div>
+                <div>
+                  <p class="text-gray-600 text-sm font-medium">Email Us</p>
+                  <a
+                    href="mailto:support@globalnet.com"
+                    class="font-semibold text-gray-800 hover:text-indigo-600 transition"
+                    >support@globalnet.com</a
+                  >
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div
+                class="group flex items-start gap-4 bg-white/70 backdrop-blur-sm rounded-xl p-4 hover:bg-white hover:shadow-lg transition-all duration-300"
+              >
+                <div
+                  class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition"
+                >
+                  <i
+                    class="fas fa-location-dot text-purple-600 group-hover:text-white text-xl"
+                  ></i>
+                </div>
+                <div>
+                  <p class="text-gray-600 text-sm font-medium">Visit Us</p>
+                  <p class="font-semibold text-gray-800">
+                    Globalnet Broadband<br />
+                    <span class="text-gray-600">Maharashtra, India</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Optional: Quick Action Buttons -->
+            <div class="mt-8 flex flex-col sm:flex-row gap-4">
+              <a
+                href="tel:+919429691943"
+                class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition text-center shadow-md"
+              >
+                <i class="fas fa-phone mr-2"></i> Call Now
+              </a>
+              <a
+                href="https://wa.me/919429691943"
+                target="_blank"
+                class="bg-green-600 text-white px-6 py-3 rounded-full font-medium hover:bg-green-700 transition text-center shadow-md"
+              >
+                <i class="fab fa-whatsapp mr-2"></i> WhatsApp Us
+              </a>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- WhatsApp -->
-      <div class="group flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-xl p-4 hover:bg-green-50 hover:shadow-lg transition-all duration-300">
-        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-600 group-hover:text-white transition">
-          <i class="fab fa-whatsapp text-green-600 group-hover:text-white text-2xl"></i>
+    <!-- FOOTER (SMALL & SIMPLE) -->
+<footer
+      class="bg-gray-100 text-gray-800 pt-8 pb-8 border-t border-gray-800"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Main Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14"
+        >
+          <!-- Brand Section -->
+          <div class="lg:col-span-2">
+            <!-- Logo Image -->
+            <div class="flex items-center mb-6">
+              <img
+                src="images/logo.png"
+                alt="FiberNet Pro Logo"
+                class="h-16 w-auto mr-4"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=100&fit=crop&crop=center'; this.alt='FiberNet Pro Logo'"
+              />
+            </div>
+
+            <p class="text-gray-500 leading-relaxed mb-8 max-w-md">
+              Delivering exceptional internet experiences with cutting-edge
+              fiber technology and unmatched customer support.
+            </p>
+
+            <!-- Contact Information -->
+            <div class="space-y-4">
+              <div class="flex items-center gap-3"></div>
+
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center"
+                >
+                  <i class="fas fa-envelope text-gray-400"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-800">Email Us</p>
+                  <a
+                    href="mailto:support@globalnetindia.com"
+                    class="text-gray-600 hover:text-white transition-colors font-medium"
+                  >
+                    support@globalnetindia.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Links -->
+          <div>
+            <h3
+              class="text-black font-semibold mb-4 border-l-4 border-blue-500 pl-3"
+            >
+              Navigation
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a
+                  href="index.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-home text-xs"></i> Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="about.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-info-circle text-xs"></i> About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="iptv.html"
+                  class="hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-cogs text-xs"></i> Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="broadband.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-list-alt text-xs"></i> Plans
+                </a>
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-phone-alt text-xs"></i> Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div>
+            <h3
+              class="text-black font-semibold mb-4 border-l-4 border-green-500 pl-3"
+            >
+              Services
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a
+                  href="smallenterprise.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-broadcast-tower text-xs"></i> Small
+                  Enterprises
+                </a>
+              </li>
+              <li>
+                <a
+                  href="iptv.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-satellite-dish text-xs"></i> IPTV Service
+                </a>
+              </li>
+              <li>
+                <a
+                  href="largeenterprise.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-network-wired text-xs"></i> largeenterprise
+                </a>
+              </li>
+              <li>
+                <a
+                  href="realestate.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-headset text-xs"></i> Real Estate
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Plans -->
+          <div>
+            <h3
+              class="text-black font-semibold mb-4 border-l-4 border-red-600 pl-3"
+            >
+              Plans
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a
+                  href="broadband.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-wifi text-xs"></i> Broadband Plans
+                </a>
+              </li>
+              <li>
+                <a
+                  href="OTT.html"
+                  class="hover:text-gray-700 transition-colors flex items-center gap-2"
+                >
+                  <i class="fas fa-tv text-xs"></i> OTT Streaming Plans
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <p class="text-gray-600 text-sm font-medium">Chat on WhatsApp</p>
-          <a href="https://wa.me/919429691943" target="_blank" class="font-semibold text-gray-800 hover:text-green-600 transition flex items-center gap-2">
-            Message Now <i class="fab fa-whatsapp text-green-600"></i>
-          </a>
+
+        <!-- Bottom Section - Simplified -->
+        <div class="border-t border-gray-800 pt-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-gray-500 text-sm">
+              © 2025 Globalnet Communications. All rights reserved.
+            </p>
+
+            <div class="text-gray-500 text-sm">
+              24/7 Customer Support Available
+            </div>
+          </div>
         </div>
       </div>
+    </footer>
 
-      <!-- Email -->
-      <div class="group flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-xl p-4 hover:bg-white hover:shadow-lg transition-all duration-300">
-        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition">
-          <i class="fas fa-envelope text-indigo-600 group-hover:text-white text-lg"></i>
-        </div>
-        <div>
-          <p class="text-gray-600 text-sm font-medium">Email Us</p>
-          <a href="mailto:support@globalnet.com" class="font-semibold text-gray-800 hover:text-indigo-600 transition">support@globalnet.com</a>
-        </div>
-      </div>
+    <!-- WHATSAPP SCRIPT -->
+    <script>
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-      <!-- Address -->
-      <div class="group flex items-start gap-4 bg-white/70 backdrop-blur-sm rounded-xl p-4 hover:bg-white hover:shadow-lg transition-all duration-300">
-        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition">
-          <i class="fas fa-location-dot text-purple-600 group-hover:text-white text-xl"></i>
-        </div>
-        <div>
-          <p class="text-gray-600 text-sm font-medium">Visit Us</p>
-          <p class="font-semibold text-gray-800">
-            Globalnet Broadband<br>
-            <span class="text-gray-600">Maharashtra, India</span>
-          </p>
-        </div>
-      </div>
-    </div>
+          const name = document.getElementById("name").value;
+          const mobile = document.getElementById("mobile").value;
+          const service = document.getElementById("service").value;
+          const message = document.getElementById("message").value;
 
-    <!-- Optional: Quick Action Buttons -->
-    <div class="mt-8 flex flex-col sm:flex-row gap-4">
-      <a href="tel:+919429691943" class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition text-center shadow-md">
-        <i class="fas fa-phone mr-2"></i> Call Now
-      </a>
-      <a href="https://wa.me/919429691943" target="_blank" class="bg-green-600 text-white px-6 py-3 rounded-full font-medium hover:bg-green-700 transition text-center shadow-md">
-        <i class="fab fa-whatsapp mr-2"></i> WhatsApp Us
-      </a>
-    </div>
-  </div>
-</div>
+          const phoneNumber = "919429691943"; // 🔴 CHANGE TO YOUR WHATSAPP NUMBER
 
-  </div>
-</section>
-
-
-  <!-- FOOTER (SMALL & SIMPLE) -->
-  <footer class="bg-gray-900 text-gray-400 text-center py-4 text-sm">
-    © 2025 Globalnet Broadband
-  </footer>
-
-  <!-- WHATSAPP SCRIPT -->
-  <script>
-    document.getElementById("contactForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value;
-      const mobile = document.getElementById("mobile").value;
-      const service = document.getElementById("service").value;
-      const message = document.getElementById("message").value;
-
-      const phoneNumber = "919429691943"; // 🔴 CHANGE TO YOUR WHATSAPP NUMBER
-
-     const whatsappMessage = `
+          const whatsappMessage = `
 Globalnet Broadband – New Enquiry
 
 Name: ${name}
@@ -200,16 +439,65 @@ Service: ${service}
 Message: ${message || "N/A"}
 `;
 
+          const whatsappURL =
+            "https://wa.me/" +
+            phoneNumber +
+            "?text=" +
+            encodeURIComponent(whatsappMessage);
 
-      const whatsappURL =
-        "https://wa.me/" +
-        phoneNumber +
-        "?text=" +
-        encodeURIComponent(whatsappMessage);
+          window.open(whatsappURL, "_blank");
+        });
 
-      window.open(whatsappURL, "_blank");
-    });
-  </script>
+         // Header Loading
+        fetch("header.html")
+          .then((res) => {
+            if (!res.ok) throw new Error("Header not found");
+            return res.text();
+          })
+          .then((data) => {
+            document.getElementById("header").innerHTML = data;
+            initializeHeader();
+          })
+          .catch((error) => {
+            console.log("Using fallback header:", error.message);
+            loadFallbackHeader();
+          });
 
-</body>
+        function initializeHeader() {
+          const mobileMenuToggle =
+            document.getElementById("mobile-menu-toggle");
+          const mobileMenu = document.getElementById("mobile-menu");
+          const menuIcon = document.getElementById("menu-icon");
+
+          if (mobileMenuToggle && mobileMenu && menuIcon) {
+            mobileMenuToggle.addEventListener("click", () => {
+              const isOpen = mobileMenu.classList.contains("open");
+
+              if (isOpen) {
+                mobileMenu.classList.remove("open");
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+              } else {
+                mobileMenu.classList.add("open");
+                menuIcon.classList.remove("fa-bars");
+                menuIcon.classList.add("fa-times");
+              }
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener("click", function (event) {
+              if (
+                !mobileMenu.contains(event.target) &&
+                !mobileMenuToggle.contains(event.target) &&
+                mobileMenu.classList.contains("open")
+              ) {
+                mobileMenu.classList.remove("open");
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+              }
+            });
+          }
+        }
+    </script>
+  </body>
 </html>
