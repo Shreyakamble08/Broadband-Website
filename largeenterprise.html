@@ -10,15 +10,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-
-    <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
     <style>
       /* Custom Styles for Large Enterprise Page */
       :root {
@@ -44,6 +38,8 @@
         scroll-behavior: smooth;
       }
 
+
+      
       /* Full Screen Sections */
       .full-screen-section {
         min-height: 100vh;
@@ -227,30 +223,6 @@
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       }
 
-      /* Navigation responsive */
-      .nav-desktop {
-        display: none;
-      }
-
-      @media (min-width: 768px) {
-        .nav-desktop {
-          display: flex;
-        }
-        .nav-mobile-toggle {
-          display: none;
-        }
-      }
-
-      .nav-mobile {
-        display: block;
-      }
-
-      @media (min-width: 768px) {
-        .nav-mobile {
-          display: none;
-        }
-      }
-
       /* RESPONSIVE BREAKPOINTS */
 
       /* Tablet (768px and up) */
@@ -265,6 +237,14 @@
 
         .section-title {
           font-size: 2.5rem;
+        }
+
+        .nav-desktop {
+          display: flex;
+        }
+        
+        .mobile-menu-toggle {
+          display: none;
         }
       }
 
@@ -356,46 +336,10 @@
     </style>
   </head>
   <body>
-    <!-- Navigation -->
-    <div id="header">
-      <!-- Fallback header if header.html doesn't load -->
-      <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between h-16">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 flex items-center">
-                <i class="fas fa-wifi text-blue-600 text-2xl mr-2"></i>
-                <span class="font-bold text-xl text-gray-800">FiberNet Pro</span>
-              </div>
-            </div>
-            <div class="hidden md:flex items-center space-x-8">
-              <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
-              <a href="#services" class="text-gray-700 hover:text-blue-600">Services</a>
-              <a href="#solutions" class="text-gray-700 hover:text-blue-600">Solutions</a>
-              <button onclick="openEnquiry()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                Contact Us
-              </button>
-            </div>
-            <div class="md:hidden flex items-center">
-              <button id="mobile-menu-toggle" class="text-gray-700">
-                <i id="menu-icon" class="fas fa-bars text-xl"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
-          <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Home</a>
-            <a href="#services" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Services</a>
-            <a href="#solutions" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Solutions</a>
-            <button onclick="openEnquiry()" class="w-full text-left px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-              Contact Us
-            </button>
-          </div>
-        </div>
-      </nav>
-    </div>
+    <!-- Header -->
+     <!-- Header -->
+    <div id="header"></div>
+
 
     <!-- 1. Hero Section -->
     <section
@@ -832,6 +776,75 @@
     </div>
 
     <script>
+
+//header js
+// ============ HEADER INJECTION (unchanged) ============
+      fetch("header.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+
+          const mobileMenuToggle =
+            document.getElementById("mobile-menu-toggle");
+          const mobileMenu = document.getElementById("mobile-menu");
+          const menuIcon = document.getElementById("menu-icon");
+          const mobilePlansToggle = document.getElementById(
+            "mobile-plans-toggle"
+          );
+          const mobilePlans = document.getElementById("mobile-plans");
+          const mobileServicesToggle = document.getElementById(
+            "mobile-services-toggle"
+          );
+          const mobileServices = document.getElementById("mobile-services");
+
+          mobileMenuToggle?.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+            menuIcon.classList.toggle("fa-bars");
+            menuIcon.classList.toggle("fa-times");
+
+            if (!mobileMenu.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle?.classList.remove("active");
+              mobileServicesToggle?.classList.remove("active");
+            }
+          });
+
+          mobilePlansToggle?.addEventListener("click", () => {
+            mobilePlans.classList.toggle("open");
+            mobilePlansToggle.classList.toggle("active");
+            if (mobileServices.classList.contains("open")) {
+              mobileServices.classList.remove("open");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+
+          mobileServicesToggle?.addEventListener("click", () => {
+            mobileServices.classList.toggle("open");
+            mobileServicesToggle.classList.toggle("active");
+            if (mobilePlans.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+            }
+          });
+
+          document.addEventListener("click", function (event) {
+            if (!mobileMenu || !mobileMenuToggle) return;
+            const isClickInside =
+              mobileMenu.contains(event.target) ||
+              mobileMenuToggle.contains(event.target);
+            if (!isClickInside && mobileMenu.classList.contains("open")) {
+              mobileMenu.classList.remove("open");
+              menuIcon.classList.remove("fa-times");
+              menuIcon.classList.add("fa-bars");
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle?.classList.remove("active");
+              mobileServicesToggle?.classList.remove("active");
+            }
+          });
+        });
+
       // DOM Elements
       const overlay = document.getElementById("enquiryOverlay");
       const selectedPlanInput = document.getElementById("selectedPlan");
@@ -840,7 +853,7 @@
       const enquiryForm = document.getElementById("enquiryForm");
       const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
       const mobileMenu = document.getElementById("mobile-menu");
-      const menuIcon = document.getElementById("menu-icon");
+      const hamburger = document.querySelector(".hamburger");
 
       // Open Enquiry Form
       function openEnquiry() {
@@ -910,34 +923,6 @@
         };
       }
 
-      // Mobile menu toggle
-      if (mobileMenuToggle && mobileMenu && menuIcon) {
-        mobileMenuToggle.addEventListener("click", () => {
-          const isOpen = mobileMenu.classList.contains("hidden");
-          mobileMenu.classList.toggle("hidden");
-          
-          if (isOpen) {
-            menuIcon.classList.remove("fa-bars");
-            menuIcon.classList.add("fa-times");
-          } else {
-            menuIcon.classList.remove("fa-times");
-            menuIcon.classList.add("fa-bars");
-          }
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener("click", function (event) {
-          if (
-            !mobileMenu.contains(event.target) &&
-            !mobileMenuToggle.contains(event.target) &&
-            !mobileMenu.classList.contains("hidden")
-          ) {
-            mobileMenu.classList.add("hidden");
-            menuIcon.classList.remove("fa-times");
-            menuIcon.classList.add("fa-bars");
-          }
-        });
-      }
 
       // Initialize
       document.addEventListener("DOMContentLoaded", () => {
@@ -973,61 +958,13 @@
               });
 
               // Close mobile menu if open
-              if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
-                mobileMenu.classList.add("hidden");
-                menuIcon.classList.remove("fa-times");
-                menuIcon.classList.add("fa-bars");
+              if (mobileMenu && mobileMenu.classList.contains("active")) {
+                mobileMenu.classList.remove("active");
+                hamburger.classList.remove("active");
               }
             }
           });
         });
-
-        // Try to load external header if it exists
-        fetch("header.html")
-          .then((res) => {
-            if (res.ok) return res.text();
-            throw new Error("Header file not found");
-          })
-          .then((data) => {
-            document.getElementById("header").innerHTML = data;
-            
-            // Re-initialize header functionality after loading
-            const newMobileMenuToggle = document.getElementById("mobile-menu-toggle");
-            const newMobileMenu = document.getElementById("mobile-menu");
-            const newMenuIcon = document.getElementById("menu-icon");
-
-            if (newMobileMenuToggle && newMobileMenu && newMenuIcon) {
-              newMobileMenuToggle.addEventListener("click", () => {
-                const isOpen = newMobileMenu.classList.contains("hidden");
-                newMobileMenu.classList.toggle("hidden");
-                
-                if (isOpen) {
-                  newMenuIcon.classList.remove("fa-bars");
-                  newMenuIcon.classList.add("fa-times");
-                } else {
-                  newMenuIcon.classList.remove("fa-times");
-                  newMenuIcon.classList.add("fa-bars");
-                }
-              });
-
-              // Close mobile menu when clicking outside
-              document.addEventListener("click", function (event) {
-                if (
-                  !newMobileMenu.contains(event.target) &&
-                  !newMobileMenuToggle.contains(event.target) &&
-                  !newMobileMenu.classList.contains("hidden")
-                ) {
-                  newMobileMenu.classList.add("hidden");
-                  newMenuIcon.classList.remove("fa-times");
-                  newMenuIcon.classList.add("fa-bars");
-                }
-              });
-            }
-          })
-          .catch((error) => {
-            console.log("Using fallback header:", error.message);
-            // Keep the fallback header that's already in place
-          });
       });
     </script>
   </body>

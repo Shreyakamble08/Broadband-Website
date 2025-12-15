@@ -271,6 +271,58 @@
   <body class="overflow-x-hidden">
     <!-- Navigation -->
     <div id="header"></div>
+    <script>
+       // Header Loading
+        fetch("header.html")
+          .then((res) => {
+            if (!res.ok) throw new Error("Header not found");
+            return res.text();
+          })
+          .then((data) => {
+            document.getElementById("header").innerHTML = data;
+            initializeHeader();
+          })
+          .catch((error) => {
+            console.log("Using fallback header:", error.message);
+            loadFallbackHeader();
+          });
+
+        function initializeHeader() {
+          const mobileMenuToggle =
+            document.getElementById("mobile-menu-toggle");
+          const mobileMenu = document.getElementById("mobile-menu");
+          const menuIcon = document.getElementById("menu-icon");
+
+          if (mobileMenuToggle && mobileMenu && menuIcon) {
+            mobileMenuToggle.addEventListener("click", () => {
+              const isOpen = mobileMenu.classList.contains("open");
+
+              if (isOpen) {
+                mobileMenu.classList.remove("open");
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+              } else {
+                mobileMenu.classList.add("open");
+                menuIcon.classList.remove("fa-bars");
+                menuIcon.classList.add("fa-times");
+              }
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener("click", function (event) {
+              if (
+                !mobileMenu.contains(event.target) &&
+                !mobileMenuToggle.contains(event.target) &&
+                mobileMenu.classList.contains("open")
+              ) {
+                mobileMenu.classList.remove("open");
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+              }
+            });
+          }
+        }
+    </script>
 
     <!-- Hero Banner Section -->
     <section
@@ -977,56 +1029,7 @@
           closeEnquiry();
         });
 
-        // Header Loading
-        fetch("header.html")
-          .then((res) => {
-            if (!res.ok) throw new Error("Header not found");
-            return res.text();
-          })
-          .then((data) => {
-            document.getElementById("header").innerHTML = data;
-            initializeHeader();
-          })
-          .catch((error) => {
-            console.log("Using fallback header:", error.message);
-            loadFallbackHeader();
-          });
-
-        function initializeHeader() {
-          const mobileMenuToggle =
-            document.getElementById("mobile-menu-toggle");
-          const mobileMenu = document.getElementById("mobile-menu");
-          const menuIcon = document.getElementById("menu-icon");
-
-          if (mobileMenuToggle && mobileMenu && menuIcon) {
-            mobileMenuToggle.addEventListener("click", () => {
-              const isOpen = mobileMenu.classList.contains("open");
-
-              if (isOpen) {
-                mobileMenu.classList.remove("open");
-                menuIcon.classList.remove("fa-times");
-                menuIcon.classList.add("fa-bars");
-              } else {
-                mobileMenu.classList.add("open");
-                menuIcon.classList.remove("fa-bars");
-                menuIcon.classList.add("fa-times");
-              }
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener("click", function (event) {
-              if (
-                !mobileMenu.contains(event.target) &&
-                !mobileMenuToggle.contains(event.target) &&
-                mobileMenu.classList.contains("open")
-              ) {
-                mobileMenu.classList.remove("open");
-                menuIcon.classList.remove("fa-times");
-                menuIcon.classList.add("fa-bars");
-              }
-            });
-          }
-        }
+       
 
         function loadFallbackHeader() {
           document.getElementById("header").innerHTML = `
