@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FiberNet Pro | High-Speed Broadband & Fiber Internet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 1s ease-out forwards;
+      }
+
+      .animate-slide-in-left {
+        animation: slideInLeft 0.8s ease-out forwards;
+      }
+
+      .animate-slide-in-right {
+        animation: slideInRight 0.8s ease-out forwards;
+      }
+
+      .animation-delay-100 {
+        animation-delay: 0.1s;
+      }
+
+      .animation-delay-200 {
+        animation-delay: 0.2s;
+      }
+
+      .animation-delay-300 {
+        animation-delay: 0.3s;
+      }
+
+      .animation-delay-400 {
+        animation-delay: 0.4s;
+      }
+
+      /* Smooth scroll behavior */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Theme Colors */
+      :root {
+        --primary-blue: #004b88;
+        --secondary-blue: #0066cc;
+        --accent-orange: #ff6b00;
+        --light-orange: #ff8c42;
+        --dark-blue: #003366;
+        --light-blue: #e6f2ff;
+      }
+
+      /* General Styles */
+      body {
+        font-family: "Poppins", system-ui, sans-serif;
+        background-color: #f8fafc;
+        color: #334155;
+        overflow-x: hidden;
+      }
+
+      /* Hero Banner */
+      .hero-banner {
+        background: linear-gradient(
+            rgba(0, 51, 102, 0.85),
+            rgba(0, 75, 136, 0.85)
+          ),
+          url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 65vh;
+        min-height: 500px;
+        position: relative;
+      }
+
+      /* Services Section Cards */
+      .service-card {
+        transition: all 0.3s ease;
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        height: 100%;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Leased Line Info Section */
+      .leased-line-info {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .leased-line-info::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%230066CC" fill-opacity="0.05" d="M0,0 L100,0 L100,100 Z"/></svg>');
+        background-size: 200px;
+      }
+
+      /* Stats Counter */
+      .stat-counter {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(
+          135deg,
+          var(--secondary-blue),
+          var(--accent-orange)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Enquire Button */
+      .enquire-btn {
+        background: linear-gradient(
+          135deg,
+          var(--accent-orange),
+          var(--light-orange)
+        );
+        color: white;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+      }
+
+      .enquire-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+      }
+
+      /* Feature Icons */
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .hero-banner {
+          height: 50vh;
+          min-height: 400px;
+          background-attachment: scroll;
+        }
+
+        .stat-counter {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero-banner {
+          height: 45vh;
+          min-height: 350px;
+        }
+      }
+
+      /* Overlay */
+      #overlay {
+        backdrop-filter: blur(5px);
+      }
+
+      .overlay-content {
+        background: white;
+        border-radius: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      /* Image Hover Effects */
+      .img-hover-zoom {
+        overflow: hidden;
+        border-radius: 12px;
+      }
+
+      .img-hover-zoom img {
+        transition: transform 0.5s ease;
+      }
+
+      .img-hover-zoom:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Gradient Text */
+      .gradient-text {
+        background: linear-gradient(
+          135deg,
+          var(--secondary-blue),
+          var(--accent-orange)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    </style>
+  </head>
+  <body class="overflow-x-hidden">
+    <!-- Navigation -->
+    <div id="header"></div>
+
+    <!-- Hero Banner Section -->
+    <section
+      class="hero-banner relative flex items-center justify-center min-h-[55vh] md:min-h-[60vh]"
+    >
+      <!-- Overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20"
+      ></div>
+
+      <!-- Content -->
+      <div
+        class="relative z-10 max-w-7xl mx-auto px-6 text-center text-white animate-fade-in"
+      >
+        <h1
+          class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight"
+        >
+          Powering Growth,<br />
+          <span class="text-orange-400">Connecting Possibilities</span>
+        </h1>
+
+        <p
+          class="text-base md:text-lg text-blue-100 max-w-3xl mx-auto mb-6 leading-relaxed animate-fade-in animation-delay-200"
+        >
+          Bridge the connectivity gap for your Enterprise with our Fast, Simple,
+          Reliable Services from one of India's top Private ISP.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section
+      id="services"
+      class="mt-6 md:-mt-10 py-10 md:py-14 bg-gradient-to-b from-white to-slate-50"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Header -->
+        <div class="text-center mb-10 animate-fade-in-up">
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-3">
+            Understanding <span class="gradient-text">Leased Lines</span>
+          </h2>
+
+          <p class="text-base text-slate-600 max-w-3xl mx-auto">
+            Secure, reliable, and dedicated internet connectivity for
+            enterprises
+          </p>
+        </div>
+
+        <!-- What are Leased Lines -->
+        <div class="mb-10 animate-fade-in-up">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <!-- Left Content -->
+            <div>
+              <div class="flex items-center gap-3 mb-5">
+                <div
+                  class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center"
+                >
+                  <i class="fas fa-info-circle text-blue-600"></i>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-slate-800">
+                  What are <span class="text-blue-600">Leased Lines?</span>
+                </h3>
+              </div>
+
+              <p class="text-slate-700 text-base leading-relaxed mb-5">
+                A leased line is a dedicated, fixed-bandwidth internet
+                connection that offers symmetric speeds and uncontended
+                performance between locations.
+              </p>
+
+              <div
+                class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-lg"
+              >
+                <h4 class="font-semibold text-slate-800 mb-3">
+                  Key Characteristics
+                </h4>
+                <ul class="space-y-2 text-sm">
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-500"></i> Dedicated
+                    private connection
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-500"></i> Symmetric
+                    speeds
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                    SLA-backed uptime
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-500"></i> 24/7
+                    monitoring
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Right Image -->
+            <div
+              class="bg-white rounded-xl p-5 shadow-lg border border-slate-200"
+            >
+              <h4 class="text-lg font-bold text-slate-800 text-center mb-2">
+                Leased Line Infrastructure
+              </h4>
+              <p class="text-sm text-slate-600 text-center mb-4">
+                Dedicated enterprise-grade connectivity
+              </p>
+
+              <img
+                src="images/leaseline.png.webp"
+                alt="Leased Line Architecture"
+                class="w-full h-56 md:h-64 object-cover rounded-lg"
+                onerror="this.src='https://via.placeholder.com/900x350?text=Leased+Line+Architecture'"
+              />
+
+              <p class="text-xs text-center text-slate-500 mt-3">
+                <i class="fas fa-network-wired text-blue-500 mr-1"></i>
+                Enterprise fiber to ISP backbone
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Why Businesses Choose -->
+        <div class="mb-10 animate-fade-in-up">
+          <div class="text-center mb-8">
+            <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-2">
+              Why Businesses Choose
+              <span class="text-blue-600">Leased Lines</span>
+            </h3>
+            <p class="text-base text-slate-600 max-w-3xl mx-auto">
+              Built for mission-critical enterprise operations
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Card -->
+            <div
+              class="bg-white rounded-xl p-5 shadow-md border hover:shadow-lg transition"
+            >
+              <div
+                class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3"
+              >
+                <i class="fas fa-cloud text-blue-600"></i>
+              </div>
+              <h4 class="font-semibold text-slate-800 mb-2">Cloud & SaaS</h4>
+              <p class="text-sm text-slate-600">
+                Reliable access to ERP, CRM, and cloud platforms.
+              </p>
+            </div>
+
+            <div
+              class="bg-white rounded-xl p-5 shadow-md border hover:shadow-lg transition"
+            >
+              <div
+                class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3"
+              >
+                <i class="fas fa-video text-orange-600"></i>
+              </div>
+              <h4 class="font-semibold text-slate-800 mb-2">VoIP & Video</h4>
+              <p class="text-sm text-slate-600">
+                Clear calls with zero jitter and packet loss.
+              </p>
+            </div>
+
+            <div
+              class="bg-white rounded-xl p-5 shadow-md border hover:shadow-lg transition"
+            >
+              <div
+                class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3"
+              >
+                <i class="fas fa-exchange-alt text-blue-600"></i>
+              </div>
+              <h4 class="font-semibold text-slate-800 mb-2">
+                Data Replication
+              </h4>
+              <p class="text-sm text-slate-600">
+                Secure, real-time backup and DR connectivity.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center animate-fade-in-up">
+          <div
+            class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-6 md:p-8 text-white"
+          >
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              Get in Touch With Our Experts
+            </h3>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="contact.html"
+                class="inline-flex items-center justify-center bg-white text-blue-700 px-6 py-2.5 rounded-lg font-semibold hover:bg-blue-50 transition"
+              >
+                <i class="fas fa-envelope mr-2"></i> Contact Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section
+      class="mt-6 md:-mt-8 py-10 md:py-12 bg-gradient-to-b from-white to-gray-50"
+    >
+      <div class="max-w-7xl mx-auto px-5">
+        <!-- Section Header -->
+        <div class="text-center mb-8 animate-fade-in-up">
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+            Enterprise
+            <span
+              class="bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent"
+              >Solutions</span
+            >
+          </h2>
+
+          <p class="text-sm md:text-base text-slate-600 max-w-2xl mx-auto">
+            Reliable, scalable features built for modern enterprise networks.
+          </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Feature 1 -->
+          <div
+            class="relative bg-white rounded-lg p-4 border border-slate-200 shadow-sm hover:shadow-md transition"
+          >
+            <span
+              class="absolute left-0 top-0 h-full w-0.5 bg-blue-600 rounded-l-lg"
+            ></span>
+
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-md bg-blue-100 flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-chart-line text-blue-600 text-sm"></i>
+              </div>
+
+              <div>
+                <h3 class="text-sm font-semibold text-slate-800 mb-1">
+                  Enterprise Empowerment
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Transparent guidance to choose the right leased line solutions
+                  with complete visibility.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div
+            class="relative bg-white rounded-lg p-4 border border-slate-200 shadow-sm hover:shadow-md transition"
+          >
+            <span
+              class="absolute left-0 top-0 h-full w-0.5 bg-orange-500 rounded-l-lg"
+            ></span>
+
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-md bg-orange-100 flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-tachometer-alt text-orange-600 text-sm"></i>
+              </div>
+
+              <div>
+                <h3 class="text-sm font-semibold text-slate-800 mb-1">
+                  High-Speed Connectivity
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Dedicated bandwidth lanes for data-intensive and
+                  latency-sensitive operations.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div
+            class="relative bg-white rounded-lg p-4 border border-slate-200 shadow-sm hover:shadow-md transition"
+          >
+            <span
+              class="absolute left-0 top-0 h-full w-0.5 bg-blue-600 rounded-l-lg"
+            ></span>
+
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-md bg-blue-100 flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-headset text-blue-600 text-sm"></i>
+              </div>
+
+              <div>
+                <h3 class="text-sm font-semibold text-slate-800 mb-1">
+                  Dedicated Support
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  SLA-backed services with 24×7 monitoring and a dedicated
+                  enterprise NOC.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 4 -->
+          <div
+            class="relative bg-white rounded-lg p-4 border border-slate-200 shadow-sm hover:shadow-md transition"
+          >
+            <span
+              class="absolute left-0 top-0 h-full w-0.5 bg-orange-500 rounded-l-lg"
+            ></span>
+
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-md bg-orange-100 flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-hand-holding-usd text-orange-600 text-sm"></i>
+              </div>
+
+              <div>
+                <h3 class="text-sm font-semibold text-slate-800 mb-1">
+                  Cost Optimization
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Enterprise pricing models focused on long-term value and
+                  operational efficiency.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+  <footer
+      class="bg-gray-950 text-gray-400 pt-16 pb-12 border-t border-gray-800"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Main Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14"
+        >
+          <!-- Brand Section -->
+          <div class="lg:col-span-2">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4 shadow-sm"
+              >
+                <i class="fas fa-wifi text-gray-900 text-lg"></i>
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-white tracking-wide">
+                  FiberNet Pro
+                </h2>
+                <p class="text-gray-500 text-sm">Pure Fiber. Pure Speed.</p>
+              </div>
+            </div>
+
+            <p class="text-gray-500 leading-relaxed mb-6">
+              Delivering exceptional internet experiences with cutting-edge
+              fiber technology and unmatched customer support.
+            </p>
+
+            <!-- Social Icons -->
+            <div class="flex space-x-3">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Product -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-red-600 pl-3"
+            >
+              Product
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Internet Plans</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Business Solutions</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Coverage Map</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Speed Test</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-blue-500 pl-3"
+            >
+              Company
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">Press</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">Blog</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-green-500 pl-3"
+            >
+              Resources
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Support</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Documentation</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">API</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Status</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="border-t border-gray-800 pt-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-gray-500 text-sm">
+              © 2025 FiberNet Pro. All rights reserved.
+            </p>
+
+            <div class="flex items-center space-x-6 text-sm">
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Privacy Policy</a
+              >
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Terms of Service</a
+              >
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Cookie Policy</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Enquiry Overlay -->
+    <div
+      id="overlay"
+      class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
+      <div class="overlay-content w-full max-w-md p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-slate-800">
+            Business Connectivity Enquiry
+          </h3>
+          <button id="closeOverlay" class="text-slate-500 hover:text-slate-700">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        <p class="text-slate-600 mb-6">
+          Get started with our premium business connectivity solutions.
+        </p>
+        <form id="enqForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2"
+              >Name <span class="text-red-500">*</span></label
+            >
+            <input
+              id="name"
+              type="text"
+              required
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2"
+              >Mobile <span class="text-red-500">*</span></label
+            >
+            <input
+              id="mobile"
+              type="tel"
+              required
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2"
+              >Email</label
+            >
+            <input
+              id="email"
+              type="email"
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2"
+              >Company Name</label
+            >
+            <input
+              id="company"
+              type="text"
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2"
+              >Selected Service</label
+            >
+            <input
+              id="selectedPlan"
+              type="text"
+              readonly
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50"
+            />
+          </div>
+          <div class="flex gap-3 pt-4">
+            <button type="submit" class="enquire-btn flex-1 py-3">
+              Submit via WhatsApp
+            </button>
+            <button
+              type="button"
+              id="cancelBtn"
+              class="flex-1 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Animation observer
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements for animation
+      document.addEventListener("DOMContentLoaded", () => {
+        // Observe all service cards and features
+        document
+          .querySelectorAll(".service-card, .animate-on-scroll")
+          .forEach((el) => {
+            observer.observe(el);
+          });
+
+        // Enquiry Form Functions
+        const overlay = document.getElementById("overlay");
+        const closeOverlay = document.getElementById("closeOverlay");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const enqForm = document.getElementById("enqForm");
+        const selectedPlanInput = document.getElementById("selectedPlan");
+
+        function openEnquiry() {
+          if (selectedPlanInput)
+            selectedPlanInput.value = "General Business Enquiry";
+          overlay.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        }
+
+        function openEnquiryWithPlan(planName) {
+          if (selectedPlanInput) selectedPlanInput.value = planName;
+          overlay.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeEnquiry() {
+          overlay.classList.add("hidden");
+          document.body.style.overflow = "auto";
+          if (enqForm) enqForm.reset();
+        }
+
+        // Event Listeners
+        closeOverlay?.addEventListener("click", closeEnquiry);
+        cancelBtn?.addEventListener("click", closeEnquiry);
+
+        overlay?.addEventListener("click", (e) => {
+          if (e.target === overlay) closeEnquiry();
+        });
+
+        // Form Submission
+        enqForm?.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("name").value.trim();
+          const mobile = document.getElementById("mobile").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const company = document.getElementById("company").value.trim();
+          const plan = selectedPlanInput ? selectedPlanInput.value : "";
+
+          if (!name || !mobile) {
+            alert("Please fill all required fields");
+            return;
+          }
+
+          // Create WhatsApp message
+          const message =
+            `Hello! I'm interested in ONE Business connectivity solutions.%0A%0A` +
+            `*Service Interest:*%0A${plan}%0A%0A` +
+            `*Contact Details:*%0A` +
+            `Name: ${name}%0A` +
+            `Mobile: ${mobile}%0A` +
+            `Email: ${email || "Not provided"}%0A` +
+            `Company: ${company || "Not provided"}%0A%0A` +
+            `Please contact me for business consultation.`;
+
+          // Open WhatsApp
+          const whatsappUrl = `https://wa.me/919429691943?text=${message}`;
+          window.open(whatsappUrl, "_blank");
+
+          closeEnquiry();
+        });
+
+        // Header Loading
+        fetch("header.html")
+          .then((res) => {
+            if (!res.ok) throw new Error("Header not found");
+            return res.text();
+          })
+          .then((data) => {
+            document.getElementById("header").innerHTML = data;
+            initializeHeader();
+          })
+          .catch((error) => {
+            console.log("Using fallback header:", error.message);
+            loadFallbackHeader();
+          });
+
+        function initializeHeader() {
+          const mobileMenuToggle =
+            document.getElementById("mobile-menu-toggle");
+          const mobileMenu = document.getElementById("mobile-menu");
+          const menuIcon = document.getElementById("menu-icon");
+
+          if (mobileMenuToggle && mobileMenu && menuIcon) {
+            mobileMenuToggle.addEventListener("click", () => {
+              const isOpen = mobileMenu.classList.contains("open");
+
+              if (isOpen) {
+                mobileMenu.classList.remove("open");
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+              } else {
+                mobileMenu.classList.add("open");
+                menuIcon.classList.remove("fa-bars");
+                menuIcon.classList.add("fa-times");
+              }
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener("click", function (event) {
+              if (
+                !mobileMenu.contains(event.target) &&
+                !mobileMenuToggle.contains(event.target) &&
+                mobileMenu.classList.contains("open")
+              ) {
+                mobileMenu.classList.remove("open");
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+              }
+            });
+          }
+        }
+
+        function loadFallbackHeader() {
+          document.getElementById("header").innerHTML = `
+            <nav class="bg-white shadow-lg sticky top-0 z-40">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                      <i class="fas fa-wifi text-blue-600 text-2xl mr-2"></i>
+                      <span class="font-bold text-xl text-gray-800">ONE Business</span>
+                    </div>
+                  </div>
+                  <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#services" class="text-gray-700 hover:text-blue-600">Services</a>
+                    <a href="#features" class="text-gray-700 hover:text-blue-600">Features</a>
+                    <button onclick="openEnquiry()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                      Contact Us
+                    </button>
+                  </div>
+                  <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-toggle" class="text-gray-700">
+                      <i id="menu-icon" class="fas fa-bars text-xl"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                  <a href="#home" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Home</a>
+                  <a href="#services" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Services</a>
+                  <a href="#features" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Features</a>
+                  <button onclick="openEnquiry()" class="w-full text-left px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    Contact Us
+                  </button>
+                </div>
+              </div>
+            </nav>
+          `;
+          initializeHeader();
+        }
+      });
+
+      // Make functions globally available
+      window.openEnquiry = openEnquiry;
+      window.openEnquiryWithPlan = openEnquiryWithPlan;
+    </script>
+  </body>
+</html>

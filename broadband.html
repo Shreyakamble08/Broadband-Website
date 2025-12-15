@@ -7,22 +7,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- LibreSpeed Official Style -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/librespeed/speedtest/speedtest.css">
-
   <style>
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       background-color: #f8fafc;
       color: #334155;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-    }
-    .device-card {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      border-radius: 16px;
-      color: white;
     }
     .plan-card {
       background: white;
@@ -32,14 +24,16 @@
       transition: all 0.3s ease;
     }
     .plan-card:hover {
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
     }
     .speed-badge {
       background: linear-gradient(135deg, #3b82f6, #1e40af);
       color: white;
       border-radius: 20px;
       font-weight: 600;
+      padding: 6px 16px;
+      font-size: 0.875rem;
     }
     .month-btn {
       width: 40px;
@@ -53,151 +47,450 @@
       cursor: pointer;
       font-weight: 600;
       transition: all 0.2s ease;
+      font-size: 0.875rem;
+    }
+    .month-btn:hover {
+      border-color: #3b82f6;
+      transform: scale(1.05);
     }
     .month-btn.active {
       background: #3b82f6;
       color: white;
       border-color: #3b82f6;
+      transform: scale(1.05);
     }
     .enquire-btn {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
+      background: linear-gradient(135deg, #25D366, #128C7E);
       color: white;
-      border-radius: 24px;
+      border-radius: 12px;
       font-weight: 600;
       transition: all 0.3s ease;
+      padding: 12px 20px;
+      font-size: 0.875rem;
     }
     .enquire-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
     }
     .filter-pill {
       background: white;
-      border-radius: 20px;
+      border-radius: 16px;
       border: 1px solid #e2e8f0;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-    }
-    .test-speed-btn {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: white;
-      border-radius: 24px;
-      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
       transition: all 0.3s ease;
     }
-    .test-speed-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    }
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
+    .filter-pill:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      border-color: #3b82f6;
     }
     .feature-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: rgba(59, 130, 246, 0.1);
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(59, 130, 246, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #3b82f6;
-    }
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #cbd5e1, transparent);
-      margin: 24px 0;
-    }
-    .speed-result {
-      background: rgba(16, 185, 129, 0.15);
-      border: 2px solid #10b981;
-      border-radius: 16px;
-      padding: 1.5rem;
-      text-align: center;
-      margin-top: 1.5rem;
-      display: none;
-    }
-    #speedTestContainer {
-      min-height: 420px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 20px;
-      backdrop-filter: blur(10px);
-      display: none;
+      flex-shrink: 0;
     }
     
-    /* Enhanced Speed Test Styling */
-    .speed-test-active #speedTestContainer {
-      display: block;
-    }
-    .speed-test-active #speedTestArea {
-      display: none;
-    }
-    
-    /* Speed Test Animation */
-    .speed-pulse {
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    /* Custom Speed Test Styling */
-    .speed-test-wrapper {
+    .ott-badge {
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
       color: white;
-      text-align: center;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
     }
     
-    .speed-test-meter {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #10b981;
-      margin: 1rem 0;
+    .ott-badge:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
     }
     
-    .speed-test-label {
-      font-size: 1.2rem;
-      opacity: 0.8;
-      margin-bottom: 2rem;
+    .plan-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.3;
     }
     
-    .speed-test-progress {
-      width: 100%;
-      height: 8px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 2rem 0;
+    .plan-description {
+      font-size: 0.875rem;
+      color: #64748b;
+      line-height: 1.4;
     }
     
-    .speed-test-progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #10b981, #059669);
-      width: 0%;
-      transition: width 0.3s ease;
+    .price-tag {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e40af;
+      line-height: 1.2;
     }
     
-    .test-phase {
-      font-size: 1.1rem;
-      margin: 1rem 0;
-      color: #10b981;
+    .per-month {
+      font-size: 0.75rem;
+      color: #64748b;
+      line-height: 1.2;
+    }
+    
+    .savings-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    
+    .ott-container {
+      background: linear-gradient(135deg, #F8FAFC, #F1F5F9);
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .ott-container:hover {
+      background: linear-gradient(135deg, #F1F5F9, #E2E8F0);
+      border-color: #c4b5fd;
+    }
+    
+    /* Filter badge styles */
+    .wifi-badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
       font-weight: 600;
     }
     
+    .wifi-ott-badge {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    
+    .wifi-ott-tv-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    
+    .wifi-tv-badge {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    
+    /* OTT Apps Overlay Styles */
+    .overlay-bg {
+      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.8);
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      max-height: 85vh;
+      overflow: hidden;
+      max-width: 800px;
+      width: 95%;
+    }
+    
+    /* Channels Grid in Overlay */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 20px;
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    
+    .channels-grid::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .channels-grid::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 10px;
+    }
+    
+    .channels-grid::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #7c3aed, #c026d3);
+      border-radius: 10px;
+    }
+    
+    .channel-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      padding: 10px;
+      margin: 0 auto;
+    }
+    
+    .channel-icon:hover {
+      transform: scale(1.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .channel-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    
+    /* Form Inputs */
+    .form-input {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #8b5cf6;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+    
+    /* Dropdown styling */
+    .form-select {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      width: 100%;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 20px;
+      cursor: pointer;
+    }
+    
+    .form-select:focus {
+      outline: none;
+      border-color: #8b5cf6;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+    
+    /* Plan Features Button */
+    .features-btn {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: white;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+    }
+    
+    .features-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+    
+    /* Hide 1-month button */
+    .month-btn[data-month="1"] {
+      display: none !important;
+    }
+    
+    /* Adjust duration selection layout */
+    .duration-selection {
+      min-width: 180px;
+    }
+    
+    /* Plan options styling */
+    .plan-option {
+      padding: 8px 12px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .plan-option:last-child {
+      border-bottom: none;
+    }
+    
+    .plan-option-label {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    
+    .plan-option-details {
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+    
+    .plan-option-price {
+      font-weight: 700;
+      color: #1e40af;
+      margin-top: 4px;
+    }
+    
+    /* COMPACT PLAN CARD STYLES */
+    .plan-card-compact {
+      padding: 1.25rem !important;
+    }
+    
+    .features-section {
+      flex: 1;
+      max-width: 280px;
+    }
+    
+    .features-content {
+      background: linear-gradient(135deg, #F8FAFC, #F1F5F9);
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .features-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .features-text {
+      font-size: 0.8125rem;
+      color: #475569;
+      line-height: 1.4;
+    }
+    
+    /* COMPACT ENQUIRY OVERLAY */
+    .enquiry-overlay-compact .bg-white {
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    
+    .enquiry-overlay-compact .p-6 {
+      padding: 1.25rem !important;
+    }
+    
+    .enquiry-overlay-compact .space-y-4 > div {
+      margin-bottom: 0.75rem !important;
+    }
+    
+    .enquiry-overlay-compact .mb-6 {
+      margin-bottom: 1rem !important;
+    }
+    
+    .enquiry-overlay-compact .pt-4 {
+      padding-top: 1rem !important;
+    }
+    
+    .enquiry-overlay-compact .form-input,
+    .enquiry-overlay-compact .form-select {
+      padding: 0.75rem 1rem !important;
+      font-size: 0.875rem !important;
+    }
+    
+    .enquiry-overlay-compact .bg-slate-50 {
+      padding: 0.75rem !important;
+      margin-top: 0.5rem !important;
+    }
+    
+    .enquiry-overlay-compact .bg-slate-50 p {
+      margin-bottom: 0.25rem !important;
+    }
+    
+    .enquiry-overlay-compact .text-lg {
+      font-size: 1.125rem !important;
+    }
+    
+    .enquiry-overlay-compact .py-3 {
+      padding-top: 0.75rem !important;
+      padding-bottom: 0.75rem !important;
+    }
+    
     @media (max-width: 768px) {
-      .month-btn { width: 36px; height: 36px; font-size: 0.875rem; }
+      .month-btn { width: 36px; height: 36px; font-size: 0.75rem; }
       .filter-pill { padding: 0.75rem; }
-      .plan-card, .device-card { padding: 1.25rem; }
-      .enquire-btn, .test-speed-btn { padding: 0.75rem 1.5rem; font-size: 0.875rem; }
-      #speedTestContainer {
-        min-height: 350px;
-        padding: 15px;
+      .plan-card { padding: 1.25rem; }
+      .enquire-btn { padding: 0.75rem 1rem; font-size: 0.8125rem; }
+      .speed-badge {
+        padding: 4px 12px;
+        font-size: 0.75rem;
       }
-      .speed-test-meter {
-        font-size: 2.5rem;
+      .plan-name {
+        font-size: 1rem;
+      }
+      .price-tag {
+        font-size: 1.25rem;
+      }
+      .channels-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+      .channel-icon {
+        width: 70px;
+        height: 70px;
+      }
+      .duration-selection {
+        min-width: 150px;
+      }
+      
+      /* Mobile compact styles */
+      .plan-card-compact {
+        padding: 1rem !important;
+      }
+      
+      .features-section {
+        max-width: 100%;
+        margin-top: 1rem;
+      }
+      
+      .features-content {
+        padding: 0.5rem;
+      }
+    }
+    
+    @media (max-width: 1024px) {
+      .plan-card-compact .flex-col {
+        gap: 1rem !important;
       }
     }
   </style>
@@ -206,213 +499,322 @@
   <!-- Navbar -->
   <div id="header"></div>
 
+  <!-- OTT Apps Overlay -->
+  <div id="ottAppsOverlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 overlay-bg">
+    <div class="modal-content">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+          <h3 id="ottAppsTitle" class="text-xl font-bold text-gray-900">
+            Included Features
+          </h3>
+          <button onclick="closeOttAppsOverlay()" class="text-gray-500 hover:text-red-500 text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div id="ottAppsContent" class="channels-grid">
+          <!-- Filled dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Content -->
   <main class="flex-grow">
-    <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto px-4 py-8">
       <div class="flex flex-col lg:flex-row gap-8 mb-12">
-        <!-- Device Card + Speed Test -->
-        <div class="device-card p-8 lg:w-2/5">
-          <h1 class="text-2xl font-bold mb-6">Broadband Device</h1>
-         
-          <div class="space-y-4 mb-8">
-            <div class="feature-item">
-              <div class="feature-icon"><i class="fas fa-bolt text-xs"></i></div>
-              <span>High Speed & Low Latency</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon"><i class="fas fa-wifi text-xs"></i></div>
-              <span>Extensive Coverage</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon"><i class="fas fa-shield-alt text-xs"></i></div>
-              <span>Secure & Reliable Connection</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon"><i class="fas fa-network-wired text-xs"></i></div>
-              <span>Supports both 2.4GHz & 5GHz</span>
-            </div>
-          </div>
+        <!-- Broadband Device Section -->
+        <div class="lg:w-2/5 space-y-6">
+          <!-- Section Title -->
+          <h1 class="text-2xl font-bold text-gray-900">
+            Broadband Device
+          </h1>
 
-          <div class="divider"></div>
+          <!-- Card 1 -->
+          <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transition relative overflow-hidden">
+            <span class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-blue-500 to-cyan-400"></span>
 
-          <div class="text-center">
-            <h3 class="text-lg font-semibold mb-4">Test your Internet Speed</h3>
-            <p class="text-slate-300 mb-6">Check your current internet connection speed</p>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+                <i class="fas fa-bolt"></i>
+              </div>
 
-            <!-- Speed Test Trigger -->
-            <div id="speedTestArea">
-              <button id="startSpeedTest" class="test-speed-btn px-8 py-3 w-full text-lg speed-pulse">
-                <i class="fas fa-tachometer-alt mr-2"></i> Test Speed Now
-              </button>
-            </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                  High Speed Performance
+                </h3>
+                <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                  Experience lightning-fast internet speeds with ultra-low latency,
+                  ideal for streaming, gaming, and video conferencing.
+                </p>
 
-            <!-- Speed Test Container -->
-            <div id="speedTestContainer" class="mt-6">
-              <!-- Speed test will be injected here -->
-            </div>
-
-            <!-- Final Result -->
-            <div id="speedResult" class="speed-result">
-              <h4 class="text-2xl font-bold text-green-400 mb-2">
-                Your Speed: <span id="finalSpeed">0</span> Mbps
-              </h4>
-              <p class="text-green-300">Speed test completed successfully!</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Plans Section -->
-        <div class="lg:w-3/5">
-          <h2 class="text-2xl font-bold text-slate-800 mb-6">Broadband Plans</h2>
-         
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div class="filter-pill p-4">
-              <div class="text-sm text-slate-500 mb-2">Sort/Filter By: Speed</div>
-              <select id="filterSpeed" class="w-full bg-transparent font-medium">
-                <option value="">All Speeds</option>
-                <option value="50">50 Mbps</option>
-                <option value="100">100 Mbps</option>
-                <option value="300">300 Mbps</option>
-                <option value="500">500 Mbps</option>
-                <option value="1000">1 Gbps</option>
-              </select>
-            </div>
-            <div class="filter-pill p-4">
-              <div class="text-sm text-slate-500 mb-2">Filter By: Validity</div>
-              <select id="filterValidity" class="w-full bg-transparent font-medium">
-                <option value="">All Durations</option>
-                <option value="4">4 Months</option>
-                <option value="8">8 Months</option>
-                <option value="12">12 Months</option>
-              </select>
-            </div>
-            <div class="filter-pill p-4">
-              <div class="text-sm text-slate-500 mb-2">Filter By: Max Price</div>
-              <div class="flex items-center gap-2">
-                <input id="filterPrice" type="range" min="500" max="5000" value="5000" class="flex-1">
-                <div id="priceVal" class="font-semibold text-blue-600">₹5000</div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 text-xs rounded-full bg-blue-50 text-blue-600">
+                    Low Latency
+                  </span>
+                  <span class="px-3 py-1 text-xs rounded-full bg-blue-50 text-blue-600">
+                    Buffer-Free Streaming
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="mb-6">
-            <div class="text-sm text-slate-500 mb-2">Filter By: Category</div>
-            <div class="flex flex-wrap gap-2">
-              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="all">All Plans</button>
-              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="home">Home Internet</button>
-              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="business">Business</button>
-              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="gaming">Gaming</button>
-              <button class="category-btn filter-pill px-4 py-2 text-sm font-medium" data-category="streaming">Streaming</button>
+          <!-- Card 2 -->
+          <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transition relative overflow-hidden">
+            <span class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-indigo-500 to-purple-400"></span>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
+                <i class="fas fa-wifi"></i>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                  Extended Wi-Fi Coverage
+                </h3>
+                <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                  Designed to deliver strong and stable Wi-Fi signals across your home,
+                  ensuring seamless connectivity in every room.
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 text-xs rounded-full bg-indigo-50 text-indigo-600">
+                    Wide Range
+                  </span>
+                  <span class="px-3 py-1 text-xs rounded-full bg-indigo-50 text-indigo-600">
+                    Multiple Devices
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div id="plansList" class="space-y-6"></div>
+          <!-- Card 3 -->
+          <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transition relative overflow-hidden">
+            <span class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-green-500 to-emerald-400"></span>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-green-100 text-green-600">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                  Secure & Reliable Network
+                </h3>
+                <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                  Built-in security protocols protect your data and devices, providing
+                  a safe and consistent internet experience at all times.
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 text-xs rounded-full bg-green-50 text-green-600">
+                    Firewall Protection
+                  </span>
+                  <span class="px-3 py-1 text-xs rounded-full bg-green-50 text-green-600">
+                    Encrypted Network
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transition relative overflow-hidden">
+            <span class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-purple-500 to-pink-400"></span>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-purple-100 text-purple-600">
+                <i class="fas fa-network-wired"></i>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                  Dual-Band Compatibility
+                </h3>
+                <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                  Supports both 2.4GHz and 5GHz bands, intelligently balancing speed
+                  and coverage for optimal performance.
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 text-xs rounded-full bg-purple-50 text-purple-600">
+                    2.4GHz
+                  </span>
+                  <span class="px-3 py-1 text-xs rounded-full bg-purple-50 text-purple-600">
+                    5GHz
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
+
+        <!-- Plans Section -->
+        <div class="lg:w-3/5">
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Broadband Plans</h2>
+            <p class="text-slate-600">Choose from our premium high-speed internet plans with exclusive OTT benefits</p>
+          </div>
+         
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            <div class="filter-pill p-4">
+              <div class="text-sm text-slate-500 mb-2 font-medium">Filter By Plan Type</div>
+              <select id="filterPlanType" class="w-full bg-transparent font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg">
+                <option value="">All Plans</option>
+                <option value="wifi">WiFi Only</option>
+                <option value="wifi-tv">WiFi + TV</option>
+                <option value="wifi-ott">WiFi + OTT</option>
+                <option value="wifi-ott-tv">WiFi + OTT + TV</option>
+              </select>
+            </div>
+            <div class="filter-pill p-4">
+              <div class="text-sm text-slate-500 mb-2 font-medium">Filter By Speed</div>
+              <select id="filterSpeed" class="w-full bg-transparent font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg">
+                <option value="">All Speeds</option>
+                <option value="50">50 Mbps</option>
+                <option value="100">100 Mbps</option>
+                <option value="200">200 Mbps</option>
+                <option value="300">300 Mbps</option>
+              </select>
+            </div>
+            <div class="filter-pill p-4">
+              <div class="text-sm text-slate-500 mb-2 font-medium">Filter By Max Price</div>
+              <div class="flex items-center gap-2">
+                <input id="filterPrice" type="range" min="0" max="20000" value="20000" class="flex-1 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                <div id="priceVal" class="font-semibold text-blue-600 min-w-[70px] text-right">₹20000</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="plansList" class="space-y-4"></div>
+        </div>
+      </div>  
     </div>
   </main>
 
   <!-- Footer -->
- <footer class="bg-gray-950 text-gray-400 pt-16 pb-12 border-t border-gray-800">
-  <div class="max-w-7xl mx-auto px-6">
-
-    <!-- Main Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
-
-      <!-- Brand Section -->
-      <div class="lg:col-span-2">
-        <div class="flex items-center mb-6">
-          <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4 shadow-sm">
-            <i class="fas fa-wifi text-gray-900 text-lg"></i>
+  <footer class="bg-gray-950 text-gray-400 pt-16 pb-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Main Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+        <!-- Brand Section -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4 shadow-sm">
+              <i class="fas fa-wifi text-gray-900 text-lg"></i>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-white tracking-wide">FiberNet Pro</h2>
+              <p class="text-gray-500 text-sm">Pure Fiber. Pure Speed.</p>
+            </div>
           </div>
-          <div>
-            <h2 class="text-xl font-bold text-white tracking-wide">FiberNet Pro</h2>
-            <p class="text-gray-500 text-sm">Pure Fiber. Pure Speed.</p>
+
+          <p class="text-gray-500 leading-relaxed mb-6">
+            Delivering exceptional internet experiences with cutting-edge fiber technology and unmatched customer support.
+          </p>
+
+          <!-- Social Icons -->
+          <div class="flex space-x-3">
+            <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
+              <i class="fab fa-github"></i>
+            </a>
           </div>
         </div>
 
-        <p class="text-gray-500 leading-relaxed mb-6">
-          Delivering exceptional internet experiences with cutting-edge fiber technology and unmatched customer support.
-        </p>
+        <!-- Product -->
+        <div>
+          <h3 class="text-white font-semibold mb-4 border-l-4 border-red-600 pl-3">Product</h3>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Internet Plans</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Business Solutions</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Coverage Map</a></li>
+          </ul>
+        </div>
 
-        <!-- Social Icons -->
-        <div class="flex space-x-3">
-          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="#" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition">
-            <i class="fab fa-github"></i>
-          </a>
+        <!-- Company -->
+        <div>
+          <h3 class="text-white font-semibold mb-4 border-l-4 border-blue-500 pl-3">Company</h3>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h3 class="text-white font-semibold mb-4 border-l-4 border-green-500 pl-3">Resources</h3>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Status</a></li>
+          </ul>
         </div>
       </div>
 
-      <!-- Product -->
-      <div>
-        <h3 class="text-white font-semibold mb-4 border-l-4 border-red-600 pl-3">Product</h3>
-        <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-white transition-colors">Internet Plans</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Business Solutions</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Coverage Map</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Speed Test</a></li>
-        </ul>
-      </div>
+      <!-- Bottom Section -->
+      <div class="border-t border-gray-800 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-gray-500 text-sm">© 2025 FiberNet Pro. All rights reserved.</p>
 
-      <!-- Company -->
-      <div>
-        <h3 class="text-white font-semibold mb-4 border-l-4 border-blue-500 pl-3">Company</h3>
-        <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
-        </ul>
-      </div>
-
-      <!-- Resources -->
-      <div>
-        <h3 class="text-white font-semibold mb-4 border-l-4 border-green-500 pl-3">Resources</h3>
-        <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">API</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Status</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <!-- Bottom Section -->
-    <div class="border-t border-gray-800 pt-8">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-gray-500 text-sm">© 2025 FiberNet Pro. All rights reserved.</p>
-
-        <div class="flex items-center space-x-6 text-sm">
-          <a href="#" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" class="text-gray-500 hover:text-white transition-colors">Terms of Service</a>
-          <a href="#" class="text-gray-500 hover:text-white transition-colors">Cookie Policy</a>
+          <div class="flex items-center space-x-6 text-sm">
+            <a href="#" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" class="text-gray-500 hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" class="text-gray-500 hover:text-white transition-colors">Cookie Policy</a>
+          </div>
         </div>
       </div>
     </div>
-
-  </div>
-</footer>
+  </footer>
 
   <!-- Enquiry Overlay -->
-  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl w-full max-w-md p-6">
+  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 enquiry-overlay-compact">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-auto">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-xl font-bold text-slate-800">Enquiry Form</h3>
         <button id="closeOverlay" class="text-slate-500 hover:text-slate-700"><i class="fas fa-times text-xl"></i></button>
       </div>
-      <p class="text-slate-600 mb-6">Please fill your details to proceed with the enquiry.</p>
+      <p class="text-slate-600 mb-6 text-sm">Please fill your details to proceed with the enquiry.</p>
       <form id="enqForm" class="space-y-4">
-        <div><label class="block text-sm font-medium text-slate-700 mb-2">Name</label><input id="name" type="text" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-        <div><label class="block text-sm font-medium text-slate-700 mb-2">Mobile</label><input id="mobile" type="tel" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-        <div><label class="block text-sm font-medium text-slate-700 mb-2">City</label><input id="city" type="text" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-        <div><label class="block text-sm font-medium text-slate-700 mb-2">Selected Plan</label><input id="selectedPlan" type="text" readonly class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50"></div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Name</label>
+          <input id="name" type="text" required class="form-input" placeholder="Enter your full name">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Mobile</label>
+          <input id="mobile" type="tel" required class="form-input" placeholder="Enter your 10-digit mobile number">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2">City</label>
+          <input id="city" type="text" required class="form-input" placeholder="Enter your city">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Select Duration</label>
+          <select id="selectedDuration" class="form-select">
+            <!-- Options will be populated dynamically for the selected plan -->
+            <option value="">Select duration</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Selected Plan Details</label>
+          <div class="bg-slate-50 p-4 rounded-lg">
+            <p id="planName" class="font-semibold text-slate-800">Plan: <span id="planNameValue">-</span></p>
+            <p id="planFeatures" class="text-sm text-slate-600 mt-2">Features: <span id="planFeaturesValue">-</span></p>
+            <p id="planPrice" class="text-lg font-bold text-blue-600 mt-2">Price: <span id="planPriceValue">-</span></p>
+          </div>
+        </div>
         <div class="flex gap-3 pt-4">
           <button type="submit" class="enquire-btn flex-1 py-3">Submit via WhatsApp</button>
           <button type="button" id="cancelBtn" class="flex-1 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50">Cancel</button>
@@ -422,337 +824,817 @@
   </div>
 
   <script>
-    // Your Plans Data
+    // OTT Apps Data
+    const ottAppsData = {
+      'wifi-ott': [
+        { name: "Amazon Prime", src: "images/Ultra OTTplans/amazon.png" },
+        { name: "Netflix", src: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+        { name: "JioHotstar", src: "images/Ultra OTTplans/Jio Hotstar.png" },
+        { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
+        { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
+        { name: "Discovery+", src: "images/Ultra OTTplans/DISCOVERYPLUS.png" },
+        { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
+        { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
+        { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
+        { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" }
+      ],
+      'wifi-ott-tv': [
+        { name: "Amazon Prime", src: "images/Ultra OTTplans/amazon.png" },
+        { name: "Netflix", src: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+        { name: "JioHotstar", src: "images/Ultra OTTplans/Jio Hotstar.png" },
+        { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
+        { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
+        { name: "Discovery+", src: "images/Ultra OTTplans/DISCOVERYPLUS.png" },
+        { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
+        { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
+        { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
+        { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
+        { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
+        { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
+        { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
+        { name: "Dangal Play", src: "images/Ultra OTTplans/Dangal.png" }
+      ]
+    };
+
+    // OTT Apps Overlay Functions
+    function openOttAppsOverlay(planType, planName) {
+      const title = document.getElementById('ottAppsTitle');
+      const content = document.getElementById('ottAppsContent');
+      
+      // Clear previous content
+      content.innerHTML = '';
+      
+      // Set title based on plan type
+      if (planType === 'wifi') {
+        title.textContent = `${planName} - Features`;
+        content.innerHTML = `
+          <div class="text-center py-8">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+              <i class="fas fa-wifi text-blue-600 text-2xl"></i>
+            </div>
+            <h4 class="text-lg font-semibold text-slate-800 mb-2">Pure High-Speed Internet</h4>
+            <p class="text-slate-600">This plan includes unlimited high-speed internet only.</p>
+            <p class="text-sm text-slate-500 mt-4">No TV channels or OTT apps included.</p>
+          </div>
+        `;
+      } 
+      else if (planType === 'wifi-ott') {
+        title.textContent = `${planName} - OTT Apps Included`;
+        
+        // Show only OTT apps for WiFi+OTT
+        if (ottAppsData[planType]) {
+          ottAppsData[planType].forEach(app => {
+            content.innerHTML += `
+              <div class="text-center">
+                <div class="channel-icon mx-auto mb-3">
+                  <img src="${app.src}" alt="${app.name}" onerror="this.src='https://placehold.co/100x100/8b5cf6/white?text=${app.name.substring(0,2)}'">
+                </div>
+                <p class="text-sm font-semibold text-gray-700">${app.name}</p>
+              </div>
+            `;
+          });
+        }
+      }
+      else if (planType === 'wifi-ott-tv') {
+        title.textContent = `${planName} - 400+ TV Channels & OTT Apps`;
+        
+        // Show 400+ TV channels info
+        content.innerHTML += `
+          <div class="col-span-full mb-6">
+            <h4 class="text-lg font-semibold text-slate-800 mb-3">📺 400+ TV Channels Included</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="bg-blue-50 p-3 rounded-lg">
+                <div class="text-blue-700 font-semibold">Sports</div>
+                <div class="text-sm text-slate-600">Star Sports, Sony Ten, Eurosport</div>
+              </div>
+              <div class="bg-purple-50 p-3 rounded-lg">
+                <div class="text-purple-700 font-semibold">Entertainment</div>
+                <div class="text-sm text-slate-600">Colors, Sony, Star Plus, Zee TV</div>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg">
+                <div class="text-green-700 font-semibold">Movies</div>
+                <div class="text-sm text-slate-600">Star Gold, Sony Max, Zee Cinema</div>
+              </div>
+              <div class="bg-yellow-50 p-3 rounded-lg">
+                <div class="text-yellow-700 font-semibold">News</div>
+                <div class="text-sm text-slate-600">NDTV, CNN, BBC, Republic</div>
+              </div>
+              <div class="bg-red-50 p-3 rounded-lg">
+                <div class="text-red-700 font-semibold">Kids</div>
+                <div class="text-sm text-slate-600">Cartoon Network, Pogo, Discovery Kids</div>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded-lg">
+                <div class="text-indigo-700 font-semibold">Regional</div>
+                <div class="text-sm text-slate-600">Sun TV, ETV, Colors Bangla</div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Show OTT apps for WiFi+OTT+TV
+        if (ottAppsData[planType]) {
+          ottAppsData[planType].forEach(app => {
+            content.innerHTML += `
+              <div class="text-center">
+                <div class="channel-icon mx-auto mb-3">
+                  <img src="${app.src}" alt="${app.name}" onerror="this.src='https://placehold.co/100x100/8b5cf6/white?text=${app.name.substring(0,2)}'">
+                </div>
+                <p class="text-sm font-semibold text-gray-700">${app.name}</p>
+              </div>
+            `;
+          });
+        }
+      }
+      else if (planType === 'wifi-tv') {
+        title.textContent = `${planName} - 400+ TV Channels Included`;
+        
+        // Show only 400+ TV channels for WiFi+TV
+        content.innerHTML = `
+          <div class="col-span-full">
+            <h4 class="text-lg font-semibold text-slate-800 mb-3">📺 400+ TV Channels Included</h4>
+            <p class="text-slate-600 mb-6">Access to premium TV channels across all categories:</p>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+              <div class="bg-blue-50 p-3 rounded-lg">
+                <div class="text-blue-700 font-semibold">Sports</div>
+                <div class="text-sm text-slate-600">Star Sports, Sony Ten, Eurosport</div>
+              </div>
+              <div class="bg-purple-50 p-3 rounded-lg">
+                <div class="text-purple-700 font-semibold">Entertainment</div>
+                <div class="text-sm text-slate-600">Colors, Sony, Star Plus, Zee TV</div>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg">
+                <div class="text-green-700 font-semibold">Movies</div>
+                <div class="text-sm text-slate-600">Star Gold, Sony Max, Zee Cinema</div>
+              </div>
+              <div class="bg-yellow-50 p-3 rounded-lg">
+                <div class="text-yellow-700 font-semibold">News</div>
+                <div class="text-sm text-slate-600">NDTV, CNN, BBC, Republic</div>
+              </div>
+              <div class="bg-red-50 p-3 rounded-lg">
+                <div class="text-red-700 font-semibold">Kids</div>
+                <div class="text-sm text-slate-600">Cartoon Network, Pogo, Discovery Kids</div>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded-lg">
+                <div class="text-indigo-700 font-semibold">Regional</div>
+                <div class="text-sm text-slate-600">Sun TV, ETV, Colors Bangla</div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <p class="text-sm text-slate-600"><span class="font-semibold">Note:</span> This plan includes TV channels only. No OTT apps are included.</p>
+            </div>
+          </div>
+        `;
+      }
+      
+      document.getElementById('ottAppsOverlay').classList.remove('hidden');
+    }
+
+    function closeOttAppsOverlay() {
+      document.getElementById('ottAppsOverlay').classList.add('hidden');
+    }
+
+    // Updated Plans Data with new pricing and 3 months as default
     const plans = [
-      {id:1,code:"B2_3/4MBS",speedNum:50,speedLabel:"50",speedFull:"50 Mbps Unlimited",city:"Mumbai",monthlyPrice:499,defaultMonths:4,dataLimit:"Unlimited",category:"home"},
-      {id:2,code:"D9_3/4MBS+",speedNum:100,speedLabel:"100",speedFull:"100 Mbps Unlimited",city:"Mumbai",monthlyPrice:549,defaultMonths:4,dataLimit:"Unlimited",category:"home"},
-      {id:3,code:"DP_300MBPS",speedNum:300,speedLabel:"300",speedFull:"300 Mbps Unlimited",city:"Mumbai",monthlyPrice:599,defaultMonths:4,dataLimit:"Unlimited",category:"gaming"},
-      {id:4,code:"DP_500MBPS",speedNum:500,speedLabel:"500",speedFull:"500 Mbps Unlimited",city:"Pune",monthlyPrice:799,defaultMonths:8,dataLimit:"Unlimited",category:"streaming"},
-      {id:5,code:"DP_1GBPS",speedNum:1000,speedLabel:"1 Gbps",speedFull:"1 Gbps Unlimited",city:"Delhi",monthlyPrice:999,defaultMonths:12,dataLimit:"Unlimited",category:"business"},
-      {id:6,code:"B3_5/6MBS",speedNum:50,speedLabel:"50",speedFull:"50 Mbps Unlimited",city:"Bangalore",monthlyPrice:459,defaultMonths:4,dataLimit:"Unlimited",category:"home"},
-      {id:7,code:"G1_ULTRA",speedNum:300,speedLabel:"300",speedFull:"300 Mbps Gaming",city:"Hyderabad",monthlyPrice:699,defaultMonths:8,dataLimit:"Unlimited",category:"gaming"},
-      {id:8,code:"BZ_PRO",speedNum:500,speedLabel:"500",speedFull:"500 Mbps Business",city:"Chennai",monthlyPrice:899,defaultMonths:12,dataLimit:"Unlimited",category:"business"},
-      {id:9,code:"ST_ULTRA",speedNum:300,speedLabel:"300",speedFull:"300 Mbps Streaming",city:"Kolkata",monthlyPrice:649,defaultMonths:8,dataLimit:"Unlimited",category:"streaming"},
-      {id:10,code:"BZ_ENTERPRISE",speedNum:1000,speedLabel:"1 Gbps",speedFull:"1 Gbps Enterprise",city:"Delhi",monthlyPrice:1299,defaultMonths:12,dataLimit:"Unlimited",category:"business"}
+      // WiFi + TV Plans
+      {
+        id: 1,
+        code: "WiFi + TV 50 Mbps",
+        speedNum: 50,
+        speedLabel: "50",
+        speedFull: "WiFi + TV 50 Mbps",
+        monthlyPrice: 750,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "400+ TV Channels Included • No OTT Apps",
+        bulletPoints: ["50 Mbps high-speed internet", "400+ TV channels included"],
+        price3Months: 2100,
+        price6Months: 3950,
+        price12Months: 7450,
+        planType: "wifi-tv"
+      },
+      {
+        id: 2,
+        code: "WiFi + TV 100 Mbps",
+        speedNum: 100,
+        speedLabel: "100",
+        speedFull: "WiFi + TV 100 Mbps",
+        monthlyPrice: 900,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "400+ TV Channels Included • No OTT Apps",
+        bulletPoints: ["100 Mbps ultra-fast internet", "400+ TV channels included"],
+        price3Months: 2440,
+        price6Months: 4400,
+        price12Months: 8300,
+        planType: "wifi-tv"
+      },
+      {
+        id: 3,
+        code: "WiFi + TV 200 Mbps",
+        speedNum: 200,
+        speedLabel: "200",
+        speedFull: "WiFi + TV 200 Mbps",
+        monthlyPrice: 1000,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "400+ TV Channels Included • No OTT Apps",
+        bulletPoints: ["200 Mbps blazing fast speed", "400+ TV channels included"],
+        price3Months: 2900,
+        price6Months: 5300,
+        price12Months: 9800,
+        planType: "wifi-tv"
+      },
+      {
+        id: 4,
+        code: "WiFi + TV 300 Mbps",
+        speedNum: 300,
+        speedLabel: "300",
+        speedFull: "WiFi + TV 300 Mbps",
+        monthlyPrice: 1200,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "400+ TV Channels Included • No OTT Apps",
+        bulletPoints: ["300 Mbps ultimate speed", "400+ TV channels included"],
+        price3Months: 3150,
+        price6Months: 5800,
+        price12Months: 10900,
+        planType: "wifi-tv"
+      },
+      
+      // WiFi Only Plans
+      {
+        id: 5,
+        code: "WiFi 50 Mbps",
+        speedNum: 50,
+        speedLabel: "50",
+        speedFull: "WiFi 50 Mbps",
+        monthlyPrice: 600,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "Pure High-Speed Internet • No TV/OTT",
+        bulletPoints: ["50 Mbps reliable connection", "Pure high-speed internet"],
+        price3Months: 1600,
+        price6Months: 3000,
+        price12Months: 5000,
+        planType: "wifi"
+      },
+      {
+        id: 6,
+        code: "WiFi 300 Mbps",
+        speedNum: 300,
+        speedLabel: "300",
+        speedFull: "WiFi 300 Mbps",
+        monthlyPrice: 999,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "Pure High-Speed Internet • No TV/OTT",
+        bulletPoints: ["300 Mbps elite performance", "Pure high-speed internet"],
+        price3Months: 2500,
+        price6Months: 4700,
+        price12Months: 8500,
+        planType: "wifi"
+      },
+      
+      // WiFi + OTT Plans
+      {
+        id: 7,
+        code: "WiFi + OTT 300 Mbps",
+        speedNum: 300,
+        speedLabel: "300",
+        speedFull: "WiFi + OTT 300 Mbps",
+        monthlyPrice: 1300,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "Premium OTT Apps Included • No TV Channels",
+        bulletPoints: ["300 Mbps premium speed", "Popular OTT apps included"],
+        price3Months: 3100,
+        price6Months: 6000,
+        price12Months: 11200,
+        planType: "wifi-ott"
+      },
+      
+      // WiFi + OTT + TV Plans
+      {
+        id: 8,
+        code: "WiFi + OTT + TV 50 Mbps",
+        speedNum: 50,
+        speedLabel: "50",
+        speedFull: "WiFi + OTT + TV 50 Mbps",
+        monthlyPrice: 810,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "400+ TV Channels + Premium OTT Apps",
+        bulletPoints: ["50 Mbps complete package", "TV + OTT entertainment"],
+        price3Months: 2350,
+        price6Months: 4800,
+        price12Months: 8800,
+        planType: "wifi-ott-tv"
+      },
+      {
+        id: 9,
+        code: "WiFi + OTT + TV 300 Mbps",
+        speedNum: 300,
+        speedLabel: "300",
+        speedFull: "WiFi + OTT + TV 300 Mbps",
+        monthlyPrice: 1500,
+        defaultMonths: 3,
+        dataLimit: "Unlimited",
+        ott: "400+ TV Channels + Premium OTT Apps",
+        bulletPoints: ["300 Mbps complete package", "TV + OTT entertainment"],
+        price3Months: 4300,
+        price6Months: 8400,
+        price12Months: 16000,
+        planType: "wifi-ott-tv"
+      }
     ];
 
     const selectedMonthsMap = {};
     const plansList = document.getElementById('plansList');
+    const filterPlanType = document.getElementById('filterPlanType');
     const filterSpeed = document.getElementById('filterSpeed');
-    const filterValidity = document.getElementById('filterValidity');
     const filterPrice = document.getElementById('filterPrice');
     const priceVal = document.getElementById('priceVal');
-    const categoryBtns = document.querySelectorAll('.category-btn');
 
-    // Speed Test Elements
-    const speedTestArea = document.getElementById('speedTestArea');
-    const speedTestContainer = document.getElementById('speedTestContainer');
-    const speedResult = document.getElementById('speedResult');
-    const finalSpeedEl = document.getElementById('finalSpeed');
-    const deviceCard = document.querySelector('.device-card');
+    // Overlay Functions
+    const overlay = document.getElementById('overlay');
+    const selectedDurationDropdown = document.getElementById('selectedDuration');
+    const planNameValue = document.getElementById('planNameValue');
+    const planFeaturesValue = document.getElementById('planFeaturesValue');
+    const planPriceValue = document.getElementById('planPriceValue');
+    let currentPlan = null;
 
-    // Simple Speed Test Implementation
-    function startSpeedTest() {
-      // Add active class to device card for proper styling
-      deviceCard.classList.add('speed-test-active');
+    // Function to populate duration options for a specific plan
+    function populateDurationOptions(plan) {
+      // Clear existing options
+      selectedDurationDropdown.innerHTML = '<option value="">Select duration</option>';
       
-      let downloadSpeed = 0;
-      let uploadSpeed = 0;
-      let ping = 0;
-      let currentPhase = 'ping';
+      // Add options for 3, 6, 12 months for this specific plan
+      const durations = [
+        { months: 3, label: "3 months" },
+        { months: 6, label: "6 months" },
+        { months: 12, label: "12 months" }
+      ];
       
-      // Show initial test UI
-      speedTestContainer.innerHTML = `
-        <div class="speed-test-wrapper">
-          <div class="test-phase">Testing Ping...</div>
-          <div class="speed-test-meter">0</div>
-          <div class="speed-test-label">Mbps</div>
-          <div class="speed-test-progress">
-            <div class="speed-test-progress-bar" id="progressBar"></div>
-          </div>
-          <div class="text-sm opacity-70">Testing your connection speed...</div>
-          <button id="cancelTest" class="mt-4 px-6 py-2 border border-white/30 rounded-lg hover:bg-white/10 transition-colors">
-            Cancel Test
-          </button>
-        </div>
-      `;
-
-      const progressBar = document.getElementById('progressBar');
-      const speedMeter = speedTestContainer.querySelector('.speed-test-meter');
-      const testPhase = speedTestContainer.querySelector('.test-phase');
-      let progress = 0;
-      
-      // Simulate ping test
-      simulateTestPhase('ping', 1000, 50).then(pingResult => {
-        ping = pingResult;
-        testPhase.textContent = 'Testing Download Speed...';
-        progressBar.style.width = '33%';
+      durations.forEach(duration => {
+        let price;
+        if (duration.months === 3) price = plan.price3Months;
+        else if (duration.months === 6) price = plan.price6Months;
+        else if (duration.months === 12) price = plan.price12Months;
+        else price = plan.monthlyPrice * duration.months;
         
-        // Simulate download test
-        return simulateTestPhase('download', 3000, 500);
-      }).then(downloadResult => {
-        downloadSpeed = downloadResult;
-        testPhase.textContent = 'Testing Upload Speed...';
-        progressBar.style.width = '66%';
+        const optionValue = `${duration.months}|${price}`;
+        const optionText = `${duration.label} - ₹${price}`;
         
-        // Simulate upload test
-        return simulateTestPhase('upload', 2000, 100);
-      }).then(uploadResult => {
-        uploadSpeed = uploadResult;
-        progressBar.style.width = '100%';
-        
-        // Show final results
-        showSpeedTestResults(downloadSpeed, uploadSpeed, ping);
+        const option = document.createElement('option');
+        option.value = optionValue;
+        option.textContent = optionText;
+        selectedDurationDropdown.appendChild(option);
       });
-
-      // Cancel test handler
-      document.getElementById('cancelTest').addEventListener('click', () => {
-        deviceCard.classList.remove('speed-test-active');
-        speedTestArea.style.display = 'block';
-        speedTestContainer.style.display = 'none';
-      });
+      
+      // Set default selection to current selected months
+      const currentMonths = selectedMonthsMap[plan.id] || plan.defaultMonths;
+      let defaultPrice;
+      if (currentMonths === 3) defaultPrice = plan.price3Months;
+      else if (currentMonths === 6) defaultPrice = plan.price6Months;
+      else if (currentMonths === 12) defaultPrice = plan.price12Months;
+      else defaultPrice = plan.monthlyPrice * currentMonths;
+      
+      selectedDurationDropdown.value = `${currentMonths}|${defaultPrice}`;
+      
+      // Update plan details with default selection
+      updatePlanDetails(plan, currentMonths, defaultPrice);
     }
-
-    // Simulate a test phase with realistic speed values
-    function simulateTestPhase(phase, duration, maxSpeed) {
-      return new Promise((resolve) => {
-        const speedMeter = speedTestContainer.querySelector('.speed-test-meter');
-        let currentSpeed = 0;
-        const increment = maxSpeed / (duration / 50); // Update every 50ms
-        
-        const interval = setInterval(() => {
-          currentSpeed += increment;
-          // Add some randomness to make it look realistic
-          const randomFactor = 0.8 + Math.random() * 0.4;
-          const displaySpeed = Math.min(Math.round(currentSpeed * randomFactor), maxSpeed);
-          
-          speedMeter.textContent = displaySpeed;
-          
-          if (currentSpeed >= maxSpeed) {
-            clearInterval(interval);
-            // Final realistic speed with some variance
-            const finalSpeed = Math.round(maxSpeed * (0.85 + Math.random() * 0.3));
-            speedMeter.textContent = finalSpeed;
-            setTimeout(() => resolve(finalSpeed), 500);
+    
+    // Update plan details display
+    function updatePlanDetails(plan, months, price) {
+      // Get plan type text
+      let planTypeText = '';
+      if (plan.planType === 'wifi') planTypeText = 'WiFi Only';
+      else if (plan.planType === 'wifi-tv') planTypeText = 'WiFi + TV (400+ channels)';
+      else if (plan.planType === 'wifi-ott') planTypeText = 'WiFi + OTT';
+      else if (plan.planType === 'wifi-ott-tv') planTypeText = 'WiFi + OTT + TV (400+ channels)';
+      
+      // Update display
+      planNameValue.textContent = `${plan.code} - ${planTypeText}`;
+      planFeaturesValue.textContent = plan.ott;
+      
+      const monthlyAverage = Math.round(price / months);
+      planPriceValue.textContent = `₹${price} total (₹${monthlyAverage}/month for ${months} months)`;
+    }
+    
+    function openEnquiry(plan) {
+      currentPlan = plan;
+      
+      // Populate the duration options for this specific plan only
+      populateDurationOptions(plan);
+      
+      // Add event listener to update details when duration changes
+      selectedDurationDropdown.addEventListener('change', function() {
+        if (this.value) {
+          const parts = this.value.split('|');
+          if (parts.length === 2) {
+            const months = parseInt(parts[0]);
+            const price = parseInt(parts[1]);
+            updatePlanDetails(plan, months, price);
           }
-        }, 50);
-      });
-    }
-
-    // Show final speed test results
-    function showSpeedTestResults(download, upload, ping) {
-      finalSpeedEl.textContent = download;
-      speedResult.style.display = 'block';
-
-      speedTestContainer.innerHTML = `
-        <div class="speed-test-wrapper">
-          <div class="text-2xl font-bold text-green-400 mb-4">Test Complete!</div>
-          
-          <div class="grid grid-cols-3 gap-4 mb-6">
-            <div class="text-center">
-              <div class="speed-test-meter text-3xl">${download}</div>
-              <div class="speed-test-label text-sm">Download</div>
-            </div>
-            <div class="text-center">
-              <div class="speed-test-meter text-3xl">${upload}</div>
-              <div class="speed-test-label text-sm">Upload</div>
-            </div>
-            <div class="text-center">
-              <div class="speed-test-meter text-3xl">${ping}</div>
-              <div class="speed-test-label text-sm">Ping</div>
-            </div>
-          </div>
-          
-          <div class="text-lg mb-4">Mbps</div>
-          <p class="text-green-300 mb-6">Your internet speed test is complete!</p>
-          
-          <button id="newTest" class="test-speed-btn px-6 py-3">
-            <i class="fas fa-redo mr-2"></i> Test Again
-          </button>
-        </div>
-      `;
-
-      // New test handler
-      document.getElementById('newTest').addEventListener('click', () => {
-        deviceCard.classList.remove('speed-test-active');
-        speedResult.style.display = 'none';
-        speedTestArea.style.display = 'block';
-        speedTestContainer.style.display = 'none';
-      });
-    }
-
-    // Start Speed Test
-    document.getElementById('startSpeedTest').addEventListener('click', startSpeedTest);
-
-    // Your Existing Functions (unchanged)
-    function setActiveCategory(activeCategory) {
-      categoryBtns.forEach(btn => {
-        if (btn.getAttribute('data-category') === activeCategory) {
-          btn.classList.add('bg-blue-100', 'text-blue-700', 'border-blue-300');
-        } else {
-          btn.classList.remove('bg-blue-100', 'text-blue-700', 'border-blue-300');
         }
       });
+      
+      overlay.classList.remove('hidden');
     }
+    
+    document.getElementById('closeOverlay').onclick = () => {
+      overlay.classList.add('hidden');
+      currentPlan = null;
+    };
+    
+    document.getElementById('cancelBtn').onclick = () => {
+      overlay.classList.add('hidden');
+      currentPlan = null;
+    };
+    
+    overlay.onclick = e => { 
+      if (e.target === overlay) {
+        overlay.classList.add('hidden');
+        currentPlan = null;
+      }
+    };
 
+    // WhatsApp Message Function
+    document.getElementById('enqForm').onsubmit = function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const mobile = document.getElementById('mobile').value.trim();
+      const city = document.getElementById('city').value.trim();
+      const selectedDurationValue = selectedDurationDropdown.value;
+      
+      if (!name || !mobile || !city || !selectedDurationValue) {
+        alert('Please fill all required fields including selecting a duration');
+        return;
+      }
+      
+      if (!currentPlan) {
+        alert('No plan selected');
+        return;
+      }
+      
+      // Parse the selected duration details
+      const parts = selectedDurationValue.split('|');
+      if (parts.length !== 2) {
+        alert('Invalid duration selection');
+        return;
+      }
+      
+      const months = parts[0];
+      const price = parts[1];
+      const monthlyAverage = Math.round(price / months);
+      
+      // Get plan type text
+      let planTypeText = '';
+      if (currentPlan.planType === 'wifi') planTypeText = 'WiFi Only';
+      else if (currentPlan.planType === 'wifi-tv') planTypeText = 'WiFi + TV (400+ channels)';
+      else if (currentPlan.planType === 'wifi-ott') planTypeText = 'WiFi + OTT';
+      else if (currentPlan.planType === 'wifi-ott-tv') planTypeText = 'WiFi + OTT + TV (400+ channels)';
+      
+      // Create a properly formatted WhatsApp message
+      const message = `Hello! I'm interested in a broadband plan.%0A%0A` +
+                     `*Plan Details:*%0A` +
+                     `Plan: ${currentPlan.code}%0A` +
+                     `Type: ${planTypeText}%0A` +
+                     `Features: ${currentPlan.ott}%0A` +
+                     `Duration: ${months} months%0A` +
+                     `Total Price: ₹${price} (₹${monthlyAverage}/month)%0A%0A` +
+                     `*My Details:*%0A` +
+                     `Name: ${name}%0A` +
+                     `Phone: ${mobile}%0A` +
+                     `City: ${city}%0A%0A` +
+                     `Please contact me with more information.`;
+      
+      // Open WhatsApp with the formatted message
+      const whatsappUrl = `https://wa.me/919429691943?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+      
+      // Reset form and close overlay
+      overlay.classList.add('hidden');
+      this.reset();
+      selectedDurationDropdown.innerHTML = '<option value="">Select duration</option>';
+      planNameValue.textContent = '-';
+      planFeaturesValue.textContent = '-';
+      planPriceValue.textContent = '-';
+      currentPlan = null;
+    };
+
+    // Render Plans with Professional Design
     function renderPlans(list) {
       plansList.innerHTML = '';
       if (list.length === 0) {
-        plansList.innerHTML = `<div class="text-center py-12"><div class="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-100 flex items-center justify-center"><i class="fas fa-search text-slate-400"></i></div><h3 class="text-lg font-medium text-slate-700 mb-2">No plans found</h3><p class="text-slate-500">Try adjusting your filters</p></div>`;
+        plansList.innerHTML = `
+          <div class="text-center py-12">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-100 flex items-center justify-center">
+              <i class="fas fa-search text-slate-400"></i>
+            </div>
+            <h3 class="text-lg font-medium text-slate-700 mb-2">No plans found</h3>
+            <p class="text-slate-500">Try adjusting your filters</p>
+          </div>`;
         return;
       }
 
-      const groupedPlans = {};
       list.forEach(plan => {
-        if (!groupedPlans[plan.category]) groupedPlans[plan.category] = [];
-        groupedPlans[plan.category].push(plan);
-      });
+        const months = selectedMonthsMap[plan.id] || plan.defaultMonths;
+        let totalPrice;
+        
+        // Get price based on selected months
+        if (months === 3) totalPrice = plan.price3Months;
+        else if (months === 6) totalPrice = plan.price6Months;
+        else if (months === 12) totalPrice = plan.price12Months;
+        else totalPrice = plan.monthlyPrice * months;
 
-      Object.keys(groupedPlans).forEach(category => {
-        if (Object.keys(groupedPlans).length > 1) {
-          const heading = document.createElement('div');
-          heading.className = 'mb-4';
-          heading.innerHTML = `<h3 class="text-lg font-semibold text-slate-800 capitalize">${category} Plans</h3>`;
-          plansList.appendChild(heading);
+        const monthlyAverage = Math.round(totalPrice / months);
+        const savings = months > 3 ? `Save ${Math.round((1 - (totalPrice / (plan.monthlyPrice * months))) * 100)}%` : '';
+
+        // Determine plan type badge
+        let planTypeBadge = '';
+        let planTypeText = '';
+        if (plan.planType === 'wifi') {
+          planTypeBadge = '<span class="wifi-badge">WiFi Only</span>';
+          planTypeText = 'WiFi Only';
+        } else if (plan.planType === 'wifi-tv') {
+          planTypeBadge = '<span class="wifi-tv-badge">WiFi + TV</span>';
+          planTypeText = 'WiFi + TV';
+        } else if (plan.planType === 'wifi-ott') {
+          planTypeBadge = '<span class="wifi-ott-badge">WiFi + OTT</span>';
+          planTypeText = 'WiFi + OTT';
+        } else if (plan.planType === 'wifi-ott-tv') {
+          planTypeBadge = '<span class="wifi-ott-tv-badge">WiFi + OTT + TV</span>';
+          planTypeText = 'WiFi + OTT + TV';
         }
 
-        groupedPlans[category].forEach(plan => {
-          const months = selectedMonthsMap[plan.id] || plan.defaultMonths;
-          const totalPrice = plan.monthlyPrice * months;
+        // Add OTT button for relevant plans
+        let ottButton = '';
+        if (plan.planType === 'wifi-ott' || plan.planType === 'wifi-ott-tv') {
+          ottButton = `
+            <button onclick="openOttAppsOverlay('${plan.planType}', '${plan.code}')" 
+                    class="features-btn mt-2 w-full">
+              <i class="fas fa-eye"></i> View Included OTT Apps & Features
+            </button>
+          `;
+        } else if (plan.planType === 'wifi-tv') {
+          ottButton = `
+            <button onclick="openOttAppsOverlay('${plan.planType}', '${plan.code}')" 
+                    class="features-btn mt-2 w-full">
+              <i class="fas fa-tv"></i> View 400+ TV Channels
+            </button>
+          `;
+        } else if (plan.planType === 'wifi') {
+          ottButton = `
+            <div class="text-center py-2">
+              <p class="text-xs text-slate-500">Pure internet plan - No TV/OTT features</p>
+            </div>
+          `;
+        }
 
-          const el = document.createElement('div');
-          el.className = 'plan-card p-6';
-          el.innerHTML = `
-            <div class="flex flex-col md:flex-row md:items-center gap-6">
-              <div class="flex-1">
-                <div class="flex items-center gap-4 mb-4">
-                  <div class="speed-badge px-4 py-1 text-sm">${plan.speedLabel} Mbps</div>
-                  <div><h3 class="font-bold text-slate-800">${plan.code}</h3><p class="text-sm text-slate-600">${plan.speedFull}</p><p class="text-xs text-slate-500 mt-1">Data: ${plan.dataLimit}</p></div>
-                </div>
-                <div class="flex items-center gap-2 text-sm text-slate-600"><i class="fas fa-map-marker-alt text-blue-500"></i><span>Available in ${plan.city}</span></div>
+        const el = document.createElement('div');
+        el.className = 'plan-card plan-card-compact';
+        el.innerHTML = `
+          <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+            <!-- Left: Plan Name & Badges -->
+            <div class="lg:w-1/4">
+              <div class="flex flex-wrap items-center gap-2 mb-3">
+                <div class="speed-badge">${plan.speedLabel} Mbps</div>
+                ${planTypeBadge}
               </div>
-              <div class="flex flex-col items-center">
-                <div class="text-sm text-slate-600 mb-3">Select Months</div>
+              
+              <h3 class="plan-name mb-1">${plan.code}</h3>
+              <p class="plan-description mb-0">${plan.speedFull} • ${planTypeText} • Unlimited Data</p>
+            </div>
+            
+            <!-- Middle: Features Section -->
+            <div class="features-section lg:flex-1">
+              <div class="features-content">
+                <div class="features-title">
+                  <i class="fas fa-tv text-purple-500 text-sm"></i>
+                  <span>Features Included:</span>
+                </div>
+                <p class="features-text mb-2">${plan.ott}</p>
+                ${ottButton}
+              </div>
+              
+              <!-- Month Selection -->
+              <div class="duration-selection">
+                <div class="text-sm font-medium text-slate-600 mb-2">Select Duration</div>
                 <div class="flex gap-2">
-                  <div class="month-btn ${months===4?'active':''}" data-plan="${plan.id}" data-month="4">4</div>
-                  <div class="month-btn ${months===8?'active':''}" data-plan="${plan.id}" data-month="8">8</div>
+                  <div class="month-btn ${months===3?'active':''}" data-plan="${plan.id}" data-month="3">3</div>
+                  <div class="month-btn ${months===6?'active':''}" data-plan="${plan.id}" data-month="6">6</div>
                   <div class="month-btn ${months===12?'active':''}" data-plan="${plan.id}" data-month="12">12</div>
                 </div>
+                <div class="text-xs text-slate-500 mt-1">Months (Minimum 3 months)</div>
               </div>
-              <div class="flex flex-col items-center">
-                <div class="text-sm text-slate-600 mb-2">Price</div>
-                <div class="text-2xl font-bold text-blue-600">₹${totalPrice}/-</div>
-                <div class="text-xs text-slate-500">₹${plan.monthlyPrice}/month</div>
+            </div>
+            
+            <!-- Right: Price & Enquiry -->
+            <div class="lg:w-1/4 flex flex-col items-center lg:items-end">
+              <div class="text-center lg:text-right mb-4">
+                <div class="text-sm font-medium text-slate-600 mb-1">Total Price</div>
+                <div class="price-tag mb-1">₹${totalPrice}</div>
+                <div class="per-month">₹${monthlyAverage}/month</div>
+                ${months > 3 ? `<div class="savings-badge mt-1">${savings}</div>` : ''}
               </div>
-              <div><button class="enquire-btn px-6 py-3 enquire-btn" data-id="${plan.id}">Enquire Now</button></div>
-            </div>`;
+              
+              <div class="w-full lg:w-auto">
+                <button class="enquire-btn px-6 py-3 w-full enquire-btn" data-id="${plan.id}">
+                  <i class="fab fa-whatsapp mr-2"></i> Enquire Now
+                </button>
+                <p class="text-xs text-slate-500 mt-2 text-center lg:text-right">Installation Charges are Included</p>
+              </div>
+            </div>
+          </div>
+        `;
 
-          plansList.appendChild(el);
+        plansList.appendChild(el);
 
-          el.querySelectorAll('.month-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-              const month = parseInt(btn.dataset.month);
-              const planId = parseInt(btn.dataset.plan);
-              el.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
-              btn.classList.add('active');
-              selectedMonthsMap[planId] = month;
-              const price = plans.find(p => p.id === planId).monthlyPrice * month;
-              el.querySelector('.text-2xl').textContent = `₹${price}/-`;
-            });
+        // Add event listeners to month buttons
+        el.querySelectorAll('.month-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const month = parseInt(btn.dataset.month);
+            const planId = parseInt(btn.dataset.plan);
+            
+            // Update active state
+            el.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedMonthsMap[planId] = month;
+            
+            // Calculate and update price
+            const plan = plans.find(p => p.id === planId);
+            let price;
+            if (month === 3) price = plan.price3Months;
+            else if (month === 6) price = plan.price6Months;
+            else if (month === 12) price = plan.price12Months;
+            else price = plan.monthlyPrice * month;
+            
+            const monthlyAverage = Math.round(price / month);
+            const savings = month > 3 ? `Save ${Math.round((1 - (price / (plan.monthlyPrice * month))) * 100)}%` : '';
+            
+            // Update price display
+            const priceDiv = el.querySelector('.lg\\:w-1\\/4 .text-center');
+            priceDiv.querySelector('.price-tag').textContent = `₹${price}`;
+            priceDiv.querySelector('.per-month').textContent = `₹${monthlyAverage}/month`;
+            
+            // Update savings badge
+            const savingsBadge = priceDiv.querySelector('.savings-badge');
+            if (month > 3) {
+              if (!savingsBadge) {
+                const badge = document.createElement('div');
+                badge.className = 'savings-badge mt-1';
+                badge.textContent = savings;
+                priceDiv.appendChild(badge);
+              } else {
+                savingsBadge.textContent = savings;
+              }
+            } else if (savingsBadge) {
+              savingsBadge.remove();
+            }
           });
-
-          el.querySelector('.enquire-btn').addEventListener('click', () => openEnquiry(plan));
         });
+
+        el.querySelector('.enquire-btn').addEventListener('click', () => openEnquiry(plan));
       });
     }
 
+    // Apply Filters
     function applyFilters() {
+      const planType = filterPlanType.value;
       const speed = filterSpeed.value;
-      const validity = filterValidity.value;
       const maxPrice = parseInt(filterPrice.value);
-      const activeCategory = document.querySelector('.category-btn.bg-blue-100')?.dataset.category || 'all';
 
       const filtered = plans.filter(plan => {
-        if (speed && plan.speedNum !== parseInt(speed)) return false;
-        if (validity && plan.defaultMonths !== parseInt(validity)) return false;
-        if (activeCategory !== 'all' && plan.category !== activeCategory) return false;
+        // Filter by plan type
+        if (planType && plan.planType !== planType) {
+          return false;
+        }
+        
+        // Filter by speed
+        if (speed && plan.speedNum !== parseInt(speed)) {
+          return false;
+        }
+        
+        // Filter by price
         const months = selectedMonthsMap[plan.id] || plan.defaultMonths;
-        if (plan.monthlyPrice * months > maxPrice) return false;
+        let price;
+        if (months === 3) price = plan.price3Months;
+        else if (months === 6) price = plan.price6Months;
+        else if (months === 12) price = plan.price12Months;
+        else price = plan.monthlyPrice * months;
+        
+        if (price > maxPrice) return false;
+        
         return true;
       });
+      
       renderPlans(filtered);
     }
 
-    // Overlay
-    const overlay = document.getElementById('overlay');
-    const selectedPlanInput = document.getElementById('selectedPlan');
-    function openEnquiry(plan) {
-      const months = selectedMonthsMap[plan.id] || plan.defaultMonths;
-      const total = plan.monthlyPrice * months;
-      selectedPlanInput.value = `${plan.code} - ${plan.speedLabel} Mbps - ${months} months - ₹${total}`;
-      overlay.classList.remove('hidden');
-    }
-    document.getElementById('closeOverlay').onclick = () => overlay.classList.add('hidden');
-    document.getElementById('cancelBtn').onclick = () => overlay.classList.add('hidden');
-    overlay.onclick = e => { if (e.target === overlay) overlay.classList.add('hidden'); };
-
-    document.getElementById('enqForm').onsubmit = function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const mobile = document.getElementById('mobile').value;
-      const city = document.getElementById('city').value;
-      const plan = selectedPlanInput.value;
-      const message = `Hello, I'm interested in:%0A${encodeURIComponent(plan)}%0AName: ${name}%0ACity: ${city}%0AContact: ${mobile}`;
-      window.open(`https://wa.me/918830750491?text=${message}`, '_blank');
-      overlay.classList.add('hidden');
-      this.reset();
-    };
-
-    // Filters
-    filterSpeed.onchange = filterValidity.onchange = applyFilters;
-    filterPrice.oninput = () => priceVal.textContent = `₹${filterPrice.value}`;
-    filterPrice.onchange = applyFilters;
-    categoryBtns.forEach(btn => btn.onclick = () => {
-      setActiveCategory(btn.dataset.category);
+    // Filter Event Listeners
+    filterPlanType.onchange = applyFilters;
+    filterSpeed.onchange = applyFilters;
+    
+    filterPrice.oninput = function() {
+      priceVal.textContent = `₹${this.value}`;
+      // Update in real-time
       applyFilters();
+    };
+    
+    filterPrice.onchange = applyFilters;
+
+    // Close OTT Apps Overlay when clicking outside
+    document.getElementById('ottAppsOverlay').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeOttAppsOverlay();
+      }
     });
 
-    // Init
-    plans.forEach(p => selectedMonthsMap[p.id] = p.defaultMonths);
-    setActiveCategory('all');
+    // Initialize - set all plans to default to 3 months
+    plans.forEach(p => selectedMonthsMap[p.id] = 3);
     renderPlans(plans);
   </script>
 
   <!-- Header Fetch -->
   <script>
-    fetch("header.html")
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("header").innerHTML = data;
-        const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-        const mobileMenu = document.getElementById("mobile-menu");
-        const menuIcon = document.getElementById("menu-icon");
-        const mobilePlansToggle = document.getElementById("mobile-plans-toggle");
-        const mobilePlans = document.getElementById("mobile-plans");
-        const mobileServicesToggle = document.getElementById("mobile-services-toggle");
-        const mobileServices = document.getElementById("mobile-services");
+   //header js
+fetch("header.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("header").innerHTML = data;
 
-        mobileMenuToggle?.addEventListener("click", () => {
-          mobileMenu.classList.toggle("open");
-          menuIcon.classList.toggle("fa-bars");
-          menuIcon.classList.toggle("fa-times");
-        });
+    // ✅ NOW your header JS runs safely AFTER load
+    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuIcon = document.getElementById("menu-icon");
+    const mobilePlansToggle = document.getElementById("mobile-plans-toggle");
+    const mobilePlans = document.getElementById("mobile-plans");
+    const mobileServicesToggle = document.getElementById("mobile-services-toggle");
+    const mobileServices = document.getElementById("mobile-services");
 
-        mobilePlansToggle?.addEventListener("click", () => {
-          mobilePlans.classList.toggle("open");
-          mobilePlansToggle.classList.toggle("active");
-        });
+    // Toggle Mobile Menu
+    mobileMenuToggle?.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
 
-        mobileServicesToggle?.addEventListener("click", () => {
-          mobileServices.classList.toggle("open");
-          mobileServicesToggle.classList.toggle("active");
-        });
-      });
+      if (mobileMenu.classList.contains("open")) {
+        menuIcon.classList.remove("fa-bars");
+        menuIcon.classList.add("fa-times");
+      } else {
+        menuIcon.classList.remove("fa-times");
+        menuIcon.classList.add("fa-bars");
+
+        mobilePlans.classList.remove("open");
+        mobileServices.classList.remove("open");
+        mobilePlansToggle.classList.remove("active");
+        mobileServicesToggle.classList.remove("active");
+      }
+    });
+
+    // Toggle Mobile Plans
+    mobilePlansToggle?.addEventListener("click", () => {
+      mobilePlans.classList.toggle("open");
+      mobilePlansToggle.classList.toggle("active");
+
+      if (mobileServices.classList.contains("open")) {
+        mobileServices.classList.remove("open");
+        mobileServicesToggle.classList.remove("active");
+      }
+    });
+
+    // Toggle Mobile Services
+    mobileServicesToggle?.addEventListener("click", () => {
+      mobileServices.classList.toggle("open");
+      mobileServicesToggle.classList.toggle("active");
+
+      if (mobilePlans.classList.contains("open")) {
+        mobilePlans.classList.remove("open");
+        mobilePlansToggle.classList.remove("active");
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", function(event) {
+      if (!mobileMenu || !mobileMenuToggle) return;
+
+      const isClickInsideMenu = mobileMenu.contains(event.target);
+      const isClickOnToggle = mobileMenuToggle.contains(event.target);
+
+      if (!isClickInsideMenu && !isClickOnToggle && mobileMenu.classList.contains("open")) {
+        mobileMenu.classList.remove("open");
+        menuIcon.classList.remove("fa-times");
+        menuIcon.classList.add("fa-bars");
+
+        mobilePlans.classList.remove("open");
+        mobileServices.classList.remove("open");
+        mobilePlansToggle.classList.remove("active");
+        mobileServicesToggle.classList.remove("active");
+      }
+    });
+  });
   </script>
 </body>
 </html>

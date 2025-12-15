@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ONE IPTV | Premium Internet Television</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #0056b3;
+        --primary-dark: #004494;
+        --accent: #ff6b35;
+        --dark: #1a1a2e;
+        --light: #f8f9fa;
+        --gray: #6c757d;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        color: #333;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .hero-gradient {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      }
+
+      .section-gradient {
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        border-left-color: var(--accent);
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+      }
+
+      .btn-accent {
+        background-color: var(--accent);
+        transition: all 0.3s ease;
+      }
+
+      .btn-accent:hover {
+        background-color: #e55a2b;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+      }
+
+      .step-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 5px 15px rgba(0, 86, 179, 0.2);
+      }
+
+      .device-compatibility {
+        background-color: #f1f8ff;
+        border-radius: 12px;
+        padding: 2rem;
+        border: 1px solid #d1e7ff;
+      }
+
+      .faq-item {
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.2rem;
+        }
+
+        .step-icon {
+          width: 60px;
+          height: 60px;
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section
+      class="relative py-16 md:py-28 text-white overflow-hidden bg-cover bg-center"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04');
+      "
+    >
+      <!-- Dark overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-black/80 via-blue-900/70 to-black/90"
+      ></div>
+
+      <!-- Content -->
+      <div class="relative max-w-5xl mx-auto px-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          Smarter Television.<br />
+          <span class="text-orange-400">Delivered Over Internet</span>
+        </h1>
+
+        <p class="text-gray-200 text-base md:text-xl mb-10 max-w-3xl mx-auto">
+          Enjoy high-quality live TV and on-demand content without cable or
+          satellite.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-5">
+          <a
+            href="broadband.html"
+            class="bg-orange-500 hover:bg-orange-600 px-8 py-3.5 rounded-lg text-sm md:text-base font-semibold transition"
+          >
+            Get IPTV Plans
+          </a>
+
+          <a
+            href="About.html"
+            class="border border-white/30 px-8 py-3.5 rounded-lg text-sm md:text-base font-semibold hover:bg-white/10 transition"
+          >
+            Learn More
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- What is IPTV Section -->
+    <section id="about" class="py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div
+          class="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+        >
+          <!-- Vertical Divider (Desktop only) -->
+          <span
+            class="hidden lg:block absolute left-1/2 top-0 h-full w-px bg-gradient-to-b from-transparent via-gray-200 to-transparent"
+          ></span>
+
+          <!-- LEFT: CONTENT -->
+          <div class="pr-0 lg:pr-10">
+            <span
+              class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 mb-3"
+            >
+              <i class="fas fa-tv"></i> What is IPTV
+            </span>
+
+            <h2
+              class="text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-4"
+            >
+              Television that Works Like the Internet
+            </h2>
+
+            <p class="text-base text-gray-600 leading-relaxed mb-4">
+              IPTV (Internet Protocol Television) delivers live TV and on-demand
+              entertainment through your broadband connection — removing the
+              need for cables, dishes, or traditional infrastructure.
+            </p>
+
+            <p class="text-base text-gray-600 leading-relaxed">
+              With IPTV, your TV becomes a smart streaming device capable of
+              delivering faster channel switching, better quality, and flexible
+              viewing across modern devices.
+            </p>
+          </div>
+
+          <!-- RIGHT: FLOATING INFO -->
+          <div class="pl-0 lg:pl-10 relative">
+            <!-- Soft Background Accent -->
+            <div
+              class="absolute -top-10 -right-10 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-60"
+            ></div>
+
+            <div class="relative space-y-5">
+              <div class="flex items-start gap-4">
+                <i class="fas fa-wifi text-blue-600 text-xl mt-1"></i>
+                <div>
+                  <h4 class="text-base font-semibold text-gray-900">
+                    Internet-Powered Delivery
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    TV channels streamed directly over high-speed broadband.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <i class="fas fa-play-circle text-purple-600 text-xl mt-1"></i>
+                <div>
+                  <h4 class="text-base font-semibold text-gray-900">
+                    Live & On-Demand Content
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    Watch live channels, movies, shows, and replays anytime.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <i class="fas fa-tv text-green-600 text-xl mt-1"></i>
+                <div>
+                  <h4 class="text-base font-semibold text-gray-900">
+                    Works on Smart Devices
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    Compatible with Smart TVs, Android TV, and Fire Stick.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose ONE IPTV Section -->
+    <section id="features" class="section-gradient py-10">
+      <div class="max-w-7xl mx-auto px-4">
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+            Why Choose <span class="text-blue-600">GLOBALNET IPTV</span>?
+          </h2>
+          <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
+            High-speed internet combined with premium IPTV entertainment.
+          </p>
+        </div>
+
+        <!-- Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Card -->
+          <div
+            class="bg-white border border-gray-200 rounded-xl p-5 text-center hover:shadow-md transition"
+          >
+            <div
+              class="w-14 h-14 mx-auto mb-4 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center"
+            >
+              <i class="fas fa-tv text-blue-700 text-2xl"></i>
+            </div>
+            <h3 class="text-base font-semibold text-gray-800 mb-1">
+              SD / HD Channels
+            </h3>
+            <p class="text-sm text-gray-600">
+              Smooth HD viewing with broadband support.
+            </p>
+          </div>
+
+          <div
+            class="bg-white border border-gray-200 rounded-xl p-5 text-center hover:shadow-md transition"
+          >
+            <div
+              class="w-14 h-14 mx-auto mb-4 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center"
+            >
+              <i class="fas fa-gift text-purple-600 text-2xl"></i>
+            </div>
+            <h3 class="text-base font-semibold text-gray-800 mb-1">
+              Combo Services
+            </h3>
+            <p class="text-sm text-gray-600">
+              Entertainment bundled with broadband.
+            </p>
+          </div>
+
+          <div
+            class="bg-white border border-gray-200 rounded-xl p-5 text-center hover:shadow-md transition"
+          >
+            <div
+              class="w-14 h-14 mx-auto mb-4 rounded-xl bg-green-50 border border-green-200 flex items-center justify-center"
+            >
+              <i class="fas fa-rupee-sign text-green-600 text-2xl"></i>
+            </div>
+            <h3 class="text-base font-semibold text-gray-800 mb-1">
+              Affordable Plans
+            </h3>
+            <p class="text-sm text-gray-600">Budget-friendly IPTV pricing.</p>
+          </div>
+
+          <div
+            class="bg-white border border-gray-200 rounded-xl p-5 text-center hover:shadow-md transition"
+          >
+            <div
+              class="w-14 h-14 mx-auto mb-4 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center"
+            >
+              <i class="fas fa-file-invoice text-red-600 text-2xl"></i>
+            </div>
+            <h3 class="text-base font-semibold text-gray-800 mb-1">
+              Single Bill
+            </h3>
+            <p class="text-sm text-gray-600">One bill for all services.</p>
+          </div>
+
+          <div
+            class="bg-white border border-gray-200 rounded-xl p-5 text-center hover:shadow-md transition"
+          >
+            <div
+              class="w-14 h-14 mx-auto mb-4 rounded-xl bg-yellow-50 border border-yellow-200 flex items-center justify-center"
+            >
+              <i class="fas fa-bolt text-yellow-600 text-2xl"></i>
+            </div>
+            <h3 class="text-base font-semibold text-gray-800 mb-1">
+              Broadband IPTV
+            </h3>
+            <p class="text-sm text-gray-600">Optimized network streaming.</p>
+          </div>
+
+          <div
+            class="bg-white border border-gray-200 rounded-xl p-5 text-center hover:shadow-md transition"
+          >
+            <div
+              class="w-14 h-14 mx-auto mb-4 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center"
+            >
+              <i class="fas fa-exclamation-circle text-indigo-600 text-2xl"></i>
+            </div>
+            <h3 class="text-base font-semibold text-gray-800 mb-1">
+              Exclusive Access
+            </h3>
+            <p class="text-sm text-gray-600">
+              Available only with ONE Broadband.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Get Started Section -->
+    <section id="getting-started" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            How to Get <span class="text-blue-600">Started</span>?
+          </h2>
+          <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            Follow these simple steps to start enjoying
+            <strong>GlobalNet IPTV</strong> on your devices.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div class="text-center">
+            <div class="step-icon">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">
+              1. Choose Your Plan
+            </h3>
+            <p class="text-gray-600">
+              Pick from a range of regional and genre-specific packages that
+              suit your preferences.
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="step-icon">
+              <i class="fas fa-download"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">
+              2. Download the App
+            </h3>
+            <p class="text-gray-600">
+              Get the UlkaLite App for Smart Android TV and Amazon Firestick
+              from their respective stores.
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="step-icon">
+              <i class="fas fa-wifi"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">
+              3. Ensure Broadband is Active
+            </h3>
+            <p class="text-gray-600">
+              Make sure your <strong>GlobalNet Broadband</strong> connection is
+              active and running for optimal streaming.
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="step-icon">
+              <i class="fas fa-play-circle"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">
+              4. Start Watching Instantly
+            </h3>
+            <p class="text-gray-600">
+              Launch the app, log in with your credentials, and start enjoying
+              your favorite content.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gray-950 text-gray-400 pt-16 pb-12 border-t border-gray-800"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Main Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14"
+        >
+          <!-- Brand Section -->
+          <div class="lg:col-span-2">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4 shadow-sm"
+              >
+                <i class="fas fa-wifi text-gray-900 text-lg"></i>
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-white tracking-wide">
+                  FiberNet Pro
+                </h2>
+                <p class="text-gray-500 text-sm">Pure Fiber. Pure Speed.</p>
+              </div>
+            </div>
+
+            <p class="text-gray-500 leading-relaxed mb-6">
+              Delivering exceptional internet experiences with cutting-edge
+              fiber technology and unmatched customer support.
+            </p>
+
+            <!-- Social Icons -->
+            <div class="flex space-x-3">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:text-white flex items-center justify-center transition"
+              >
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Product -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-red-600 pl-3"
+            >
+              Product
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Internet Plans</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Business Solutions</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Coverage Map</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Speed Test</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-blue-500 pl-3"
+            >
+              Company
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">Press</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">Blog</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div>
+            <h3
+              class="text-white font-semibold mb-4 border-l-4 border-green-500 pl-3"
+            >
+              Resources
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Support</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Documentation</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">API</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Status</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="border-t border-gray-800 pt-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-gray-500 text-sm">
+              © 2025 FiberNet Pro. All rights reserved.
+            </p>
+
+            <div class="flex items-center space-x-6 text-sm">
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Privacy Policy</a
+              >
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Terms of Service</a
+              >
+              <a
+                href="#"
+                class="text-gray-500 hover:text-white transition-colors"
+                >Cookie Policy</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Success Modal (Hidden by default) -->
+    <div
+      id="successModal"
+      class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+        <div class="text-center">
+          <div
+            class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6"
+          >
+            <i class="fas fa-check text-3xl text-green-600"></i>
+          </div>
+
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">
+            Payment Successful!
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Your ONE IPTV plan has been successfully activated.
+          </p>
+
+          <div class="bg-gray-100 rounded-xl p-4 mb-6">
+            <div class="text-center">
+              <p class="text-sm text-gray-500">Order ID</p>
+              <p class="font-bold text-gray-800">0123456789</p>
+
+              <div class="my-4">
+                <p class="text-sm text-gray-500">Amount Received</p>
+                <p class="text-2xl font-bold text-green-600">₹2500/-</p>
+              </div>
+
+              <p class="text-lg font-bold text-gray-800">
+                SUPER50 Plan Activated
+              </p>
+            </div>
+          </div>
+
+          <button
+            id="closeModal"
+            class="btn-primary text-white font-semibold py-3 px-8 rounded-lg w-full"
+          >
+            <i class="fas fa-tv mr-2"></i> Start Watching Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //header js
+      fetch("header.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+
+          // ✅ NOW your header JS runs safely AFTER load
+          const mobileMenuToggle =
+            document.getElementById("mobile-menu-toggle");
+          const mobileMenu = document.getElementById("mobile-menu");
+          const menuIcon = document.getElementById("menu-icon");
+          const mobilePlansToggle = document.getElementById(
+            "mobile-plans-toggle"
+          );
+          const mobilePlans = document.getElementById("mobile-plans");
+          const mobileServicesToggle = document.getElementById(
+            "mobile-services-toggle"
+          );
+          const mobileServices = document.getElementById("mobile-services");
+
+          // Toggle Mobile Menu
+          mobileMenuToggle?.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+
+            if (mobileMenu.classList.contains("open")) {
+              menuIcon.classList.remove("fa-bars");
+              menuIcon.classList.add("fa-times");
+            } else {
+              menuIcon.classList.remove("fa-times");
+              menuIcon.classList.add("fa-bars");
+
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+
+          // Toggle Mobile Plans
+          mobilePlansToggle?.addEventListener("click", () => {
+            mobilePlans.classList.toggle("open");
+            mobilePlansToggle.classList.toggle("active");
+
+            if (mobileServices.classList.contains("open")) {
+              mobileServices.classList.remove("open");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+
+          // Toggle Mobile Services
+          mobileServicesToggle?.addEventListener("click", () => {
+            mobileServices.classList.toggle("open");
+            mobileServicesToggle.classList.toggle("active");
+
+            if (mobilePlans.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+            }
+          });
+
+          // Close when clicking outside
+          document.addEventListener("click", function (event) {
+            if (!mobileMenu || !mobileMenuToggle) return;
+
+            const isClickInsideMenu = mobileMenu.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+
+            if (
+              !isClickInsideMenu &&
+              !isClickOnToggle &&
+              mobileMenu.classList.contains("open")
+            ) {
+              mobileMenu.classList.remove("open");
+              menuIcon.classList.remove("fa-times");
+              menuIcon.classList.add("fa-bars");
+
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+        });
+    </script>
+  </body>
+</html>
