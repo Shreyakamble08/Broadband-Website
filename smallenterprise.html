@@ -94,6 +94,20 @@
         scroll-behavior: smooth;
       }
 
+      /* FIX: Prevent horizontal overflow globally */
+      body, html {
+        max-width: 100%;
+        overflow-x: hidden;
+        position: relative;
+        width: 100%;
+      }
+
+      /* Ensure all containers don't exceed viewport */
+      .container-fix {
+        max-width: 100vw;
+        width: 100%;
+      }
+
       /* Theme Colors */
       :root {
         --primary-blue: #004b88;
@@ -112,7 +126,7 @@
         overflow-x: hidden;
       }
 
-      /* Hero Banner */
+      /* Hero Banner - FIX: Ensure it doesn't cause overflow */
       .hero-banner {
         background: linear-gradient(
             rgba(0, 51, 102, 0.85),
@@ -125,6 +139,11 @@
         height: 65vh;
         min-height: 500px;
         position: relative;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
       }
 
       /* Services Section Cards */
@@ -135,6 +154,7 @@
         overflow: hidden;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
         height: 100%;
+        max-width: 100%;
       }
 
       .service-card:hover {
@@ -147,6 +167,7 @@
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         position: relative;
         overflow: hidden;
+        max-width: 100%;
       }
 
       .leased-line-info::before {
@@ -209,16 +230,33 @@
         margin-bottom: 1rem;
       }
 
-      /* Responsive Adjustments */
+      /* Responsive Adjustments - IMPROVED */
       @media (max-width: 768px) {
         .hero-banner {
           height: 50vh;
           min-height: 400px;
           background-attachment: scroll;
+          width: 100vw;
+          left: 50%;
+          right: 50%;
+          margin-left: -50vw;
+          margin-right: -50vw;
         }
 
         .stat-counter {
           font-size: 2.5rem;
+        }
+        
+        /* FIX: Prevent text overflow on mobile */
+        h1, h2, h3, p {
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+        
+        /* FIX: Ensure padding doesn't cause overflow */
+        .max-w-7xl {
+          padding-left: 1rem;
+          padding-right: 1rem;
         }
       }
 
@@ -226,6 +264,28 @@
         .hero-banner {
           height: 45vh;
           min-height: 350px;
+          width: 100vw;
+          left: 50%;
+          right: 50%;
+          margin-left: -50vw;
+          margin-right: -50vw;
+        }
+        
+        /* FIX: Further reduce padding on very small screens */
+        .px-6, .px-5, .px-4 {
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
+        }
+        
+        /* FIX: Prevent flex containers from overflowing */
+        .flex, .grid {
+          max-width: 100%;
+        }
+        
+        /* FIX: Images should not exceed container */
+        img {
+          max-width: 100%;
+          height: auto;
         }
       }
 
@@ -239,6 +299,7 @@
         border-radius: 20px;
         max-height: 90vh;
         overflow-y: auto;
+        max-width: 95vw; /* FIX: Ensure overlay doesn't exceed viewport */
       }
 
       /* Image Hover Effects */
@@ -249,6 +310,7 @@
 
       .img-hover-zoom img {
         transition: transform 0.5s ease;
+        max-width: 100%;
       }
 
       .img-hover-zoom:hover img {
@@ -266,67 +328,34 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
+      
+      /* FIX: Ensure form inputs don't cause overflow */
+      input, textarea, select {
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+      
+      /* FIX: Specific fix for the hero section text */
+      .hero-banner .relative {
+        max-width: 100vw;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      /* FIX: Ensure all content is properly constrained */
+      section, div, footer {
+        box-sizing: border-box;
+      }
     </style>
   </head>
   <body class="overflow-x-hidden">
     <!-- Navigation -->
     <div id="header"></div>
-    <script>
-       // Header Loading
-        fetch("header.html")
-          .then((res) => {
-            if (!res.ok) throw new Error("Header not found");
-            return res.text();
-          })
-          .then((data) => {
-            document.getElementById("header").innerHTML = data;
-            initializeHeader();
-          })
-          .catch((error) => {
-            console.log("Using fallback header:", error.message);
-            loadFallbackHeader();
-          });
-
-        function initializeHeader() {
-          const mobileMenuToggle =
-            document.getElementById("mobile-menu-toggle");
-          const mobileMenu = document.getElementById("mobile-menu");
-          const menuIcon = document.getElementById("menu-icon");
-
-          if (mobileMenuToggle && mobileMenu && menuIcon) {
-            mobileMenuToggle.addEventListener("click", () => {
-              const isOpen = mobileMenu.classList.contains("open");
-
-              if (isOpen) {
-                mobileMenu.classList.remove("open");
-                menuIcon.classList.remove("fa-times");
-                menuIcon.classList.add("fa-bars");
-              } else {
-                mobileMenu.classList.add("open");
-                menuIcon.classList.remove("fa-bars");
-                menuIcon.classList.add("fa-times");
-              }
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener("click", function (event) {
-              if (
-                !mobileMenu.contains(event.target) &&
-                !mobileMenuToggle.contains(event.target) &&
-                mobileMenu.classList.contains("open")
-              ) {
-                mobileMenu.classList.remove("open");
-                menuIcon.classList.remove("fa-times");
-                menuIcon.classList.add("fa-bars");
-              }
-            });
-          }
-        }
-    </script>
+ 
 
     <!-- Hero Banner Section -->
     <section
-      class="hero-banner relative flex items-center justify-center min-h-[55vh] md:min-h-[60vh]"
+      class="hero-banner relative flex items-center justify-center min-h-[55vh] md:min-h-[60vh] container-fix"
     >
       <!-- Overlay -->
       <div
@@ -335,17 +364,17 @@
 
       <!-- Content -->
       <div
-        class="relative z-10 max-w-7xl mx-auto px-6 text-center text-white animate-fade-in"
+        class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center text-white animate-fade-in w-full"
       >
         <h1
-          class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight"
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight px-2"
         >
           Powering Growth,<br />
           <span class="text-orange-400">Connecting Possibilities</span>
         </h1>
 
         <p
-          class="text-base md:text-lg text-blue-100 max-w-3xl mx-auto mb-6 leading-relaxed animate-fade-in animation-delay-200"
+          class="text-sm sm:text-base md:text-lg text-blue-100 max-w-3xl mx-auto mb-6 leading-relaxed animate-fade-in animation-delay-200 px-2"
         >
           Bridge the connectivity gap for your Enterprise with our Fast, Simple,
           Reliable Services from one of India's top Private ISP.
@@ -356,24 +385,24 @@
     <!-- Services Section -->
     <section
       id="services"
-      class="mt-6 md:-mt-10 py-10 md:py-14 bg-gradient-to-b from-white to-slate-50"
+      class="mt-6 md:-mt-10 py-10 md:py-14 bg-gradient-to-b from-white to-slate-50 container-fix"
     >
-      <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <!-- Header -->
-        <div class="text-center mb-10 animate-fade-in-up">
-          <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-3">
+        <div class="text-center mb-10 animate-fade-in-up px-2">
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 mb-3">
             Understanding <span class="gradient-text">Leased Lines</span>
           </h2>
 
-          <p class="text-base text-slate-600 max-w-3xl mx-auto">
+          <p class="text-sm sm:text-base text-slate-600 max-w-3xl mx-auto">
             Secure, reliable, and dedicated internet connectivity for
             enterprises
           </p>
         </div>
 
         <!-- What are Leased Lines -->
-        <div class="mb-10 animate-fade-in-up">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div class="mb-10 animate-fade-in-up px-2">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center">
             <!-- Left Content -->
             <div>
               <div class="flex items-center gap-3 mb-5">
@@ -382,12 +411,12 @@
                 >
                   <i class="fas fa-info-circle text-blue-600"></i>
                 </div>
-                <h3 class="text-xl md:text-2xl font-bold text-slate-800">
+                <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">
                   What are <span class="text-blue-600">Leased Lines?</span>
                 </h3>
               </div>
 
-              <p class="text-slate-700 text-base leading-relaxed mb-5">
+              <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-5">
                 A leased line is a dedicated, fixed-bandwidth internet
                 connection that offers symmetric speeds and uncontended
                 performance between locations.
@@ -399,7 +428,7 @@
                 <h4 class="font-semibold text-slate-800 mb-3">
                   Key Characteristics
                 </h4>
-                <ul class="space-y-2 text-sm">
+                <ul class="space-y-2 text-xs sm:text-sm">
                   <li class="flex items-center gap-2">
                     <i class="fas fa-check-circle text-green-500"></i> Dedicated
                     private connection
@@ -422,19 +451,19 @@
 
             <!-- Right Image -->
             <div
-              class="bg-white rounded-xl p-5 shadow-lg border border-slate-200"
+              class="bg-white rounded-xl p-4 sm:p-5 shadow-lg border border-slate-200"
             >
-              <h4 class="text-lg font-bold text-slate-800 text-center mb-2">
+              <h4 class="text-base sm:text-lg font-bold text-slate-800 text-center mb-2">
                 Leased Line Infrastructure
               </h4>
-              <p class="text-sm text-slate-600 text-center mb-4">
+              <p class="text-xs sm:text-sm text-slate-600 text-center mb-4">
                 Dedicated enterprise-grade connectivity
               </p>
 
               <img
                 src="images/leaseline.png.webp"
                 alt="Leased Line Architecture"
-                class="w-full h-56 md:h-64 object-cover rounded-lg"
+                class="w-full h-48 sm:h-56 md:h-64 object-cover rounded-lg"
                 onerror="this.src='https://via.placeholder.com/900x350?text=Leased+Line+Architecture'"
               />
 
@@ -447,21 +476,21 @@
         </div>
 
         <!-- Why Businesses Choose -->
-        <div class="mb-10 animate-fade-in-up">
+        <div class="mb-10 animate-fade-in-up px-2">
           <div class="text-center mb-8">
-            <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-2">
+            <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-slate-800 mb-2">
               Why Businesses Choose
               <span class="text-blue-600">Leased Lines</span>
             </h3>
-            <p class="text-base text-slate-600 max-w-3xl mx-auto">
+            <p class="text-sm sm:text-base text-slate-600 max-w-3xl mx-auto">
               Built for mission-critical enterprise operations
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             <!-- Card -->
             <div
-              class="bg-white rounded-xl p-5 shadow-md border hover:shadow-lg transition"
+              class="bg-white rounded-xl p-4 sm:p-5 shadow-md border hover:shadow-lg transition"
             >
               <div
                 class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3"
@@ -469,13 +498,13 @@
                 <i class="fas fa-cloud text-blue-600"></i>
               </div>
               <h4 class="font-semibold text-slate-800 mb-2">Cloud & SaaS</h4>
-              <p class="text-sm text-slate-600">
+              <p class="text-xs sm:text-sm text-slate-600">
                 Reliable access to ERP, CRM, and cloud platforms.
               </p>
             </div>
 
             <div
-              class="bg-white rounded-xl p-5 shadow-md border hover:shadow-lg transition"
+              class="bg-white rounded-xl p-4 sm:p-5 shadow-md border hover:shadow-lg transition"
             >
               <div
                 class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3"
@@ -483,13 +512,13 @@
                 <i class="fas fa-video text-orange-600"></i>
               </div>
               <h4 class="font-semibold text-slate-800 mb-2">VoIP & Video</h4>
-              <p class="text-sm text-slate-600">
+              <p class="text-xs sm:text-sm text-slate-600">
                 Clear calls with zero jitter and packet loss.
               </p>
             </div>
 
             <div
-              class="bg-white rounded-xl p-5 shadow-md border hover:shadow-lg transition"
+              class="bg-white rounded-xl p-4 sm:p-5 shadow-md border hover:shadow-lg transition"
             >
               <div
                 class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3"
@@ -499,7 +528,7 @@
               <h4 class="font-semibold text-slate-800 mb-2">
                 Data Replication
               </h4>
-              <p class="text-sm text-slate-600">
+              <p class="text-xs sm:text-sm text-slate-600">
                 Secure, real-time backup and DR connectivity.
               </p>
             </div>
@@ -507,18 +536,18 @@
         </div>
 
         <!-- CTA -->
-        <div class="text-center animate-fade-in-up">
+        <div class="text-center animate-fade-in-up px-2">
           <div
-            class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-6 md:p-8 text-white"
+            class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-5 sm:p-6 md:p-8 text-white"
           >
-            <h3 class="text-xl md:text-2xl font-bold mb-3">
+            <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-3">
               Get in Touch With Our Experts
             </h3>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <a
                 href="contact.html"
-                class="inline-flex items-center justify-center bg-white text-blue-700 px-6 py-2.5 rounded-lg font-semibold hover:bg-blue-50 transition"
+                class="inline-flex items-center justify-center bg-white text-blue-700 px-5 sm:px-6 py-2.5 rounded-lg font-semibold hover:bg-blue-50 transition"
               >
                 <i class="fas fa-envelope mr-2"></i> Contact Us
               </a>
@@ -530,12 +559,12 @@
 
     <!-- Features Section -->
     <section
-      class="mt-6 md:-mt-8 py-10 md:py-12 bg-gradient-to-b from-white to-gray-50"
+      class="mt-6 md:-mt-8 py-10 md:py-12 bg-gradient-to-b from-white to-gray-50 container-fix"
     >
-      <div class="max-w-7xl mx-auto px-5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-5">
         <!-- Section Header -->
-        <div class="text-center mb-8 animate-fade-in-up">
-          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+        <div class="text-center mb-8 animate-fade-in-up px-2">
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-2">
             Enterprise
             <span
               class="bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent"
@@ -543,13 +572,13 @@
             >
           </h2>
 
-          <p class="text-sm md:text-base text-slate-600 max-w-2xl mx-auto">
+          <p class="text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl mx-auto">
             Reliable, scalable features built for modern enterprise networks.
           </p>
         </div>
 
         <!-- Features Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 px-2">
           <!-- Feature 1 -->
           <div
             class="relative bg-white rounded-lg p-4 border border-slate-200 shadow-sm hover:shadow-md transition"
@@ -663,12 +692,12 @@
 
     <!-- Footer -->
     <footer
-      class="bg-gray-100 text-gray-800 pt-8 pb-8 border-t border-gray-800"
+      class="bg-gray-100 text-gray-800 pt-8 pb-8 border-t border-gray-800 container-fix"
     >
-      <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <!-- Main Grid -->
         <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 mb-14"
         >
           <!-- Brand Section -->
           <div class="lg:col-span-2">
@@ -677,12 +706,12 @@
               <img
                 src="images/logo.png"
                 alt="FiberNet Pro Logo"
-                class="h-16 w-auto mr-4"
+                class="h-14 sm:h-16 w-auto mr-4"
                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=100&fit=crop&crop=center'; this.alt='FiberNet Pro Logo'"
               />
             </div>
 
-            <p class="text-gray-500 leading-relaxed mb-8 max-w-md">
+            <p class="text-gray-500 leading-relaxed mb-8 max-w-md text-sm sm:text-base">
               Delivering exceptional internet experiences with cutting-edge
               fiber technology and unmatched customer support.
             </p>
@@ -701,7 +730,7 @@
                   <p class="text-sm text-gray-800">Email Us</p>
                   <a
                     href="mailto:support@globalnetindia.com"
-                    class="text-gray-600 hover:text-white transition-colors font-medium"
+                    class="text-gray-600 hover:text-white transition-colors font-medium text-sm sm:text-base"
                   >
                     support@globalnetindia.com
                   </a>
@@ -713,11 +742,11 @@
           <!-- Navigation Links -->
           <div>
             <h3
-              class="text-black font-semibold mb-4 border-l-4 border-blue-500 pl-3"
+              class="text-black font-semibold mb-4 border-l-4 border-blue-500 pl-3 text-base sm:text-lg"
             >
               Navigation
             </h3>
-            <ul class="space-y-3 text-sm">
+            <ul class="space-y-3 text-xs sm:text-sm">
               <li>
                 <a
                   href="index.html"
@@ -764,11 +793,11 @@
           <!-- Services -->
           <div>
             <h3
-              class="text-black font-semibold mb-4 border-l-4 border-green-500 pl-3"
+              class="text-black font-semibold mb-4 border-l-4 border-green-500 pl-3 text-base sm:text-lg"
             >
               Services
             </h3>
-            <ul class="space-y-3 text-sm">
+            <ul class="space-y-3 text-xs sm:text-sm">
               <li>
                 <a
                   href="smallenterprise.html"
@@ -808,11 +837,11 @@
           <!-- Plans -->
           <div>
             <h3
-              class="text-black font-semibold mb-4 border-l-4 border-red-600 pl-3"
+              class="text-black font-semibold mb-4 border-l-4 border-red-600 pl-3 text-base sm:text-lg"
             >
               Plans
             </h3>
-            <ul class="space-y-3 text-sm">
+            <ul class="space-y-3 text-xs sm:text-sm">
               <li>
                 <a
                   href="broadband.html"
@@ -836,13 +865,13 @@
         <!-- Bottom Section - Simplified -->
         <div class="border-t border-gray-800 pt-8">
           <div
-            class="flex flex-col md:flex-row justify-between items-center gap-4"
+            class="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left"
           >
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 text-xs sm:text-sm">
               © 2025 Globalnet Communications. All rights reserved.
             </p>
 
-            <div class="text-gray-500 text-sm">
+            <div class="text-gray-500 text-xs sm:text-sm">
               24/7 Customer Support Available
             </div>
           </div>
@@ -855,16 +884,16 @@
       id="overlay"
       class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
     >
-      <div class="overlay-content w-full max-w-md p-6">
+      <div class="overlay-content w-full max-w-md p-4 sm:p-6">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-xl font-bold text-slate-800">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-800">
             Business Connectivity Enquiry
           </h3>
           <button id="closeOverlay" class="text-slate-500 hover:text-slate-700">
             <i class="fas fa-times text-xl"></i>
           </button>
         </div>
-        <p class="text-slate-600 mb-6">
+        <p class="text-slate-600 mb-6 text-sm sm:text-base">
           Get started with our premium business connectivity solutions.
         </p>
         <form id="enqForm" class="space-y-4">
@@ -876,7 +905,7 @@
               id="name"
               type="text"
               required
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
             />
           </div>
           <div>
@@ -887,7 +916,7 @@
               id="mobile"
               type="tel"
               required
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
             />
           </div>
           <div>
@@ -897,7 +926,7 @@
             <input
               id="email"
               type="email"
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
             />
           </div>
           <div>
@@ -907,7 +936,7 @@
             <input
               id="company"
               type="text"
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
             />
           </div>
           <div>
@@ -918,17 +947,17 @@
               id="selectedPlan"
               type="text"
               readonly
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50"
+              class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50 text-sm sm:text-base"
             />
           </div>
-          <div class="flex gap-3 pt-4">
-            <button type="submit" class="enquire-btn flex-1 py-3">
+          <div class="flex gap-3 pt-4 flex-col sm:flex-row">
+            <button type="submit" class="enquire-btn flex-1 py-3 text-sm sm:text-base">
               Submit via WhatsApp
             </button>
             <button
               type="button"
               id="cancelBtn"
-              class="flex-1 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50"
+              class="flex-1 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 text-sm sm:text-base"
             >
               Cancel
             </button>
@@ -1076,6 +1105,76 @@
       // Make functions globally available
       window.openEnquiry = openEnquiry;
       window.openEnquiryWithPlan = openEnquiryWithPlan;
+    </script>
+
+
+   <script>
+      // ============ HEADER INJECTION (unchanged) ============
+      fetch("header.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+
+          const mobileMenuToggle =
+            document.getElementById("mobile-menu-toggle");
+          const mobileMenu = document.getElementById("mobile-menu");
+          const menuIcon = document.getElementById("menu-icon");
+          const mobilePlansToggle = document.getElementById(
+            "mobile-plans-toggle"
+          );
+          const mobilePlans = document.getElementById("mobile-plans");
+          const mobileServicesToggle = document.getElementById(
+            "mobile-services-toggle"
+          );
+          const mobileServices = document.getElementById("mobile-services");
+
+          mobileMenuToggle?.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+            menuIcon.classList.toggle("fa-bars");
+            menuIcon.classList.toggle("fa-times");
+
+            if (!mobileMenu.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle?.classList.remove("active");
+              mobileServicesToggle?.classList.remove("active");
+            }
+          });
+
+          mobilePlansToggle?.addEventListener("click", () => {
+            mobilePlans.classList.toggle("open");
+            mobilePlansToggle.classList.toggle("active");
+            if (mobileServices.classList.contains("open")) {
+              mobileServices.classList.remove("open");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+
+          mobileServicesToggle?.addEventListener("click", () => {
+            mobileServices.classList.toggle("open");
+            mobileServicesToggle.classList.toggle("active");
+            if (mobilePlans.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+            }
+          });
+
+          document.addEventListener("click", function (event) {
+            if (!mobileMenu || !mobileMenuToggle) return;
+            const isClickInside =
+              mobileMenu.contains(event.target) ||
+              mobileMenuToggle.contains(event.target);
+            if (!isClickInside && mobileMenu.classList.contains("open")) {
+              mobileMenu.classList.remove("open");
+              menuIcon.classList.remove("fa-times");
+              menuIcon.classList.add("fa-bars");
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle?.classList.remove("active");
+              mobileServicesToggle?.classList.remove("active");
+            }
+          });
+        });
     </script>
   </body>
 </html>

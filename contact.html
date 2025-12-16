@@ -448,56 +448,72 @@ Message: ${message || "N/A"}
           window.open(whatsappURL, "_blank");
         });
 
-         // Header Loading
-        fetch("header.html")
-          .then((res) => {
-            if (!res.ok) throw new Error("Header not found");
-            return res.text();
-          })
-          .then((data) => {
-            document.getElementById("header").innerHTML = data;
-            initializeHeader();
-          })
-          .catch((error) => {
-            console.log("Using fallback header:", error.message);
-            loadFallbackHeader();
-          });
+       // ============ HEADER INJECTION (unchanged) ============
+      fetch("header.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
 
-        function initializeHeader() {
           const mobileMenuToggle =
             document.getElementById("mobile-menu-toggle");
           const mobileMenu = document.getElementById("mobile-menu");
           const menuIcon = document.getElementById("menu-icon");
+          const mobilePlansToggle = document.getElementById(
+            "mobile-plans-toggle"
+          );
+          const mobilePlans = document.getElementById("mobile-plans");
+          const mobileServicesToggle = document.getElementById(
+            "mobile-services-toggle"
+          );
+          const mobileServices = document.getElementById("mobile-services");
 
-          if (mobileMenuToggle && mobileMenu && menuIcon) {
-            mobileMenuToggle.addEventListener("click", () => {
-              const isOpen = mobileMenu.classList.contains("open");
+          mobileMenuToggle?.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+            menuIcon.classList.toggle("fa-bars");
+            menuIcon.classList.toggle("fa-times");
 
-              if (isOpen) {
-                mobileMenu.classList.remove("open");
-                menuIcon.classList.remove("fa-times");
-                menuIcon.classList.add("fa-bars");
-              } else {
-                mobileMenu.classList.add("open");
-                menuIcon.classList.remove("fa-bars");
-                menuIcon.classList.add("fa-times");
-              }
-            });
+            if (!mobileMenu.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle?.classList.remove("active");
+              mobileServicesToggle?.classList.remove("active");
+            }
+          });
 
-            // Close menu when clicking outside
-            document.addEventListener("click", function (event) {
-              if (
-                !mobileMenu.contains(event.target) &&
-                !mobileMenuToggle.contains(event.target) &&
-                mobileMenu.classList.contains("open")
-              ) {
-                mobileMenu.classList.remove("open");
-                menuIcon.classList.remove("fa-times");
-                menuIcon.classList.add("fa-bars");
-              }
-            });
-          }
-        }
+          mobilePlansToggle?.addEventListener("click", () => {
+            mobilePlans.classList.toggle("open");
+            mobilePlansToggle.classList.toggle("active");
+            if (mobileServices.classList.contains("open")) {
+              mobileServices.classList.remove("open");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+
+          mobileServicesToggle?.addEventListener("click", () => {
+            mobileServices.classList.toggle("open");
+            mobileServicesToggle.classList.toggle("active");
+            if (mobilePlans.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+            }
+          });
+
+          document.addEventListener("click", function (event) {
+            if (!mobileMenu || !mobileMenuToggle) return;
+            const isClickInside =
+              mobileMenu.contains(event.target) ||
+              mobileMenuToggle.contains(event.target);
+            if (!isClickInside && mobileMenu.classList.contains("open")) {
+              mobileMenu.classList.remove("open");
+              menuIcon.classList.remove("fa-times");
+              menuIcon.classList.add("fa-bars");
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle?.classList.remove("active");
+              mobileServicesToggle?.classList.remove("active");
+            }
+          });
+        });
     </script>
   </body>
 </html>
