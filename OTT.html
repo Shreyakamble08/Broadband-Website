@@ -1,626 +1,826 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NXTPlay AHA - Premium OTT Entertainment</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <style>
-    * { font-family: 'Inter', sans-serif; }
-    
-    /* Hero Banner */
-    .hero-banner {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #c026d3 100%);
-      border-radius: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero-banner::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,192C672,181,768,139,864,138.7C960,139,1056,181,1152,192C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-      background-size: cover;
-      background-position: bottom;
-      opacity: 0.3;
-    }
-    
-    /* Plan Cards */
-    .plan-card {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e5e7eb;
-      transition: all 0.3s ease;
-      height: 520px; /* Reduced height */
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .plan-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15);
-      border-color: #c4b5fd;
-    }
-    
-    .plan-card.popular {
-      border: 2px solid #8b5cf6;
-      position: relative;
-    }
-    
-    .popular-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #f59e0b, #f97316);
-      color: white;
-      padding: 6px 20px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-      z-index: 10;
-    }
-    
-    /* Channel Icons - BIGGER */
-    .channel-icon {
-      width: 56px !important; /* Bigger */
-      height: 56px !important; /* Bigger */
-      border-radius: 16px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      overflow: hidden;
-      padding: 8px;
-    }
-    
-    .channel-icon:hover {
-      transform: scale(1.15);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-    
-    .channel-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-    
-    /* Price Styling */
-    .price-tag {
-      font-size: 42px;
-      font-weight: 900;
-      background: linear-gradient(135deg, #7c3aed, #c026d3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-    }
-    
-    .price-tag small {
-      font-size: 14px;
-      font-weight: 600;
-      color: #6b7280;
-    }
-    
-    /* Buttons */
-    .subscribe-btn {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: white;
-      font-weight: 700;
-      padding: 14px;
-      border-radius: 14px;
-      width: 100%;
-      border: none;
-      transition: all 0.3s ease;
-      margin-top: auto;
-    }
-    
-    .subscribe-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
-    }
-    
-    .whatsapp-btn {
-      background: linear-gradient(135deg, #25D366, #128C7E) !important;
-      color: white;
-      font-weight: 700;
-      padding: 14px;
-      border-radius: 14px;
-      width: 100%;
-      border: none;
-      transition: all 0.3s ease;
-    }
-    
-    .whatsapp-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-    }
-    
-    /* Overlay */
-    .overlay-bg {
-      backdrop-filter: blur(8px);
-      background: rgba(0, 0, 0, 0.8);
-    }
-    
-    .modal-content {
-      background: white;
-      border-radius: 20px;
-      max-height: 85vh;
-      overflow: hidden;
-      max-width: 420px; /* Smaller modal */
-      width: 95%;
-    }
-    
-    /* Channels Grid in Overlay */
-    .channels-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 20px;
-      max-height: 60vh;
-      overflow-y: auto;
-      padding-right: 10px;
-    }
-    
-    .channels-grid::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    .channels-grid::-webkit-scrollbar-track {
-      background: #f1f5f9;
-      border-radius: 10px;
-    }
-    
-    .channels-grid::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #7c3aed, #c026d3);
-      border-radius: 10px;
-    }
-    
-    /* Form Inputs */
-    .form-input {
-      background: white;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 14px 16px;
-      font-size: 15px;
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-    
-    .form-input:focus {
-      outline: none;
-      border-color: #8b5cf6;
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-    }
-    
-    /* Feature Tags */
-    .feature-tag {
-      background: white;
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    
-    /* Ultra OTT Plan Special Styling */
-    .ultra-card {
-      background: linear-gradient(145deg, #fff7ed, #fef3c7);
-      border: 2px solid #f59e0b;
-    }
-    
-    .ultra-card .subscribe-btn {
-      background: linear-gradient(135deg, #f59e0b, #f97316);
-    }
-    
-    .ultra-card .subscribe-btn:hover {
-      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
-    }
-    
-    /* Ultra HD Plan Special Styling */
-    .ultra-hd-card {
-      background: linear-gradient(145deg, #f0f9ff, #e0f2fe);
-      border: 2px solid #0ea5e9;
-    }
-    
-    .ultra-hd-card .subscribe-btn {
-      background: linear-gradient(135deg, #0ea5e9, #0284c7);
-    }
-    
-    .ultra-hd-card .subscribe-btn:hover {
-      box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-br from-slate-50 to-amber-50 min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NXTPlay AHA - Premium OTT Entertainment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
-  <div id="header"></div>
+    <style>
+      * {
+        font-family: "Inter", sans-serif;
+        box-sizing: border-box;
+      }
 
-  <!-- Hero Banner -->
-  <section class="max-w-7xl mx-auto px-4 py-8">
-    <div class="hero-banner text-white p-8 md:p-12 mb-12">
-      <div class="relative z-10">
-        <h1 class="text-4xl md:text-5xl font-black mb-4">
-          Premium OTT Plans
-        </h1>
-        <p class="text-xl opacity-90 mb-8 max-w-2xl">
-          Choose from our curated OTT bundles designed for every entertainment need
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+        min-height: 100vh;
+      }
+
+      /* Minimal Card Design */
+      .minimal-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #f1f5f9;
+      }
+
+      .minimal-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+      }
+
+      .minimal-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15);
+      }
+
+      /* Minimal Card Header */
+      .minimal-header {
+        padding: 20px 20px 12px;
+        background: white;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .minimal-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+      }
+
+      /* Minimal Pricing Grid */
+      .minimal-pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin: 16px 0;
+      }
+
+      .minimal-pricing-option {
+        background: #f8fafc;
+        padding: 12px 6px;
+        border-radius: 10px;
+        text-align: center;
+        transition: all 0.2s ease;
+        border: 1px solid #e2e8f0;
+        cursor: pointer;
+      }
+
+      .minimal-pricing-option:hover {
+        background: white;
+        border-color: #3b82f6;
+        transform: translateY(-2px);
+      }
+
+      .minimal-pricing-option.selected {
+        background: white;
+        border-color: #3b82f6;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        position: relative;
+      }
+
+      .minimal-pricing-option.selected::after {
+        content: "✓";
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        background: #3b82f6;
+        color: white;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Minimal Features */
+      .minimal-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 16px 0;
+      }
+
+      .minimal-feature {
+        background: #f0f9ff;
+        padding: 6px 10px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: #0369a1;
+      }
+
+      /* Minimal Buttons */
+      .minimal-view-btn {
+        width: 100%;
+        padding: 12px;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .minimal-view-btn:hover {
+        background: #2563eb;
+        transform: translateY(-2px);
+      }
+
+      .minimal-enquire-btn {
+        width: 100%;
+        padding: 12px;
+        background: #10b981;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .minimal-enquire-btn:hover {
+        background: #059669;
+        transform: translateY(-2px);
+      }
+
+      /* Popular Tag */
+      .minimal-popular {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: #3b82f6;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      /* Animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.4s ease forwards;
+      }
+
+      /* Overlay Modal */
+      .overlay-container {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .overlay-container.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .overlay-modal {
+        background: white;
+        border-radius: 20px;
+        max-width: 800px;
+        width: 100%;
+        max-height: 85vh;
+        overflow: hidden;
+        transform: translateY(30px) scale(0.95);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 0;
+      }
+
+      .overlay-container.active .overlay-modal {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+
+      /* Apps Grid with Scrollbar */
+      .apps-grid-container {
+        padding: 16px;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+
+      .apps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 15px;
+        padding-right: 8px;
+      }
+
+      /* App Icons */
+      .app-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        padding: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .app-icon:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+      }
+
+      /* Custom Scrollbar */
+      .apps-grid-container::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .apps-grid-container::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 3px;
+      }
+
+      .apps-grid-container::-webkit-scrollbar-thumb {
+        background: #3b82f6;
+        border-radius: 3px;
+      }
+
+      /* Close Button */
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 32px;
+        height: 32px;
+        background: #f1f5f9;
+        border: none;
+        border-radius: 50%;
+        font-size: 16px;
+        color: #64748b;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+
+      .close-btn:hover {
+        background: #e2e8f0;
+        color: #334155;
+        transform: rotate(90deg);
+      }
+
+      /* Form Styles */
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-input,
+      .form-select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        background: white;
+      }
+
+      .form-input:focus,
+      .form-select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+
+      /* Plan Summary Box */
+      .plan-summary {
+        background: #f0f9ff;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 16px;
+        border-left: 4px solid #3b82f6;
+      }
+
+      /* Enquiry Form Container */
+      .enquiry-form-container {
+        padding: 16px;
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+
+      /* Custom Scrollbar for Enquiry Form */
+      .enquiry-form-container::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .enquiry-form-container::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 3px;
+      }
+
+      .enquiry-form-container::-webkit-scrollbar-thumb {
+        background: #3b82f6;
+        border-radius: 3px;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .minimal-pricing-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .minimal-pricing-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .apps-grid {
+          grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+          gap: 12px;
+        }
+
+        .app-icon {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .minimal-pricing-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .apps-grid {
+          grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- Navbar -->
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-4 py-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+          Unlimited Entertainment
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Premium OTT Plans for Every Mood. Stream your favorite shows, movies,
+          and sports with our curated bundles.
         </p>
-        
-        <div class="flex flex-wrap gap-4">
-          <div class="feature-tag text-purple-700">
-            <i class="fas fa-hd text-purple-600"></i> HD Streaming
+      </div>
+
+      <!-- Minimal Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Plan 1: Stream Lite HD -->
+        <div class="minimal-card animate-fade-in" style="animation-delay: 0.1s">
+          <div class="minimal-header">
+            <div class="flex items-center gap-3">
+              <div class="minimal-icon">
+                <i class="fas fa-film"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900">Stream Lite HD</h3>
+                <p class="text-gray-600 text-sm">PB BASIC • 23 Apps</p>
+              </div>
+            </div>
           </div>
-          <div class="feature-tag text-blue-700">
-            <i class="fas fa-tv text-blue-600"></i> Multi-Device
+
+          <div class="p-5 pt-0 flex-1">
+            <div class="minimal-pricing-grid">
+              <div
+                class="minimal-pricing-option selected"
+                onclick="selectDuration(this, 'lite', 1)"
+              >
+                <div class="text-xs text-gray-600">1M</div>
+                <div class="font-bold text-gray-900">₹180</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'lite', 3)"
+              >
+                <div class="text-xs text-gray-600">3M</div>
+                <div class="font-bold text-gray-900">₹510</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'lite', 6)"
+              >
+                <div class="text-xs text-gray-600">6M</div>
+                <div class="font-bold text-gray-900">₹990</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'lite', 12)"
+              >
+                <div class="text-xs text-gray-600">12M</div>
+                <div class="font-bold text-gray-900">₹1,600</div>
+              </div>
+            </div>
+
+            <div class="minimal-features">
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>23 Apps</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>HD</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>Multi-Device</span>
+              </div>
+            </div>
           </div>
-          <div class="feature-tag text-green-700">
-            <i class="fas fa-globe-asia text-green-600"></i> Regional Content
+
+          <div class="p-5 pt-0">
+            <button onclick="openAppsOverlay('lite')" class="minimal-view-btn">
+              <i class="fas fa-eye text-xs"></i> View Apps
+            </button>
+            <button
+              onclick="openPlanEnquiry('lite')"
+              class="minimal-enquire-btn"
+            >
+              <i class="fab fa-whatsapp text-xs"></i> Enquire Now
+            </button>
           </div>
-          <div class="feature-tag text-red-700">
-            <i class="fas fa-bolt text-red-600"></i> Instant Activation
+        </div>
+
+        <!-- Plan 2: Stream Ultra HD (Popular) -->
+        <div class="minimal-card animate-fade-in" style="animation-delay: 0.2s">
+          <div class="minimal-header">
+            <div class="flex items-center gap-3">
+              <div class="minimal-icon">
+                <i class="fas fa-fire"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900">Stream Ultra HD</h3>
+                <p class="text-gray-600 text-sm">PB PULSE • 23 Apps</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0 flex-1">
+            <div class="minimal-pricing-grid">
+              <div
+                class="minimal-pricing-option selected"
+                onclick="selectDuration(this, 'ultra', 1)"
+              >
+                <div class="text-xs text-gray-600">1M</div>
+                <div class="font-bold text-gray-900">₹200</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'ultra', 3)"
+              >
+                <div class="text-xs text-gray-600">3M</div>
+                <div class="font-bold text-gray-900">₹550</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'ultra', 6)"
+              >
+                <div class="text-xs text-gray-600">6M</div>
+                <div class="font-bold text-gray-900">₹1,050</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'ultra', 12)"
+              >
+                <div class="text-xs text-gray-600">12M</div>
+                <div class="font-bold text-gray-900">₹1,800</div>
+              </div>
+            </div>
+
+            <div class="minimal-features">
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>23 Apps</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>Full HD</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>Multi-Device</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <button onclick="openAppsOverlay('ultra')" class="minimal-view-btn">
+              <i class="fas fa-eye text-xs"></i> View Apps
+            </button>
+            <button
+              onclick="openPlanEnquiry('ultra')"
+              class="minimal-enquire-btn"
+            >
+              <i class="fab fa-whatsapp text-xs"></i> Enquire Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Plan 3: Stream Max HD -->
+        <div class="minimal-card animate-fade-in" style="animation-delay: 0.3s">
+          <div class="minimal-header">
+            <div class="flex items-center gap-3">
+              <div class="minimal-icon">
+                <i class="fas fa-crown"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900">Stream Max HD</h3>
+                <p class="text-gray-600 text-sm">PB PLUS • 29 Apps</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0 flex-1">
+            <div class="minimal-pricing-grid">
+              <div
+                class="minimal-pricing-option selected"
+                onclick="selectDuration(this, 'max', 1)"
+              >
+                <div class="text-xs text-gray-600">1M</div>
+                <div class="font-bold text-gray-900">₹270</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'max', 3)"
+              >
+                <div class="text-xs text-gray-600">3M</div>
+                <div class="font-bold text-gray-900">₹750</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'max', 6)"
+              >
+                <div class="text-xs text-gray-600">6M</div>
+                <div class="font-bold text-gray-900">₹1,440</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'max', 12)"
+              >
+                <div class="text-xs text-gray-600">12M</div>
+                <div class="font-bold text-gray-900">₹2,400</div>
+              </div>
+            </div>
+
+            <div class="minimal-features">
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>29 Apps</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>HD/4K</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>Multi-Device</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <button onclick="openAppsOverlay('max')" class="minimal-view-btn">
+              <i class="fas fa-eye text-xs"></i> View Apps
+            </button>
+            <button
+              onclick="openPlanEnquiry('max')"
+              class="minimal-enquire-btn"
+            >
+              <i class="fab fa-whatsapp text-xs"></i> Enquire Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Plan 4: Ultra OTT Plan -->
+        <div class="minimal-card animate-fade-in" style="animation-delay: 0.4s">
+          <div class="minimal-header">
+            <div class="flex items-center gap-3">
+              <div class="minimal-icon">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900">Ultra OTT Plan</h3>
+                <p class="text-gray-600 text-sm">24 Premium Apps</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0 flex-1">
+            <div class="minimal-pricing-grid">
+              <div
+                class="minimal-pricing-option selected"
+                onclick="selectDuration(this, 'ultraOtt', 1)"
+              >
+                <div class="text-xs text-gray-600">1M</div>
+                <div class="font-bold text-gray-900">₹79</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'ultraOtt', 3)"
+              >
+                <div class="text-xs text-gray-600">3M</div>
+                <div class="font-bold text-gray-900">₹220</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'ultraOtt', 6)"
+              >
+                <div class="text-xs text-gray-600">6M</div>
+                <div class="font-bold text-gray-900">₹420</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'ultraOtt', 12)"
+              >
+                <div class="text-xs text-gray-600">12M</div>
+                <div class="font-bold text-gray-900">₹790</div>
+              </div>
+            </div>
+
+            <div class="minimal-features">
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>24 Apps</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>HD</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>Unlimited</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <button
+              onclick="openAppsOverlay('ultraOtt')"
+              class="minimal-view-btn"
+            >
+              <i class="fas fa-eye text-xs"></i> View Apps
+            </button>
+            <button
+              onclick="openPlanEnquiry('ultraOtt')"
+              class="minimal-enquire-btn"
+            >
+              <i class="fab fa-whatsapp text-xs"></i> Enquire Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Plan 5: Amazon OTT Plan -->
+        <div class="minimal-card animate-fade-in" style="animation-delay: 0.5s">
+          <div class="minimal-header">
+            <div class="flex items-center gap-3">
+              <div class="minimal-icon">
+                <i class="fab fa-amazon"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900">Amazon OTT Plan</h3>
+                <p class="text-gray-600 text-sm">Prime + 30+ Apps</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0 flex-1">
+            <div class="minimal-pricing-grid">
+              <div
+                class="minimal-pricing-option selected"
+                onclick="selectDuration(this, 'amazon', 1)"
+              >
+                <div class="text-xs text-gray-600">1M</div>
+                <div class="font-bold text-gray-900">₹199</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'amazon', 3)"
+              >
+                <div class="text-xs text-gray-600">3M</div>
+                <div class="font-bold text-gray-900">₹570</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'amazon', 6)"
+              >
+                <div class="text-xs text-gray-600">6M</div>
+                <div class="font-bold text-gray-900">₹1,090</div>
+              </div>
+              <div
+                class="minimal-pricing-option"
+                onclick="selectDuration(this, 'amazon', 12)"
+              >
+                <div class="text-xs text-gray-600">12M</div>
+                <div class="font-bold text-gray-900">₹2,100</div>
+              </div>
+            </div>
+
+            <div class="minimal-features">
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>30+ Apps</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>Amazon Prime</span>
+              </div>
+              <div class="minimal-feature">
+                <i class="fas fa-check text-xs"></i>
+                <span>HD/4K</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0">
+            <button
+              onclick="openAppsOverlay('amazon')"
+              class="minimal-view-btn"
+            >
+              <i class="fas fa-eye text-xs"></i> View Apps
+            </button>
+            <button
+              onclick="openPlanEnquiry('amazon')"
+              class="minimal-enquire-btn"
+            >
+              <i class="fab fa-whatsapp text-xs"></i> Enquire Now
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Plans Section -->
-  <section class="max-w-7xl mx-auto px-4 pb-20">
-    <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
-      Choose Your Perfect Plan
-    </h2>
-    
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      
-      <!-- Stream Lite HD Plan -->
-  <div class="plan-card bg-white shadow-xl rounded-2xl p-6 flex flex-col justify-between border border-purple-200">
-
-  <!-- Title -->
-  <div class="text-center mb-4">
-    <h3 class="text-xl font-extrabold text-gray-900 tracking-wide">Stream Lite HD</h3>
-    <span class="px-3 py-1 mt-2 inline-block bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">
-      PB BASIC
-    </span>
-  </div>
-
-  <!-- OTT Icons -->
-  <div class="bg-gray-50 rounded-xl p-4 mb-6">
-    <div class="grid grid-cols-3 gap-4">
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/SONYLIV.jfif" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">SonyLIV</p>
-      </div>
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/zee5.png" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">Zee5</p>
-      </div>
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/SHEMAROO.png" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">Shemaroo</p>
-      </div>
-    </div>
-
-    <!-- View All -->
-    <button 
-      onclick="openChannelsOverlay('lite')"
-      class="mt-3 text-xs text-purple-600 font-semibold hover:text-purple-800 flex items-center justify-center gap-1"
-    >
-      <i class="fas fa-plus-circle text-[11px]"></i> View all 23 apps
-    </button>
-  </div>
-
-  <!-- Pricing -->
-  <div class="bg-gradient-to-br from-purple-50 to-white border border-purple-100 rounded-xl p-4 mb-6">
-    <div class="text-center">
-      <p class="text-3xl font-extrabold text-purple-700 leading-none">₹180</p>
-      <p class="text-xs text-gray-500">per month</p>
-    </div>
-
-    <div class="mt-4 space-y-2 text-sm font-medium">
-      <div class="flex justify-between text-gray-700">
-        <span>1 Month</span> <span class="font-bold">₹180</span>
-      </div>
-      <div class="flex justify-between text-gray-700">
-        <span>3 Months</span> <span class="font-bold">₹510</span>
-      </div>
-      <div class="flex justify-between text-gray-700">
-        <span>6 Months</span> <span class="font-bold">₹960</span>
-      </div>
-      <div class="flex justify-between text-green-600 font-bold">
-        <span>12 Months</span> <span>₹1600</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Select Plan Button -->
-  <button 
-    onclick="openEnquiry('Stream Lite HD - 1 Month - ₹180')"
-    class="w-full bg-orange-600 text-white py-2 rounded-xl font-bold mb-2 text-sm tracking-wide hover:bg-orange-400 transition-all"
-  >
-    <i class="fas fa-shopping-cart mr-2"></i> SELECT PLAN
-  </button>
-
-</div>
-
-      
-      <!-- Stream Ultra HD Plan - MOST POPULAR -->
-     <div class="plan-card relative bg-white shadow-xl rounded-2xl p-6 flex flex-col justify-between border border-blue-200">
-
-  <!-- Popular Badge -->
-  <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-2xl tracking-wide shadow-md">
-    MOST POPULAR
-  </div>
-
-  <!-- Title -->
-  <div class="text-center mb-4">
-    <h3 class="text-xl font-extrabold text-gray-900 tracking-wide">Stream Ultra HD</h3>
-    <span class="px-3 py-1 mt-2 inline-block bg-blue-50 text-blue-700 text-sm font-semibold rounded-full">
-      PB PULSE
-    </span>
-  </div>
-
-  <!-- OTT Icons -->
-  <div class="bg-gray-50 rounded-xl p-4 mb-6">
-    <div class="grid grid-cols-3 gap-4">
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/SONYLIV.jfif" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">SonyLIV</p>
-      </div>
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/SHEMAROO.png" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">Shemaroo</p>
-      </div>
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/DISCOVERYPLUS.png" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">Discovery+</p>
-      </div>
-    </div>
-
-    <!-- View All -->
-    <button 
-      onclick="openChannelsOverlay('ultra')"
-      class="mt-3 text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center justify-center gap-1"
-    >
-      <i class="fas fa-plus-circle text-[11px]"></i> View all 23 apps
-    </button>
-  </div>
-
-  <!-- Pricing -->
-  <div class="bg-gradient-to-br from-blue-50 to-white border border-blue-100 rounded-xl p-4 mb-6">
-    <div class="text-center">
-      <p class="text-3xl font-extrabold text-blue-700 leading-none">₹200</p>
-      <p class="text-xs text-gray-500">per month</p>
-    </div>
-
-    <div class="mt-4 space-y-2 text-sm font-medium">
-      <div class="flex justify-between text-gray-700">
-        <span>1 Month</span> <span class="font-bold">₹200</span>
-      </div>
-      <div class="flex justify-between text-gray-700">
-        <span>3 Months</span> <span class="font-bold">₹550</span>
-      </div>
-      <div class="flex justify-between text-gray-700">
-        <span>6 Months</span> <span class="font-bold">₹1000</span>
-      </div>
-      <div class="flex justify-between text-green-600 font-bold">
-        <span>12 Months</span> <span>₹1800</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Select Plan Button -->
-  <button 
-    onclick="openEnquiry('Stream Ultra HD - 1 Month - ₹200')"
-    class="w-full bg-blue-600 text-white py-2 rounded-xl font-bold text-sm tracking-wide hover:bg-blue-700 transition-all"
-  >
-    <i class="fas fa-crown mr-2"></i> GET POPULAR PLAN
-  </button>
-
-</div>
-
-      <!-- Stream Max HD Plan -->
-    <div class="plan-card bg-white shadow-xl rounded-2xl p-6 flex flex-col justify-between border border-purple-200">
-
-  <!-- Title -->
-  <div class="text-center mb-4">
-    <h3 class="text-xl font-extrabold text-gray-900 tracking-wide">Stream Max HD</h3>
-    <span class="px-3 py-1 mt-2 inline-block bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">
-      PB PLUS
-    </span>
-  </div>
-
-  <!-- OTT Icons -->
-  <div class="bg-gray-50 rounded-xl p-4 mb-6">
-    <div class="grid grid-cols-3 gap-4">
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/SONYLIV.jfif" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">SonyLIV</p>
-      </div>
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/zee5.png" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">Zee5</p>
-      </div>
-      <div class="text-center">
-        <img src="images/Ultra OTTplans/Jio Hotstar.png" class="w-10 h-10 mx-auto mb-1 object-contain">
-        <p class="text-[10px] font-medium text-gray-600">JioHotstar</p>
-      </div>
-    </div>
-
-    <!-- View All -->
-    <button 
-      onclick="openChannelsOverlay('max')"
-      class="mt-3 text-xs text-purple-600 font-semibold hover:text-purple-800 flex items-center justify-center gap-1"
-    >
-      <i class="fas fa-plus-circle text-[11px]"></i> View all 29 apps
-    </button>
-  </div>
-
-  <!-- Pricing -->
-  <div class="bg-gradient-to-br from-purple-50 to-white border border-purple-100 rounded-xl p-4 mb-6">
-    <div class="text-center">
-      <p class="text-3xl font-extrabold text-purple-700 leading-none">₹270</p>
-      <p class="text-xs text-gray-500">per month</p>
-    </div>
-
-    <div class="mt-4 space-y-2 text-sm font-medium">
-      <div class="flex justify-between text-gray-700">
-        <span>1 Month</span> <span class="font-bold">₹270</span>
-      </div>
-      <div class="flex justify-between text-gray-700">
-        <span>3 Months</span> <span class="font-bold">₹750</span>
-      </div>
-      <div class="flex justify-between text-gray-700">
-        <span>6 Months</span> <span class="font-bold">₹1380</span>
-      </div>
-      <div class="flex justify-between text-green-600 font-bold">
-        <span>12 Months</span> <span>₹2400</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Select Plan Button -->
-  <button 
-    onclick="openEnquiry('Stream Max HD - 1 Month - ₹270')"
-    class="w-full bg-orange-600 text-white py-2 rounded-xl font-bold text-sm tracking-wide hover:bg-orange-400 transition-all"
-  >
-    <i class="fas fa-star mr-2"></i> GET PREMIUM PLAN
-  </button>
-
-</div>
-
-      
-    </div>
-    
-    <!-- Additional Plans -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 ">
-      
-      <!-- Ultra OTT Plan (Special Styling) -->
-<div class="plan-card p-6 ultra-card small-card shadow-xl hover:shadow-2xl transition-all">
-  <div class="flex flex-col h-full justify-between">
-
-    <!-- Title + Badge -->
-    <div class="text-center mb-4">
-      <h3 class="text-2xl font-black text-gray-900 mb-2">Ultra OTT Plan</h3>
-      <span class="inline-block px-5 py-1.5 bg-amber-100 text-amber-700 rounded-full text-sm font-bold">
-        24 PREMIUM APPS
-      </span>
-    </div>
-
-    <!-- Price -->
-    <div class="text-center mb-5">
-      <div class="price-tag text-5xl">₹79</div>
-      <p class="text-amber-600 font-bold text-sm mt-1">30 Days Unlimited Access</p>
-    </div>
-
-    <!-- 10 Apps → 2 Rows × 5 Columns (Exactly like Amazon card) -->
-    <div class="grid grid-cols-5 gap-3 mb-5 px-2">
-      <!-- Row 1 -->
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/SONYLIV.jfif" alt="SonyLIV"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/SHEMAROO.png" alt="Shemaroo"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/PLAY.jfif" alt="PlayboxTV"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/Hungama.png" alt="Hungama"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/DISCOVERYPLUS.png" alt="Discovery+"></div>
-
-      <!-- Row 2 -->
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/zee5.png" alt="Zee5"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/Jio Hotstar.png" alt="JioHotstar"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/Fancode.png" alt="Fancode"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/Chaupal.jfif" alt="Chaupal"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/stage.jpg" alt="Stage"></div>
-    </div>
-
-    <!-- View All Link – Tight -->
-    <div class="text-center mb-4">
-      <button onclick="openChannelsOverlay('ultraOtt')"
-              class="text-amber-600 font-bold text-sm hover:text-amber-700 flex items-center gap-1 mx-auto transition">
-         <i class="fas fa-plus-circle text-[11px]"></i> View all 24 apps
-      </button>
-    </div>
-
-    <!-- Button – Super tight, same height & style as Amazon card -->
-    <button onclick="openEnquiry('Ultra OTT Plan - 1 Month - ₹79')"
-            class="subscribe-btn w-full py-4 text-lg font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
-      Bolt Icon GET ULTRA PLAN
-    </button>
-
-  </div>
-</div>
-      
-      <!-- Amazon OTT Plan -->
-<div class="plan-card p-6 amazon-card small-card shadow-xl hover:shadow-2xl transition-all 
-            bg-gradient-to-br from-green-50 via-white to-green-100 rounded-2xl">
-  <div class="flex flex-col h-full justify-between">
-
-    <!-- Title + Badge -->
-    <div class="text-center mb-4">
-      <h3 class="text-2xl font-black text-gray-900 mb-2">Amazon OTT Plan</h3>
-      <span class="inline-block px-5 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-bold">
-        AMAZON PRIME INCLUDED
-      </span>
-    </div>
-
-    <!-- Price -->
-    <div class="text-center mb-5">
-      <div class="price-tag text-5xl text-gray-900">₹199</div>
-      <p class="text-gray-600 font-medium text-sm">30+ Premium Apps • 1 Month</p>
-    </div>
-
-    <!-- Apps Grid -->
-    <div class="grid grid-cols-5 gap-3 mb-5">
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/amazon.png"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/SONYLIV.jfif"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/zee5.png"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/SHEMAROO.png"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/DISCOVERYPLUS.png"></div>
-
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/PLAY.jfif"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/Hungama.png"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/Jio Hotstar.png"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/Fancode.png"></div>
-      <div class="channel-icon mx-auto"><img src="images/Ultra OTTplans/Chaupal.jfif"></div>
-    </div>
-
-    <!-- View all -->
-    <div class="text-center mb-4">
-      <button onclick="openChannelsOverlay('amazon')"
-              class="text-green-700 font-bold text-sm hover:text-green-800 flex items-center gap-1 mx-auto">
-        <i class="fas fa-plus-circle"></i> View all 30 apps
-      </button>
-    </div>
-
-    <!-- Button -->
-    <button onclick="openEnquiry('Amazon OTT Plan - 1 Month - ₹199')"
-            class="subscribe-btn w-full py-4 text-lg font-bold flex items-center justify-center gap-3 
-                   shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all bg-green-600 text-white rounded-xl">
-      <i class="fab fa-amazon text-xl"></i>
-      GET AMAZON PLAN
-    </button>
-
-  </div>
-</div>
-
-      
-    </div>
-  </section>
-
-
-      <footer
+    <!-- Footer -->
+    <footer
       class="bg-gray-100 text-gray-800 pt-8 pb-8 border-t border-gray-800"
     >
       <div class="max-w-7xl mx-auto px-6">
@@ -808,298 +1008,818 @@
       </div>
     </footer>
 
+    <!-- Apps Overlay Modal -->
+    <div id="appsOverlay" class="overlay-container">
+      <div class="overlay-modal">
+        <div class="p-4 border-b border-gray-200">
+          <h3 id="overlayTitle" class="text-xl font-bold text-gray-900"></h3>
+          <p id="overlaySubtitle" class="text-gray-600 text-sm mt-1"></p>
+        </div>
 
-  <!-- Dynamic Channels Overlay -->
-  <div id="channelsOverlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 overlay-bg">
-    <div class="modal-content">
-      <div class="p-6 border-b border-gray-200">
-        <div class="flex justify-between items-center">
-          <h3 id="overlayTitle" class="text-xl font-bold text-gray-900">
-            All Available Apps
-          </h3>
-          <button onclick="closeChannelsOverlay()" class="text-gray-500 hover:text-red-500 text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-            <i class="fas fa-times"></i>
-          </button>
+        <div class="apps-grid-container">
+          <div class="apps-grid" id="appsGrid">
+            <!-- Apps will be dynamically inserted here -->
+          </div>
         </div>
-      </div>
-      <div class="p-6">
-        <div id="overlayContent" class="channels-grid">
-          <!-- Filled dynamically -->
-        </div>
+
+        <button onclick="closeAppsOverlay()" class="close-btn">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
     </div>
-  </div>
 
-  <!-- Enquiry Overlay - SMALLER -->
-  <div id="enquiryOverlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 overlay-bg">
-    <div class="modal-content">
-      <div class="p-6 border-b border-gray-200">
-        <div class="flex justify-between items-center">
-          <h3 class="text-xl font-bold text-gray-900">
-            Complete Subscription
-          </h3>
-          <button onclick="closeEnquiry()" class="text-gray-500 hover:text-red-500 text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-            <i class="fas fa-times"></i>
-          </button>
+    <!-- Enquiry Form Overlay -->
+    <div id="enquiryOverlay" class="overlay-container">
+      <div class="overlay-modal" style="max-width: 450px">
+        <div class="p-4 border-b border-gray-200">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xl font-bold text-gray-900">Plan Enquiry</h3>
+            <button onclick="closeEnquiryOverlay()" class="close-btn">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <p class="text-gray-600 text-sm mt-1">
+            We'll contact you within 24 hours
+          </p>
         </div>
-      </div>
-      <div class="p-6">
-        <form id="enquiryForm" class="space-y-4">
-          <div>
-            <input type="text" id="name" placeholder="Full Name" required class="form-input">
-          </div>
-          
-          <div>
-            <input type="tel" id="mobile" placeholder="Mobile Number" required class="form-input">
-          </div>
-          
-          <div>
-            <input type="text" id="city" placeholder="City" required class="form-input">
-          </div>
-          
-          <div>
-            <input type="text" id="selectedPlan" readonly class="form-input bg-purple-50 text-purple-700 font-bold">
-          </div>
 
-          <div class="space-y-3 pt-2">
-            <button type="submit" class="whatsapp-btn flex items-center justify-center">
-              <i class="fab fa-whatsapp mr-2 text-lg"></i> Send via WhatsApp
-            </button>
-            <button type="button" onclick="closeEnquiry()" class="w-full bg-gray-100 text-gray-800 font-bold py-3 rounded-xl hover:bg-gray-200 transition">
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Channel data from images
-    const channelData = {
-      lite: [
-        { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
-        { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
-        { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
-        { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
-        { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
-        { name: "Bongobd", src: "images/Ultra OTTplans/BONGOBD.png" },
-        { name: "DiscoveryPlus", src: "images/Ultra OTTplans/DISCOVERYPLUS.png" },
-        { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
-        { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
-        { name: "DistroTV", src: "images/Ultra OTTplans/Distro TV.png" },
-        { name: "Hubbopper", src: "images/Ultra OTTplans/hubhopper.jfif" },
-        { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
-        { name: "10TT", src: "https://placehold.co/100x100/8b5cf6/white?text=10TT" },
-        { name: "iTap", src: "images/Ultra OTTplans/itap.png" },
-        { name: "Raj DigitalTV", src: "images/Ultra OTTplans/rajtv.png" },
-        { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
-        { name: "Shorts TV", src: "images/Ultra OTTplans/shorts.jpg" },
-        { name: "Chana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
-        { name: "Tarang Plus", src: "images/Ultra OTTplans/tarangplus.png" },
-        { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
-        { name: "Dangal Play", src: "images/Ultra OTTplans/Dangal.png" },
-        { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
-        { name: "AaoNxt", src: "images/Ultra OTTplans/AAO NXT.png" }
-      ],
-      
-      ultra: [
-        { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
-        { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
-        { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
-        { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
-        { name: "Bongobd", src: "images/Ultra OTTplans/BONGOBD.png" },
-        { name: "DiscoveryPlus", src: "images/Ultra OTTplans/DISCOVERYPLUS.png" },
-        { name: "AaoNxt", src: "images/Ultra OTTplans/AAO NXT.png" },
-        { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
-        { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
-        { name: "JioHotstar (A)", src: "images/Ultra OTTplans/Jio Hotstar.png" },
-        { name: "DistroTV", src: "images/Ultra OTTplans/Distro TV.png" },
-        { name: "Hubbopper", src: "images/Ultra OTTplans/hubhopper.jfif" },
-        { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
-        { name: "10TT", src: "https://placehold.co/100x100/8b5cf6/white?text=10TT" },
-        { name: "ITap", src: "images/Ultra OTTplans/itap.png" },
-        { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
-        { name: "Raj DigitalTV", src: "images/Ultra OTTplans/rajtv.png" },
-        { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
-        { name: "Shorts TV", src: "images/Ultra OTTplans/shorts.jpg" },
-        { name: "Ghana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
-        { name: "Tarang Plus", src: "images/Ultra OTTplans/tarangplus.png" },
-        { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
-        { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
-        { name: "Jio Saavn", src: "images/Ultra OTTplans/jiosavann.png" }
-      ],
-      
-      max: [
-        { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
-        { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
-        { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
-        { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
-        { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
-        { name: "Bongobd", src: "images/Ultra OTTplans/BONGOBD.png" },
-        { name: "DiscoveryPlus", src: "images/Ultra OTTplans/DISCOVERYPLUS.png" },
-        { name: "Aaokkt", src: "https://placehold.co/100x100/8b5cf6/white?text=Aaokkt" },
-        { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
-        { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
-        { name: "JioHotstar (A)", src: "images/Ultra OTTplans/Jio Hotstar.png" },
-        { name: "DietroTV", src: "images/Ultra OTTplans/Distro TV.png" },
-        { name: "Huthopper", src: "images/Ultra OTTplans/hubhopper.jfif" },
-        { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
-        { name: "10TT", src: "https://placehold.co/100x100/8b5cf6/white?text=10TT" },
-        { name: "iTap", src: "images/Ultra OTTplans/itap.png" },
-        { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
-        { name: "Kanecha Lamka", src: "images/Ultra OTTplans/KL logo.jpg" },
-        { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
-        { name: "Shorta Tv", src: "images/Ultra OTTplans/shorts.jpg" },
-        { name: "Chana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
-        { name: "Tarang Plus", src: "images/Ultra OTTplans/tarangplus.png" },
-        { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
-        { name: "Nammalfix", src: "https://placehold.co/100x100/8b5cf6/white?text=Nammaflix" },
-        { name: "RunnTV", src: "images/Ultra OTTplans/runn tv.png" },
-        { name: "Shicate Film", src: "images/Ultra OTTplans/shucaye.jfif" },
-        { name: "Dangal Play", src: "images/Ultra OTTplans/Dangal.png" },
-        { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
-        { name: "Jio Saem", src: "images/Ultra OTTplans/jiosavann.png" }
-      ],
-      
-      ultraOtt: [
-        { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
-        { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
-        { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
-        { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
-        { name: "Bongobd", src: "images/Ultra OTTplans/BONGOBD.png" },
-        { name: "DiscoveryPlus", src: "images/Ultra OTTplans/DISCOVERYPLUS.png" },
-        { name: "Aaohxt", src: "https://placehold.co/100x100/8b5cf6/white?text=Aaohxt" },
-        { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
-        { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
-        { name: "JioHotstar (A)", src: "images/Ultra OTTplans/Jio Hotstar.png" },
-        { name: "DistroTV", src: "images/Ultra OTTplans/Distro TV.png" },
-        { name: "Hubhopper", src: "images/Ultra OTTplans/hubhopper.jfif" },
-        { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
-        { name: "10TT", src: "https://placehold.co/100x100/8b5cf6/white?text=10TT" },
-        { name: "iTap", src: "images/Ultra OTTplans/itap.png" },
-        { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
-        { name: "Raj DigitalTV", src: "images/Ultra OTTplans/rajtv.png" },
-        { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
-        { name: "Shorts TV", src: "images/Ultra OTTplans/shorts.jpg" },
-        { name: "Chana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
-        { name: "Tarang Plus", src: "images/Ultra OTTplans/tarangplus.png" },
-        { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
-        { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
-        { name: "Jio Saavn", src: "images/Ultra OTTplans/jiosavann.png" }
-      ],
-      
-      amazon: [
-        { name: "DistroTV", src: "images/Ultra OTTplans/Distro TV.png" },
-        { name: "Shorts TV", src: "images/Ultra OTTplans/shorts.jpg" },
-        { name: "Jio Saavn", src: "images/Ultra OTTplans/jiosavann.png" },
-        { name: "Raj DigitalTV", src: "images/Ultra OTTplans/rajtv.png" },
-        { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
-        { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
-        { name: "DiscoveryPlus", src: "images/Ultra OTTplans/DISCOVERYPLUS.png" },
-        { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
-        { name: "Amazon", src: "images/Ultra OTTplans/amazon.png" },
-        { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
-        { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
-        { name: "Chana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
-        { name: "RunnTV", src: "images/Ultra OTTplans/runn tv.png" },
-        { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
-        { name: "iTap", src: "images/Ultra OTTplans/itap.png" },
-        { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
-        { name: "OTT Plus", src: "images/Ultra OTTplans/ott plus.png" },
-        { name: "JioHotstar (A)", src: "images/Ultra OTTplans/Jio Hotstar.png" },
-        { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
-        { name: "Nammaflix", src: "https://placehold.co/100x100/8b5cf6/white?text=Nammaflix" },
-        { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
-        { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
-        { name: "AaoNxt", src: "images/Ultra OTTplans/AAO NXT.png" },
-        { name: "10TT", src: "https://placehold.co/100x100/8b5cf6/white?text=10TT" },
-        { name: "Shucae Film", src: "images/Ultra OTTplans/shucaye.jfif" },
-        { name: "Friday", src: "images/Ultra OTTplans/Fridaay.png" },
-        { name: "Kanccha Lamika", src: "images/Ultra OTTplans/KL logo.jpg" },
-        { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
-        { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
-        { name: "Dangal Play", src: "images/Ultra OTTplans/Dangal.png" }
-      ]
-    };
-
-    const planTitles = {
-      lite: "Stream Lite HD - 23 Apps (PB Basic)",
-      ultra: "Stream Ultra HD - 23 Apps (PB Pulse)",
-      max: "Stream Max HD - 29 Apps (PB Plus)",
-      ultraOtt: "Ultra OTT Plan - 24 Premium Apps",
-      amazon: "Amazon OTT Plan - 30 Apps with Amazon Prime"
-    };
-
-    function openChannelsOverlay(planId) {
-      document.getElementById('overlayTitle').textContent = planTitles[planId];
-      const content = document.getElementById('overlayContent');
-      content.innerHTML = '';
-      channelData[planId].forEach(ch => {
-        content.innerHTML += `
-          <div class="text-center">
-            <div class="channel-icon mx-auto mb-3">
-              <img src="${ch.src}" alt="${ch.name}">
+        <div class="enquiry-form-container">
+          <form id="enquiryForm" class="space-y-4">
+            <!-- Plan Summary -->
+            <div id="planSummary" class="plan-summary">
+              <div class="text-sm font-semibold text-gray-700">
+                Selected Plan:
+              </div>
+              <div
+                id="selectedPlanDisplay"
+                class="text-lg font-bold text-blue-700"
+              ></div>
+              <div
+                id="selectedDurationDisplay"
+                class="text-sm text-gray-600"
+              ></div>
             </div>
-            <p class="text-xs font-semibold text-gray-700">${ch.name}</p>
-          </div>`;
-      });
-      document.getElementById('channelsOverlay').classList.remove('hidden');
-    }
 
-    function closeChannelsOverlay() {
-      document.getElementById('channelsOverlay').classList.add('hidden');
-    }
+            <!-- Hidden plan info for form processing -->
+            <input type="hidden" id="selectedPlanName" name="planName" />
+            <input type="hidden" id="selectedPlanId" name="planId" />
+            <input
+              type="hidden"
+              id="selectedPlanDuration"
+              name="planDuration"
+            />
+            <input type="hidden" id="selectedPlanPrice" name="planPrice" />
 
-    function openEnquiry(planName) {
-      document.getElementById('selectedPlan').value = planName;
-      document.getElementById('enquiryOverlay').classList.remove('hidden');
-    }
+            <!-- Duration Selection Dropdown -->
+            <div class="form-group">
+              <label
+                for="durationSelect"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Select Duration *</label
+              >
+              <select id="durationSelect" class="form-select" required>
+                <option value="">-- Select Duration --</option>
+                <option value="1">1 Month</option>
+                <option value="3">3 Months</option>
+                <option value="6">6 Months</option>
+                <option value="12">12 Months</option>
+              </select>
+            </div>
 
-    function closeEnquiry() {
-      document.getElementById('enquiryOverlay').classList.add('hidden');
-    }
+            <!-- Contact Information -->
+            <div class="form-group">
+              <input
+                type="text"
+                id="fullName"
+                placeholder="Full Name *"
+                required
+                class="form-input"
+              />
+            </div>
 
-    document.getElementById('enquiryForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const mobile = document.getElementById('mobile').value.trim();
-      const city = document.getElementById('city').value.trim();
-      const plan = document.getElementById('selectedPlan').value;
-      
-      // WhatsApp message template 
-      const message = `NXTPlay OTT Subscription Enquiry\n\n` +
-                     `Selected Plan: ${plan}\n` +
-                     `Name: ${name}\n` +
-                     `Mobile: ${mobile}\n` +
-                     `City: ${city}\n\n` +
-                     `Please activate my subscription. Thank you!`;
-      
-      
-      // Replace with your actual WhatsApp number
-      const whatsappNumber = "918809098585";
-      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-      
-      window.open(whatsappURL, '_blank');
-      closeEnquiry();
-      this.reset();
-    });
+            <div class="form-group">
+              <input
+                type="tel"
+                id="mobileNumber"
+                placeholder="Mobile Number *"
+                required
+                class="form-input"
+              />
+            </div>
 
-    document.addEventListener('click', e => {
-      if (e.target.id === 'channelsOverlay' || e.target.id === 'enquiryOverlay') {
-        closeChannelsOverlay();
-        closeEnquiry();
+            <div class="form-group">
+              <input
+                type="email"
+                id="email"
+                placeholder="Email (Optional)"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                type="text"
+                id="city"
+                placeholder="City *"
+                required
+                class="form-input"
+              />
+            </div>
+
+            <div class="space-y-2 pt-2 pb-4">
+              <button type="submit" class="minimal-enquire-btn py-3">
+                <i class="fab fa-whatsapp mr-2"></i> Send via WhatsApp
+              </button>
+              <button
+                type="button"
+                onclick="closeEnquiryOverlay()"
+                class="w-full bg-gray-100 text-gray-800 font-medium py-3 rounded-lg text-sm hover:bg-gray-200 transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Plan pricing data
+      const planPricing = {
+        lite: {
+          name: "Stream Lite HD",
+          1: { price: 180, display: "₹180/month" },
+          3: { price: 510, display: "₹510 (3 Months)" },
+          6: { price: 990, display: "₹990 (6 Months)" },
+          12: { price: 1600, display: "₹1,600 (12 Months)" },
+        },
+        ultra: {
+          name: "Stream Ultra HD",
+          1: { price: 200, display: "₹200/month" },
+          3: { price: 550, display: "₹550 (3 Months)" },
+          6: { price: 1050, display: "₹1,050 (6 Months)" },
+          12: { price: 1800, display: "₹1,800 (12 Months)" },
+        },
+        max: {
+          name: "Stream Max HD",
+          1: { price: 270, display: "₹270/month" },
+          3: { price: 750, display: "₹750 (3 Months)" },
+          6: { price: 1440, display: "₹1,440 (6 Months)" },
+          12: { price: 2400, display: "₹2,400 (12 Months)" },
+        },
+        ultraOtt: {
+          name: "Ultra OTT Plan",
+          1: { price: 79, display: "₹79/month" },
+          3: { price: 220, display: "₹220 (3 Months)" },
+          6: { price: 420, display: "₹420 (6 Months)" },
+          12: { price: 790, display: "₹790 (12 Months)" },
+        },
+        amazon: {
+          name: "Amazon OTT Plan",
+          1: { price: 199, display: "₹199/month" },
+          3: { price: 570, display: "₹570 (3 Months)" },
+          6: { price: 1090, display: "₹1,090 (6 Months)" },
+          12: { price: 2100, display: "₹2,100 (12 Months)" },
+        },
+        premium: {
+          name: "Premium Bundle",
+          1: { price: 349, display: "₹349/month" },
+          3: { price: 949, display: "₹949 (3 Months)" },
+          6: { price: 1799, display: "₹1,799 (6 Months)" },
+          12: { price: 3299, display: "₹3,299 (12 Months)" },
+        },
+      };
+
+      // Duration labels
+      const durationLabels = {
+        1: "1 Month Plan",
+        3: "3 Months Plan",
+        6: "6 Months Plan",
+        12: "12 Months Plan",
+      };
+
+      // Currently selected plan data
+      let currentSelectedPlan = {
+        id: null,
+        name: null,
+        duration: 1,
+        price: null,
+        display: null,
+      };
+
+      // App data from the original code
+      const planApps = {
+        lite: [
+          { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
+          { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
+          { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
+          { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
+          { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
+          { name: "Bongobd", src: "images/Ultra OTTplans/BONGOBD.png" },
+          {
+            name: "DiscoveryPlus",
+            src: "images/Ultra OTTplans/DISCOVERYPLUS.png",
+          },
+          { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
+          { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
+          { name: "DistroTV", src: "images/Ultra OTTplans/Distro TV.png" },
+          { name: "Hubbopper", src: "images/Ultra OTTplans/hubhopper.jfif" },
+          { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
+          {
+            name: "10TT",
+            src: "https://placehold.co/100x100/3b82f6/white?text=10TT",
+          },
+          { name: "iTap", src: "images/Ultra OTTplans/itap.png" },
+          { name: "Raj DigitalTV", src: "images/Ultra OTTplans/rajtv.png" },
+          { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
+          { name: "Shorts TV", src: "images/Ultra OTTplans/shorts.jpg" },
+          { name: "Chana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
+          { name: "Tarang Plus", src: "images/Ultra OTTplans/tarangplus.png" },
+          { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
+          { name: "Dangal Play", src: "images/Ultra OTTplans/Dangal.png" },
+          { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
+          { name: "AaoNxt", src: "images/Ultra OTTplans/AAO NXT.png" },
+        ],
+
+        ultra: [
+          { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
+          { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
+          { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
+          { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
+          { name: "Bongobd", src: "images/Ultra OTTplans/BONGOBD.png" },
+          {
+            name: "DiscoveryPlus",
+            src: "images/Ultra OTTplans/DISCOVERYPLUS.png",
+          },
+          { name: "AaoNxt", src: "images/Ultra OTTplans/AAO NXT.png" },
+          { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
+          { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
+          {
+            name: "JioHotstar (A)",
+            src: "images/Ultra OTTplans/Jio Hotstar.png",
+          },
+          { name: "DistroTV", src: "images/Ultra OTTplans/Distro TV.png" },
+          { name: "Hubbopper", src: "images/Ultra OTTplans/hubhopper.jfif" },
+          { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
+          {
+            name: "10TT",
+            src: "https://placehold.co/100x100/3b82f6/white?text=10TT",
+          },
+          { name: "ITap", src: "images/Ultra OTTplans/itap.png" },
+          { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
+          { name: "Raj DigitalTV", src: "images/Ultra OTTplans/rajtv.png" },
+          { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
+          { name: "Shorts TV", src: "images/Ultra OTTplans/shorts.jpg" },
+          { name: "Ghana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
+          { name: "Tarang Plus", src: "images/Ultra OTTplans/tarangplus.png" },
+          { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
+          { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
+          { name: "Jio Saavn", src: "images/Ultra OTTplans/jiosavann.png" },
+        ],
+
+        max: [
+          { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
+          { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
+          { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
+          { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
+          { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
+          { name: "Bongobd", src: "images/Ultra OTTplans/BONGOBD.png" },
+          {
+            name: "DiscoveryPlus",
+            src: "images/Ultra OTTplans/DISCOVERYPLUS.png",
+          },
+          {
+            name: "Aaokkt",
+            src: "https://placehold.co/100x100/3b82f6/white?text=Aaokkt",
+          },
+          { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
+          { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
+          {
+            name: "JioHotstar (A)",
+            src: "images/Ultra OTTplans/Jio Hotstar.png",
+          },
+          { name: "DietroTV", src: "images/Ultra OTTplans/Distro TV.png" },
+          { name: "Huthopper", src: "images/Ultra OTTplans/hubhopper.jfif" },
+          { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
+          {
+            name: "10TT",
+            src: "https://placehold.co/100x100/3b82f6/white?text=10TT",
+          },
+          { name: "iTap", src: "images/Ultra OTTplans/itap.png" },
+          { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
+          { name: "Kanecha Lamka", src: "images/Ultra OTTplans/KL logo.jpg" },
+          { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
+          { name: "Shorta Tv", src: "images/Ultra OTTplans/shorts.jpg" },
+          { name: "Chana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
+          { name: "Tarang Plus", src: "images/Ultra OTTplans/tarangplus.png" },
+          { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
+          {
+            name: "Nammalfix",
+            src: "https://placehold.co/100x100/3b82f6/white?text=Nammaflix",
+          },
+          { name: "RunnTV", src: "images/Ultra OTTplans/runn tv.png" },
+          { name: "Shicate Film", src: "images/Ultra OTTplans/shucaye.jfif" },
+          { name: "Dangal Play", src: "images/Ultra OTTplans/Dangal.png" },
+          { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
+          { name: "Jio Saem", src: "images/Ultra OTTplans/jiosavann.png" },
+        ],
+
+        ultraOtt: [
+          { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
+          { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
+          { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
+          { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
+          { name: "Bongobd", src: "images/Ultra OTTplans/BONGOBD.png" },
+          {
+            name: "DiscoveryPlus",
+            src: "images/Ultra OTTplans/DISCOVERYPLUS.png",
+          },
+          {
+            name: "Aaohxt",
+            src: "https://placehold.co/100x100/3b82f6/white?text=Aaohxt",
+          },
+          { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
+          { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
+          {
+            name: "JioHotstar (A)",
+            src: "images/Ultra OTTplans/Jio Hotstar.png",
+          },
+          { name: "DistroTV", src: "images/Ultra OTTplans/Distro TV.png" },
+          { name: "Hubhopper", src: "images/Ultra OTTplans/hubhopper.jfif" },
+          { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
+          {
+            name: "10TT",
+            src: "https://placehold.co/100x100/3b82f6/white?text=10TT",
+          },
+          { name: "iTap", src: "images/Ultra OTTplans/itap.png" },
+          { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
+          { name: "Raj DigitalTV", src: "images/Ultra OTTplans/rajtv.png" },
+          { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
+          { name: "Shorts TV", src: "images/Ultra OTTplans/shorts.jpg" },
+          { name: "Chana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
+          { name: "Tarang Plus", src: "images/Ultra OTTplans/tarangplus.png" },
+          { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
+          { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
+          { name: "Jio Saavn", src: "images/Ultra OTTplans/jiosavann.png" },
+        ],
+
+        amazon: [
+          { name: "DistroTV", src: "images/Ultra OTTplans/Distro TV.png" },
+          { name: "Shorts TV", src: "images/Ultra OTTplans/shorts.jpg" },
+          { name: "Jio Saavn", src: "images/Ultra OTTplans/jiosavann.png" },
+          { name: "Raj DigitalTV", src: "images/Ultra OTTplans/rajtv.png" },
+          { name: "Chaupal", src: "images/Ultra OTTplans/Chaupal.jfif" },
+          { name: "Waves", src: "images/Ultra OTTplans/waves.jpg" },
+          {
+            name: "DiscoveryPlus",
+            src: "images/Ultra OTTplans/DISCOVERYPLUS.png",
+          },
+          { name: "OM TV", src: "images/Ultra OTTplans/OM TV.webp" },
+          { name: "Amazon", src: "images/Ultra OTTplans/amazon.png" },
+          { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
+          { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
+          { name: "Chana Jor", src: "images/Ultra OTTplans/chanajor.jpg" },
+          { name: "RunnTV", src: "images/Ultra OTTplans/runn tv.png" },
+          { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
+          { name: "iTap", src: "images/Ultra OTTplans/itap.png" },
+          { name: "TravelXP", src: "images/Ultra OTTplans/travelxp.png" },
+          { name: "OTT Plus", src: "images/Ultra OTTplans/ott plus.png" },
+          {
+            name: "JioHotstar (A)",
+            src: "images/Ultra OTTplans/Jio Hotstar.png",
+          },
+          { name: "Stage", src: "images/Ultra OTTplans/stage.jpg" },
+          {
+            name: "Nammaflix",
+            src: "https://placehold.co/100x100/3b82f6/white?text=Nammaflix",
+          },
+          { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
+          { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
+          { name: "AaoNxt", src: "images/Ultra OTTplans/AAO NXT.png" },
+          {
+            name: "10TT",
+            src: "https://placehold.co/100x100/3b82f6/white?text=10TT",
+          },
+          { name: "Shucae Film", src: "images/Ultra OTTplans/shucaye.jfif" },
+          { name: "Friday", src: "images/Ultra OTTplans/Fridaay.png" },
+          { name: "Kanccha Lamika", src: "images/Ultra OTTplans/KL logo.jpg" },
+          { name: "ETV Win", src: "images/Ultra OTTplans/etv win.png" },
+          { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
+          { name: "Dangal Play", src: "images/Ultra OTTplans/Dangal.png" },
+        ],
+
+        premium: [
+          {
+            name: "Netflix",
+            icon: "https://cdn-icons-png.flaticon.com/512/732/732228.png",
+          },
+          {
+            name: "Prime Video",
+            icon: "https://cdn-icons-png.flaticon.com/512/732/732220.png",
+          },
+          {
+            name: "Disney+ Hotstar",
+            icon: "https://cdn-icons-png.flaticon.com/512/732/732225.png",
+          },
+          { name: "SonyLIV", src: "images/Ultra OTTplans/SONYLIV.jfif" },
+          { name: "Zee5", src: "images/Ultra OTTplans/zee5.png" },
+          { name: "Shemaroo", src: "images/Ultra OTTplans/SHEMAROO.png" },
+          { name: "PlayboxTV", src: "images/Ultra OTTplans/PLAY.jfif" },
+          { name: "Hungama", src: "images/Ultra OTTplans/Hungama.png" },
+          { name: "JioHotstar", src: "images/Ultra OTTplans/Jio Hotstar.png" },
+          { name: "Fancode", src: "images/Ultra OTTplans/Fancode.png" },
+          { name: "Amazon", src: "images/Ultra OTTplans/amazon.png" },
+          {
+            name: "DiscoveryPlus",
+            src: "images/Ultra OTTplans/DISCOVERYPLUS.png",
+          },
+          {
+            name: "Apple TV+",
+            icon: "https://cdn-icons-png.flaticon.com/512/732/732232.png",
+          },
+          {
+            name: "HBO Max",
+            icon: "https://cdn-icons-png.flaticon.com/512/732/732247.png",
+          },
+          {
+            name: "Hulu",
+            icon: "https://cdn-icons-png.flaticon.com/512/732/732231.png",
+          },
+        ],
+      };
+
+      const planTitles = {
+        lite: "Stream Lite HD - 23 Apps (PB Basic)",
+        ultra: "Stream Ultra HD - 23 Apps (PB Pulse)",
+        max: "Stream Max HD - 29 Apps (PB Plus)",
+        ultraOtt: "Ultra OTT Plan - 24 Premium Apps",
+        amazon: "Amazon OTT Plan - 30 Apps with Amazon Prime",
+        premium: "Premium Bundle - 35+ Apps Complete Package",
+      };
+
+      const planSubtitles = {
+        lite: "23 Premium Streaming Apps Included",
+        ultra: "23 Apps • Most Popular Choice",
+        max: "29 Apps • Ultimate Entertainment",
+        ultraOtt: "24 Premium Apps Bundle",
+        amazon: "30+ Apps including Amazon Prime",
+        premium: "35+ Top-tier Streaming Services",
+      };
+
+      // Duration selection function
+      function selectDuration(element, planId, duration) {
+        // Remove selected class from all options in this plan
+        const card = element.closest(".minimal-card");
+        const options = card.querySelectorAll(".minimal-pricing-option");
+        options.forEach((opt) => opt.classList.remove("selected"));
+
+        // Add selected class to clicked option
+        element.classList.add("selected");
+
+        // Store the selected plan
+        currentSelectedPlan.id = planId;
+        currentSelectedPlan.duration = duration;
+        currentSelectedPlan.name = planPricing[planId].name;
+        currentSelectedPlan.price = planPricing[planId][duration].price;
+        currentSelectedPlan.display = planPricing[planId][duration].display;
       }
-    });
 
-    // Load header if exists
-    fetch("header.html")
-      .then(r => {
-        if (r.ok) return r.text();
-        throw new Error('Header not found');
-      })
-      .then(d => document.getElementById("header").innerHTML = d)
-      .catch(e => console.log("Using inline header:", e));
-  </script>
-</body>
+      // Open enquiry for specific plan
+      function openPlanEnquiry(planId) {
+        // First, select the default duration (1 month)
+        const card = document
+          .querySelector(`[onclick*="openPlanEnquiry('${planId}')"]`)
+          .closest(".minimal-card");
+        const defaultOption = card.querySelector(
+          ".minimal-pricing-option.selected"
+        );
+        const duration = defaultOption
+          ? parseInt(
+              defaultOption
+                .querySelector(".text-xs")
+                .textContent.replace("M", "")
+            )
+          : 1;
+
+        // Store the selected plan
+        currentSelectedPlan.id = planId;
+        currentSelectedPlan.duration = duration;
+        currentSelectedPlan.name = planPricing[planId].name;
+        currentSelectedPlan.price = planPricing[planId][duration].price;
+        currentSelectedPlan.display = planPricing[planId][duration].display;
+
+        // Open the enquiry overlay
+        openEnquiryOverlay();
+      }
+
+      // Open general enquiry (from header/footer)
+      function openGeneralEnquiry() {
+        // Reset to general enquiry
+        currentSelectedPlan.id = null;
+        currentSelectedPlan.name = "General Enquiry";
+        currentSelectedPlan.duration = 1;
+        currentSelectedPlan.price = null;
+        currentSelectedPlan.display = "General Enquiry";
+
+        // Open the enquiry overlay
+        openEnquiryOverlay();
+      }
+
+      // Update plan display in enquiry form
+      function updatePlanDisplay() {
+        const planDisplay = document.getElementById("selectedPlanDisplay");
+        const durationDisplay = document.getElementById(
+          "selectedDurationDisplay"
+        );
+        const durationSelect = document.getElementById("durationSelect");
+
+        if (currentSelectedPlan.id) {
+          const planData = planPricing[currentSelectedPlan.id];
+          const duration =
+            parseInt(durationSelect.value) || currentSelectedPlan.duration;
+          const priceInfo = planData[duration];
+
+          planDisplay.textContent = `${planData.name} - ${priceInfo.display}`;
+          durationDisplay.textContent = durationLabels[duration];
+
+          // Update hidden fields
+          document.getElementById("selectedPlanName").value = planData.name;
+          document.getElementById("selectedPlanId").value =
+            currentSelectedPlan.id;
+          document.getElementById("selectedPlanDuration").value = duration;
+          document.getElementById("selectedPlanPrice").value = priceInfo.price;
+
+          // Set dropdown value
+          durationSelect.value = duration;
+        } else {
+          planDisplay.textContent = "General Enquiry";
+          durationDisplay.textContent = "Please select a plan and duration";
+          durationSelect.value = "";
+
+          // Update hidden fields
+          document.getElementById("selectedPlanName").value = "General Enquiry";
+          document.getElementById("selectedPlanId").value = "";
+          document.getElementById("selectedPlanDuration").value = "";
+          document.getElementById("selectedPlanPrice").value = "";
+        }
+      }
+
+      // Open apps overlay
+      function openAppsOverlay(planId) {
+        const overlay = document.getElementById("appsOverlay");
+        const title = document.getElementById("overlayTitle");
+        const subtitle = document.getElementById("overlaySubtitle");
+        const grid = document.getElementById("appsGrid");
+
+        // Set title and subtitle
+        title.textContent = planTitles[planId];
+        subtitle.textContent = planSubtitles[planId];
+
+        // Clear and populate app grid
+        grid.innerHTML = "";
+        planApps[planId].forEach((app) => {
+          const appDiv = document.createElement("div");
+          appDiv.className = "flex flex-col items-center";
+          appDiv.innerHTML = `
+          <div class="app-icon">
+            <img src="${app.src || app.icon}" alt="${app.name}" 
+                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/732/732228.png'">
+          </div>
+          <span class="text-xs font-medium text-gray-700 mt-2 text-center">${
+            app.name
+          }</span>
+        `;
+          grid.appendChild(appDiv);
+        });
+
+        // Show overlay
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      // Close apps overlay
+      function closeAppsOverlay() {
+        const overlay = document.getElementById("appsOverlay");
+        overlay.classList.remove("active");
+        document.body.style.overflow = "auto";
+      }
+
+      // Open enquiry overlay
+      function openEnquiryOverlay() {
+        const overlay = document.getElementById("enquiryOverlay");
+
+        // Update plan display
+        updatePlanDisplay();
+
+        // Show overlay
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      // Close enquiry overlay
+      function closeEnquiryOverlay() {
+        const overlay = document.getElementById("enquiryOverlay");
+        overlay.classList.remove("active");
+        document.body.style.overflow = "auto";
+        document.getElementById("enquiryForm").reset();
+
+        // Reset form but keep plan selection
+        document.getElementById("fullName").value = "";
+        document.getElementById("mobileNumber").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("city").value = "";
+
+        // Update display again
+        updatePlanDisplay();
+      }
+
+      // WhatsApp Enquiry Form Submission
+      document
+        .getElementById("enquiryForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get form values
+          const planName = document.getElementById("selectedPlanName").value;
+          const planId = document.getElementById("selectedPlanId").value;
+          const duration = parseInt(
+            document.getElementById("selectedPlanDuration").value
+          );
+          const price = document.getElementById("selectedPlanPrice").value;
+          const name = document.getElementById("fullName").value.trim();
+          const mobile = document.getElementById("mobileNumber").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const city = document.getElementById("city").value.trim();
+          const durationSelect = document.getElementById("durationSelect");
+
+          // Validation
+          if (!name || !mobile || !city) {
+            alert("Please fill in all required fields (Name, Mobile, City)");
+            return;
+          }
+
+          // Check if duration is selected for plan enquiries
+          if (planId && !durationSelect.value) {
+            alert("Please select a duration");
+            return;
+          }
+
+          // Create WhatsApp message with plan details
+          let whatsappMessage = `NXTPlay OTT Subscription Enquiry\n\n`;
+
+          if (planId) {
+            whatsappMessage +=
+              `Selected Plan: ${planName}\n` +
+              `Duration: ${durationLabels[duration]}\n` +
+              `Price: ₹${price}\n`;
+          } else {
+            whatsappMessage += `Enquiry Type: General Enquiry\n`;
+          }
+
+          whatsappMessage +=
+            `Name: ${name}\n` +
+            `Mobile: ${mobile}\n` +
+            `Email: ${email || "Not provided"}\n` +
+            `City: ${city}\n\n` +
+            `Please contact me for more details. Thank you!`;
+
+          // Encode message
+          const encodedMessage = encodeURIComponent(whatsappMessage);
+
+          // WhatsApp number from original code
+          const whatsappNumber = "9194249691943";
+
+          // Create WhatsApp URL
+          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+          // Open WhatsApp
+          window.open(whatsappURL, "_blank");
+
+          // Close overlay
+          closeEnquiryOverlay();
+        });
+
+      // Listen for duration selection changes
+      document
+        .getElementById("durationSelect")
+        .addEventListener("change", function () {
+          if (currentSelectedPlan.id) {
+            updatePlanDisplay();
+          }
+        });
+
+      // Close overlay when clicking outside
+      document
+        .getElementById("appsOverlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeAppsOverlay();
+        });
+
+      document
+        .getElementById("enquiryOverlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeEnquiryOverlay();
+        });
+
+      // Close overlay with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeAppsOverlay();
+          closeEnquiryOverlay();
+        }
+      });
+
+      // Initialize animations
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".minimal-card");
+        cards.forEach((card, index) => {
+          card.style.animationDelay = `${index * 0.1}s`;
+        });
+      });
+
+      // Load header HTML and initialize header JS
+      fetch("header.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+
+          // ✅ NOW your header JS runs safely AFTER load
+          const mobileMenuToggle =
+            document.getElementById("mobile-menu-toggle");
+          const mobileMenu = document.getElementById("mobile-menu");
+          const menuIcon = document.getElementById("menu-icon");
+          const mobilePlansToggle = document.getElementById(
+            "mobile-plans-toggle"
+          );
+          const mobilePlans = document.getElementById("mobile-plans");
+          const mobileServicesToggle = document.getElementById(
+            "mobile-services-toggle"
+          );
+          const mobileServices = document.getElementById("mobile-services");
+
+          // Toggle Mobile Menu
+          mobileMenuToggle?.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+
+            if (mobileMenu.classList.contains("open")) {
+              menuIcon.classList.remove("fa-bars");
+              menuIcon.classList.add("fa-times");
+            } else {
+              menuIcon.classList.remove("fa-times");
+              menuIcon.classList.add("fa-bars");
+
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+
+          // Toggle Mobile Plans
+          mobilePlansToggle?.addEventListener("click", () => {
+            mobilePlans.classList.toggle("open");
+            mobilePlansToggle.classList.toggle("active");
+
+            if (mobileServices.classList.contains("open")) {
+              mobileServices.classList.remove("open");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+
+          // Toggle Mobile Services
+          mobileServicesToggle?.addEventListener("click", () => {
+            mobileServices.classList.toggle("open");
+            mobileServicesToggle.classList.toggle("active");
+
+            if (mobilePlans.classList.contains("open")) {
+              mobilePlans.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+            }
+          });
+
+          // Close when clicking outside
+          document.addEventListener("click", function (event) {
+            if (!mobileMenu || !mobileMenuToggle) return;
+
+            const isClickInsideMenu = mobileMenu.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+
+            if (
+              !isClickInsideMenu &&
+              !isClickOnToggle &&
+              mobileMenu.classList.contains("open")
+            ) {
+              mobileMenu.classList.remove("open");
+              menuIcon.classList.remove("fa-times");
+              menuIcon.classList.add("fa-bars");
+
+              mobilePlans.classList.remove("open");
+              mobileServices.classList.remove("open");
+              mobilePlansToggle.classList.remove("active");
+              mobileServicesToggle.classList.remove("active");
+            }
+          });
+        });
+    </script>
+  </body>
 </html>

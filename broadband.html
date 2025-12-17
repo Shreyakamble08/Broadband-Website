@@ -781,7 +781,7 @@
               </div>
             </div>
 
-            <div id="plansList" class="space-y-4"></div>
+            <div id="plansList" class="overflow-auto h-[550px] space-y-4"></div>
           </div>
         </div>
       </div>
@@ -1260,8 +1260,9 @@
         document.getElementById("ottAppsOverlay").classList.add("hidden");
       }
 
-      // Updated Plans Data with new pricing and 3 months as default
+      // COMPLETE PLANS DATA WITH ALL PLANS
       const plans = [
+        // EXISTING PLANS
         // WiFi + TV Plans
         {
           id: 1,
@@ -1340,7 +1341,7 @@
           planType: "wifi-tv",
         },
 
-        // WiFi Only Plans
+        // WiFi Only Plans (Existing)
         {
           id: 5,
           code: "WiFi 50 Mbps",
@@ -1380,7 +1381,7 @@
           planType: "wifi",
         },
 
-        // WiFi + OTT Plans
+        // WiFi + OTT Plans (Existing)
         {
           id: 7,
           code: "WiFi + OTT 300 Mbps",
@@ -1398,7 +1399,7 @@
           planType: "wifi-ott",
         },
 
-        // WiFi + OTT + TV Plans
+        // WiFi + OTT + TV Plans (Existing)
         {
           id: 8,
           code: "WiFi + OTT + TV 50 Mbps",
@@ -1429,6 +1430,162 @@
           price3Months: 4300,
           price6Months: 8400,
           price12Months: 16000,
+          planType: "wifi-ott-tv",
+        },
+
+        // NEW PLANS FROM IMAGE - ULTRA (WiFi Only)
+        {
+          id: 10,
+          code: "Ultra 50 Mbps*",
+          speedNum: 50,
+          speedLabel: "50",
+          speedFull: "Ultra 50 Mbps*",
+          monthlyPrice: 499,
+          defaultMonths: 3,
+          dataLimit: "Unlimited",
+          ott: "Pure High-Speed Internet • No OTT/TV",
+          bulletPoints: ["50 Mbps high-speed internet", "Pure internet only"],
+          price3Months: 1350,
+          price6Months: 2450,
+          price12Months: 4450,
+          planType: "wifi",
+        },
+        {
+          id: 11,
+          code: "Ultra 100 Mbps*",
+          speedNum: 100,
+          speedLabel: "100",
+          speedFull: "Ultra 100 Mbps*",
+          monthlyPrice: 699,
+          defaultMonths: 3,
+          dataLimit: "Unlimited",
+          ott: "Pure High-Speed Internet • No OTT/TV",
+          bulletPoints: ["100 Mbps ultra-fast internet", "Pure internet only"],
+          price3Months: 1850,
+          price6Months: 3300,
+          price12Months: 5900,
+          planType: "wifi",
+        },
+        {
+          id: 12,
+          code: "Ultra 200 Mbps*",
+          speedNum: 200,
+          speedLabel: "200",
+          speedFull: "Ultra 200 Mbps*",
+          monthlyPrice: 800,
+          defaultMonths: 3,
+          dataLimit: "Unlimited",
+          ott: "Pure High-Speed Internet • No OTT/TV",
+          bulletPoints: ["200 Mbps blazing fast internet", "Pure internet only"],
+          price3Months: 2300,
+          price6Months: 4100,
+          price12Months: 7400,
+          planType: "wifi",
+        },
+
+        // NEW PLANS FROM IMAGE - MAX (WiFi + OTT)
+        {
+          id: 13,
+          code: "Max 50 Mbps",
+          speedNum: 50,
+          speedLabel: "50",
+          speedFull: "Max 50 Mbps",
+          monthlyPrice: 650,
+          defaultMonths: 3,
+          dataLimit: "Unlimited",
+          ott: "Amazon Prime*, Jio Hotstar, Sony Live, Z5, +25 OTT Apps",
+          bulletPoints: [
+            "50 Mbps premium speed",
+            "25+ OTT apps included",
+            "Amazon Prime on 6+ months",
+          ],
+          price3Months: 1900,
+          price6Months: 3700,
+          price12Months: 6600,
+          planType: "wifi-ott",
+        },
+        {
+          id: 14,
+          code: "Max 100 Mbps",
+          speedNum: 100,
+          speedLabel: "100",
+          speedFull: "Max 100 Mbps",
+          monthlyPrice: 850,
+          defaultMonths: 3,
+          dataLimit: "Unlimited",
+          ott: "Amazon Prime*, Jio Hotstar, Sony Live, Z5, +25 OTT Apps",
+          bulletPoints: [
+            "100 Mbps premium speed",
+            "25+ OTT apps included",
+            "Amazon Prime on 6+ months",
+          ],
+          price3Months: 2500,
+          price6Months: 4500,
+          price12Months: 8000,
+          planType: "wifi-ott",
+        },
+        {
+          id: 15,
+          code: "Max 200 Mbps",
+          speedNum: 200,
+          speedLabel: "200",
+          speedFull: "Max 200 Mbps",
+          monthlyPrice: 970,
+          defaultMonths: 3,
+          dataLimit: "Unlimited",
+          ott: "Amazon Prime*, Jio Hotstar, Sony Live, Z5, +25 OTT Apps",
+          bulletPoints: [
+            "200 Mbps premium speed",
+            "25+ OTT apps included",
+            "Amazon Prime on 6+ months",
+          ],
+          price3Months: 2800,
+          price6Months: 5400,
+          price12Months: 9700,
+          planType: "wifi-ott",
+        },
+
+        // NEW PLANS FROM IMAGE - ELITE (WiFi + TV + OTT)
+        {
+          id: 16,
+          code: "Elite 100 Mbps",
+          speedNum: 100,
+          speedLabel: "100",
+          speedFull: "Elite 100 Mbps",
+          monthlyPrice: 950,
+          defaultMonths: 3,
+          dataLimit: "Unlimited",
+          ott: "400+ TV Channels + Amazon Prime*, Jio Hotstar, Sony Live, Z5, +25 OTT Apps",
+          bulletPoints: [
+            "100 Mbps elite speed",
+            "400+ TV channels",
+            "25+ OTT apps included",
+            "Amazon Prime on 6+ months",
+          ],
+          price3Months: 2850,
+          price6Months: 5700,
+          price12Months: 11400,
+          planType: "wifi-ott-tv",
+        },
+        {
+          id: 17,
+          code: "Elite 200 Mbps",
+          speedNum: 200,
+          speedLabel: "200",
+          speedFull: "Elite 200 Mbps",
+          monthlyPrice: 1000,
+          defaultMonths: 3,
+          dataLimit: "Unlimited",
+          ott: "400+ TV Channels + Amazon Prime*, Jio Hotstar, Sony Live, Z5, +25 OTT Apps",
+          bulletPoints: [
+            "200 Mbps elite speed",
+            "400+ TV channels",
+            "25+ OTT apps included",
+            "Amazon Prime on 6+ months",
+          ],
+          price3Months: 3250,
+          price6Months: 6600,
+          price12Months: 12900,
           planType: "wifi-ott-tv",
         },
       ];
@@ -1606,7 +1763,7 @@
           `Please contact me with more information.`;
 
         // Open WhatsApp with the formatted message
-        const whatsappUrl = `https://wa.me/918809098585?text=${message}`;
+        const whatsappUrl = `https://wa.me/9194249691943?text=${message}`;
         window.open(whatsappUrl, "_blank");
 
         // Reset form and close overlay
